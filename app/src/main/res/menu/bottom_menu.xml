@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:enabled="false"
+        android:icon="@drawable/ic_temp"
+        android:title="홈" />
+
+    <item
+        android:enabled="false"
+        android:icon="@drawable/ic_temp"
+        android:title="시장" />
+
+    <item
+        android:enabled="false"
+        android:icon="@drawable/ic_temp"
+        android:title="거래" />
+
+    <item
+        android:enabled="true"
+        android:icon="@drawable/ic_temp"
+        android:title="선물" />
+
+    <item
+        android:enabled="false"
+        android:icon="@drawable/ic_temp"
+        android:title="지갑" />
+</menu>

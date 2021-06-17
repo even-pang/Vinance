@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <!-- LEFT -->
+    <ImageView
+        android:id="@+id/exchange"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/future_ic_dialog_exchange"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BTCISDT"
+        app:layout_constraintBottom_toBottomOf="@id/exchange"
+        app:layout_constraintLeft_toRightOf="@id/exchange"
+        app:layout_constraintTop_toTopOf="@id/exchange" />
+
+    <TextView
+        android:id="@+id/main_title_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-0.07%"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintLeft_toRightOf="@id/title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="무기한"
+        app:layout_constraintLeft_toRightOf="@id/exchange"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+    <!-- RIGHT -->
+    <ImageView
+        android:id="@+id/main_more"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_trade_more"
+        app:layout_constraintBottom_toBottomOf="@id/exchange"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/exchange" />
+
+    <ImageView
+        android:id="@+id/main_convert"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_trade_asset_convert"
+        app:layout_constraintBottom_toBottomOf="@id/exchange"
+        app:layout_constraintRight_toLeftOf="@id/main_more"
+        app:layout_constraintTop_toTopOf="@id/exchange" />
+
+    <ImageView
+        android:id="@+id/detail"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_trade_marke_detail"
+        app:layout_constraintBottom_toBottomOf="@id/exchange"
+        app:layout_constraintRight_toLeftOf="@id/main_convert"
+        app:layout_constraintTop_toTopOf="@id/exchange" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
