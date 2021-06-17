@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Vinance</string>
     <string name="logo">로고</string>
+
+    <string name="tab1_prev">대기 주문 </string>
+    <string name="tab2_prev">포지션 </string>
 </resources>

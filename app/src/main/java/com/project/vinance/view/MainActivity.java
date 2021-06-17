@@ -2,6 +2,7 @@ package com.project.vinance.view;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.project.vinance.R;
@@ -23,6 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabs;
     private ViewPager2 pager;
+    private BottomNavigationView bottomView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,9 +37,7 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
-    /**
-     * 기기 테마 값에 따라 색상 변경
-     */
+    /** 기기 테마 값에 따라 색상 변경 */
     private void themeChange() {
         // 다크 모드가 지원되는 경우
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -49,23 +50,47 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         initComponent();
         initDesign();
+        initFunction();
     }
 
-    /**
-     * 레이아웃 컴포넌트와 연결
-     */
+    /** 레이아웃 컴포넌트와 연결 */
     private void initComponent() {
         tabs = findViewById(R.id.main_tab);
         pager = findViewById(R.id.main_pager);
+        bottomView = findViewById(R.id.bottom_navigation);
     }
 
-    /**
-     * 기본 디자인 설정
-     */
+    /** 기본 디자인 설정 */
     private void initDesign() {
         pager.setAdapter(new MainViewAdapter(this));
+        /*pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                tabs.selectTab(tabs.getTabAt(position));
+            }
+        });*/
+        new TabLayoutMediator(tabs, pager, (tab, position) -> {
+            String tab1 = getString(R.string.tab1_prev) + "(0)";
+            String tab2 = getString(R.string.tab2_prev) + "(1)";
 
-        new TabLayoutMediator(tabs, pager, (tab, pos) -> tab.setText(Arrays.asList("대기 주문 (0)", "포지션 (1)").get(pos))).attach();
+            List<String> tabCount = Arrays.asList(tab1, tab2);
+            tab.setText(tabCount.get(position));
+        }).attach();
+        tabs.setTabIndicatorFullWidth(false);
+    }
+
+    /** 기본 기능 설정 */
+    private void initFunction() {
+        // 툴팁 비활성화
+        View.OnLongClickListener disableLongClick = v -> true;
+
+        findViewById(R.id.a).setOnLongClickListener(disableLongClick);
+        findViewById(R.id.b).setOnLongClickListener(disableLongClick);
+        findViewById(R.id.c).setOnLongClickListener(disableLongClick);
+        findViewById(R.id.d).setOnLongClickListener(disableLongClick);
+        findViewById(R.id.e).setOnLongClickListener(disableLongClick);
+
+        bottomView.setSelectedItemId(R.id.d);
     }
 
     private static class MainViewAdapter extends FragmentStateAdapter {

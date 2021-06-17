@@ -89,14 +89,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <CheckBox
+    <!-- TL/SL -->
+    <LinearLayout
+        android:id="@+id/main_tl_sl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TP/SL" />
-    <CheckBox
+        android:orientation="horizontal">
+        <CheckBox
+            android:layout_width="32dp"
+            android:layout_height="32dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="TL/SL"
+            android:background="@drawable/underline_dashed" />
+    </LinearLayout>
+    <!-- 리듀스 온리 -->
+    <LinearLayout
+        android:id="@+id/main_reduce_only"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="리듀스 온리"/>
+        android:orientation="horizontal">
+        <CheckBox
+            android:layout_width="32dp"
+            android:layout_height="32dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="리듀스 온리"
+            android:background="@drawable/underline_dashed" />
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

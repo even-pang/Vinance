@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:enabled="false"
+        android:id="@+id/a"
         android:icon="@drawable/ic_temp"
         android:title="홈" />
 
     <item
         android:enabled="false"
-        android:icon="@drawable/ic_temp"
+        android:id="@+id/b"
+        android:icon="@drawable/ic_more_history"
         android:title="시장" />
 
     <item
         android:enabled="false"
-        android:icon="@drawable/ic_temp"
+        android:id="@+id/c"
+        android:icon="@drawable/ic_option_extend_default"
         android:title="거래" />
 
     <item
         android:enabled="true"
-        android:icon="@drawable/ic_temp"
+        android:id="@+id/d"
+        android:icon="@drawable/ic_order_book_new_default"
         android:title="선물" />
 
     <item
         android:enabled="false"
-        android:icon="@drawable/ic_temp"
+        android:id="@+id/e"
+        android:icon="@drawable/ic_selector_arrow_down"
         android:title="지갑" />
 </menu>

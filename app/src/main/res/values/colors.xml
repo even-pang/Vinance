@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background">#FF171E26</color>
+    <color name="buy_background">#2EBD86</color>
+    <color name="cell_background">#F6465D</color>
 </resources>
