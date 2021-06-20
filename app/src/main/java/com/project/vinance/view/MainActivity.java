@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout innerTabs;
     private ViewPager2 innerPager;
     private BottomNavigationView bottomView;
-    private MyCustomSeekBar seekBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,11 +50,12 @@ public class MainActivity extends AppCompatActivity {
     /** 기기 테마 값에 따라 색상 변경 */
     private void themeChange() {
         // 다크 모드가 지원되는 경우
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
-        }
+        }*/
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
     private void init() {
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         innerTabs = findViewById(R.id.main_inner_tab);
         innerPager = findViewById(R.id.main_pager);
         bottomView = findViewById(R.id.bottom_navigation);
-        seekBar = findViewById(R.id.main_type_market_percentage2);
     }
 
     /** 기본 디자인 설정 */
@@ -88,23 +88,6 @@ public class MainActivity extends AppCompatActivity {
             List<String> tabCount = Arrays.asList(tab1, tab2);
             tab.setText(tabCount.get(position));
         }).attach();
-
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.d(this.getClass().getSimpleName(), "onProgressChanged: " + progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
     }
 
     /** 기본 기능 설정 */
@@ -127,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
         topTabs.getTabAt(3).view.setOnLongClickListener(disableLongClick);*/
 
         bottomView.setSelectedItemId(R.id.d);
+
+        // SeekBar 비활성화
+//        seekBar.setEnabled(false);
 
         // 웹소켓 연결
         try {

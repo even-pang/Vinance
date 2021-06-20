@@ -6,4 +6,6 @@
     <attr name="bottomBackgroundSecondary" format="color" />
 
     <attr name="borderColor" format="color" />
+    <attr name="seekBarBefore" format="color" />
+    <attr name="seekBarAfter" format="color" />
 </resources>

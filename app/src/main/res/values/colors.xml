@@ -14,4 +14,7 @@
 
     <color name="card_background">#FFFFFFFF</color>
     <color name="text_gray">#FFAAAAAA</color>
+
+    <color name="buy_chart_color">#882EBD86</color>
+    <color name="sell_chart_color">#88F6465D</color>
 </resources>

@@ -17,6 +17,8 @@
         <item name="bottomBackgroundPrimary">#FF29313C</item>
         <item name="bottomBackgroundSecondary">#FF333B46</item>
         <item name="borderColor">#333C45</item>
+        <item name="seekBarBefore">#333B46</item>
+        <item name="seekBarAfter">#858E9D</item>
 
         <!-- 커스텀 스타일 -->
         <item name="android:windowBackground">?attr/topColor</item>

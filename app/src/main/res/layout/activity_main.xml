@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/topColor"
+    android:background="#171E26"
     android:orientation="vertical"
+    android:padding="2dp"
     tools:context=".view.MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -27,37 +28,53 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginHorizontal="12dp"
-        android:padding="2.5dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/background_top_tab"
+        android:orientation="horizontal"
+        android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/background_top_tab"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#1F2630"
+            android:fontFamily="@font/binance_plex_medium"
+            android:gravity="center"
             android:text="@string/top_tab1_title"
-            android:gravity="center"
-            android:background="@drawable/background_primary"
-            android:layout_weight="1" />
+            android:textColor="#FFFFFF" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/binance_plex_light"
+            android:gravity="center"
             android:text="@string/top_tab2_title"
-            android:gravity="center"
-            android:layout_weight="1" />
+            android:textColor="#878E96"
+            android:textSize="14dp" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/binance_plex_light"
+            android:gravity="center"
             android:text="@string/top_tab3_title"
-            android:gravity="center"
-            android:layout_weight="1" />
+            android:textColor="#878E96"
+            android:textSize="14dp" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/top_tab4_title"
+            android:layout_weight="1"
+            android:fontFamily="@font/binance_plex_light"
             android:gravity="center"
-            android:layout_weight="1" />
+            android:text="@string/top_tab4_title"
+            android:textColor="#878E96"
+            android:textSize="14dp" />
     </LinearLayout>
 
 
@@ -111,65 +128,85 @@
             android:id="@+id/exchange"
             android:layout_width="16dp"
             android:layout_height="16dp"
+            android:layout_marginTop="19dp"
             android:src="@drawable/future_ic_dialog_exchange"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- RIGHT -->
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/plex_semi_bold"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/binance_plex_medium"
             android:text="BTCUSDT"
+            android:textColor="#FFF"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@id/exchange"
             app:layout_constraintLeft_toRightOf="@id/exchange"
-            app:layout_constraintTop_toTopOf="@id/exchange" />
+            app:layout_constraintStart_toEndOf="@+id/exchange"
+            app:layout_constraintTop_toTopOf="@id/exchange"
+            app:layout_constraintVertical_bias="0.583" />
 
         <TextView
             android:id="@+id/main_title_percentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/plex_semi_bold"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/binance_plex_regular"
             android:text="-0.07%"
+            android:textColor="#2EBD86"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@id/title"
             app:layout_constraintLeft_toRightOf="@id/title" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/plex_semi_bold"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/binance_plex_regular"
             android:text="무기한"
+            android:textColor="#FFF"
+            android:textSize="12dp"
             app:layout_constraintLeft_toRightOf="@id/exchange"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
-
-        <!-- RIGHT -->
         <ImageView
             android:id="@+id/main_more"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/ic_trade_more"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/dotdotdot"
             app:layout_constraintBottom_toBottomOf="@id/exchange"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/exchange" />
+            app:layout_constraintTop_toTopOf="@id/exchange"
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/main_convert"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/ic_trade_asset_convert"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/fireagg"
             app:layout_constraintBottom_toBottomOf="@id/exchange"
             app:layout_constraintRight_toLeftOf="@id/main_more"
-            app:layout_constraintTop_toTopOf="@id/exchange" />
+            app:layout_constraintTop_toTopOf="@id/exchange"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/detail"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/ic_trade_marke_detail"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/candle"
             app:layout_constraintBottom_toBottomOf="@id/exchange"
             app:layout_constraintRight_toLeftOf="@id/main_convert"
-            app:layout_constraintTop_toTopOf="@id/exchange" />
+            app:layout_constraintTop_toTopOf="@id/exchange"
+            app:layout_constraintVertical_bias="1.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -181,65 +218,71 @@
         />-->
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/border_card_top"
+        android:layout_marginTop="12dp"
+        android:background="#1F2630"
         android:orientation="vertical"
         android:paddingTop="14dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
-            android:paddingHorizontal="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="?attr/bottomBackgroundPrimary"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="?attr/bottomBackgroundPrimary">
+
                 <ImageView
                     android:id="@+id/_mode_down"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@drawable/ic_selector_arrow_down"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="격리"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/_mode_down"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/_mode_down" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="?attr/bottomBackgroundPrimary"
                 android:layout_width="60dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="?attr/bottomBackgroundPrimary">
+
                 <ImageView
                     android:id="@+id/_leverage_down"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@drawable/ic_selector_arrow_down"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="125x"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/_leverage_down"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/_leverage_down" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Space
@@ -251,11 +294,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
+                    style="@style/TextUnderlineDashed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="펀딩/카운트다운"
-                    style="@style/TextUnderlineDashed"/>
+                    android:text="펀딩/카운트다운" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -269,14 +314,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
-            android:paddingHorizontal="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
 
             <include
                 layout="@layout/layout_type"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="4" />
+                android:layout_weight="5" />
 
             <include
                 layout="@layout/layout_order_book_total"
@@ -297,6 +342,7 @@
                 android:layout_height="36dp"
                 android:layout_weight="1"
 
+                android:background="#1F2630"
                 app:tabBackground="@android:color/transparent"
                 app:tabGravity="start"
                 app:tabIndicator="@drawable/border_indicator"
@@ -326,12 +372,12 @@
         </LinearLayout>
 
         <include layout="@layout/layout_hr" />
-
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/main_pager"
-            android:paddingHorizontal="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="#1F2630"
+            android:paddingHorizontal="10dp" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -347,4 +393,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="-12dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="397dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

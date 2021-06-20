@@ -17,6 +17,8 @@
         <item name="bottomBackgroundPrimary">?attr/topColor</item>
         <item name="bottomBackgroundSecondary">#FFEBECF0</item>
         <item name="borderColor">#FFE9E9E9</item>
+        <item name="seekBarBefore">#EBECF0</item>
+        <item name="seekBarAfter">#717A8B</item>
 
         <!-- 커스텀 스타일 -->
 <!--        <item name="android:windowBackground">?attr/topColor</item>-->
@@ -42,5 +44,20 @@
 
     <style name="BottomBackground" parent="@style/ThemeOverlay.MaterialComponents">
         <item name="android:background">@drawable/background_primary</item>
+    </style>
+
+    <style name="BottomBackgroundDisable" parent="@style/ThemeOverlay.MaterialComponents">
+
+    </style>
+
+    <style name="SeekLine">
+        <item name="android:background">?attr/seekBarBefore</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="SeekItemSize">
+        <item name="android:layout_width">10dp</item>
+        <item name="android:layout_height">10dp</item>
     </style>
 </resources>
