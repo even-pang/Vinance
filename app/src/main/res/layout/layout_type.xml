@@ -140,14 +140,26 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+   </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <SeekBar
-        android:id="@+id/main_type_market_percentage"
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/main_type_market_percentage1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="50"
+        android:max="100"
+        android:progressBackgroundTintMode="add"
+        android:progressBackgroundTint="@color/black"
+        android:thumb="@drawable/ic_icon_help_center_fiat"/>
+
+    <com.project.vinance.view.sub.MyCustomSeekBar
+        android:id="@+id/main_type_market_percentage2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:thumb="@drawable/ic_icon_help_center_fiat"
-        android:tickMark="@drawable/tickmark"
+        android:progressDrawable="@drawable/seekbar_progress"
+        android:background="@drawable/seekbar_background"
+        android:tickMark="@drawable/seekbar_tickmark"
         android:max="100"/>
 
     <!-- TL/SL -->
@@ -156,9 +168,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="32dp"
-            android:layout_height="32dp" />
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_checked"
+            android:layout_gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

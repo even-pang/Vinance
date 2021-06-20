@@ -2,7 +2,10 @@ package com.project.vinance.view;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.project.vinance.R;
 import com.project.vinance.view.fragment.PositionFragment;
 import com.project.vinance.view.socket.BinanceSocketClient;
+import com.project.vinance.view.sub.MyCustomSeekBar;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,10 +30,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private TabLayout topTabs;
+//    private TabLayout topTabs;
+    private LinearLayout topTabs;
     private TabLayout innerTabs;
     private ViewPager2 innerPager;
     private BottomNavigationView bottomView;
+    private MyCustomSeekBar seekBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         innerTabs = findViewById(R.id.main_inner_tab);
         innerPager = findViewById(R.id.main_pager);
         bottomView = findViewById(R.id.bottom_navigation);
+        seekBar = findViewById(R.id.main_type_market_percentage2);
     }
 
     /** 기본 디자인 설정 */
@@ -81,6 +88,23 @@ public class MainActivity extends AppCompatActivity {
             List<String> tabCount = Arrays.asList(tab1, tab2);
             tab.setText(tabCount.get(position));
         }).attach();
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d(this.getClass().getSimpleName(), "onProgressChanged: " + progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     /** 기본 기능 설정 */
@@ -97,10 +121,10 @@ public class MainActivity extends AppCompatActivity {
         innerTabs.getTabAt(0).view.setOnLongClickListener(disableLongClick);
         innerTabs.getTabAt(1).view.setOnLongClickListener(disableLongClick);
 
-        topTabs.getTabAt(0).view.setOnLongClickListener(disableLongClick);
+        /*topTabs.getTabAt(0).view.setOnLongClickListener(disableLongClick);
         topTabs.getTabAt(1).view.setOnLongClickListener(disableLongClick);
         topTabs.getTabAt(2).view.setOnLongClickListener(disableLongClick);
-        topTabs.getTabAt(3).view.setOnLongClickListener(disableLongClick);
+        topTabs.getTabAt(3).view.setOnLongClickListener(disableLongClick);*/
 
         bottomView.setSelectedItemId(R.id.d);
 

@@ -22,7 +22,46 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.97" />
 
-    <com.google.android.material.tabs.TabLayout
+    <LinearLayout
+        android:id="@+id/main_top_tab"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginHorizontal="12dp"
+        android:padding="2.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/background_top_tab"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/top_tab1_title"
+            android:gravity="center"
+            android:background="@drawable/background_primary"
+            android:layout_weight="1" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/top_tab2_title"
+            android:gravity="center"
+            android:layout_weight="1" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/top_tab3_title"
+            android:gravity="center"
+            android:layout_weight="1" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/top_tab4_title"
+            android:gravity="center"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+    <!--<com.google.android.material.tabs.TabLayout
         android:id="@+id/main_top_tab"
         android:layout_width="match_parent"
         android:layout_height="36dp"
@@ -58,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/top_tab4_title" />
-    </com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.tabs.TabLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/status"

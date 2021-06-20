@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="radius_default">5dp</dimen>
+    <dimen name="radius_default">3dp</dimen>
     <dimen name="dp_16">16.0dip</dimen>
 </resources>
