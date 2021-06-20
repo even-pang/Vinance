@@ -3,7 +3,7 @@
     <item android:gravity="center">
         <shape>
             <size
-                android:width="20dp"
+                android:width="32dp"
                 android:height="3dp"/>
             <solid android:color="@color/black" />
         </shape>

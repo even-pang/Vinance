@@ -1,16 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- 다크 모드 -->
-    <style name="Theme.SimpleBus" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Vinance" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">#FF171E26</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
 
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
 
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/topColor</item>
 
-        <!-- 커스텀 설정 -->
+        <!-- attr 정의 색상 구현 -->
+        <item name="topColor">#FF171E26</item>
+        <item name="bottomColor">#FF1F2630</item>
+        <item name="bottomBackgroundPrimary">#FF29313C</item>
+        <item name="bottomBackgroundSecondary">#FF333B46</item>
+        <item name="borderColor">#333C45</item>
+
+        <!-- 커스텀 스타일 -->
+        <item name="android:windowBackground">?attr/topColor</item>
+        <item name="colorSurface">?attr/bottomColor</item>
+<!--        <item name="android:colorBackground">?attr/topColor</item>-->
+
+        <item name="android:fontFamily">@font/plex_regular</item>
     </style>
 </resources>

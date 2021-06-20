@@ -4,4 +4,9 @@
 
     <string name="tab1_prev">대기 주문 </string>
     <string name="tab2_prev">포지션 </string>
+    
+    <string name="top_tab1_title">USDⓈ-M</string>
+    <string name="top_tab2_title">COIN-M</string>
+    <string name="top_tab3_title">옵션</string>
+    <string name="top_tab4_title">배틀</string>
 </resources>

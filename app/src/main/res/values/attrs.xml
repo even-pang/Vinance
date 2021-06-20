@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="topColor" format="color" />
+    <attr name="bottomColor" format="color" />
+    <attr name="bottomBackgroundPrimary" format="color" />
+    <attr name="bottomBackgroundSecondary" format="color" />
+
+    <attr name="borderColor" format="color" />
+</resources>

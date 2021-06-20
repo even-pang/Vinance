@@ -4,70 +4,261 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/topColor"
     android:orientation="vertical"
     tools:context=".view.MainActivity">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="120dp"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_left"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/logo"
-        android:src="@drawable/ic_binance_logo"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.03" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.97" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_top_tab"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/background_top_tab"
+        android:clipToPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@drawable/selector_tab"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="0dp"
+        app:tabPadding="1dp"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabTextAppearance="@style/Text.Regular">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/top_tab1_title" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/top_tab2_title" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/top_tab3_title" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/top_tab4_title" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guideline_horizontal_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_horizontal_left"
+        app:layout_constraintTop_toBottomOf="@id/main_top_tab">
+        <!-- LEFT -->
+        <ImageView
+            android:id="@+id/exchange"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/future_ic_dialog_exchange"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/plex_semi_bold"
+            android:text="BTCUSDT"
+            app:layout_constraintBottom_toBottomOf="@id/exchange"
+            app:layout_constraintLeft_toRightOf="@id/exchange"
+            app:layout_constraintTop_toTopOf="@id/exchange" />
+
+        <TextView
+            android:id="@+id/main_title_percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/plex_semi_bold"
+            android:text="-0.07%"
+            app:layout_constraintBottom_toBottomOf="@id/title"
+            app:layout_constraintLeft_toRightOf="@id/title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/plex_semi_bold"
+            android:text="무기한"
+            app:layout_constraintLeft_toRightOf="@id/exchange"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+        <!-- RIGHT -->
+        <ImageView
+            android:id="@+id/main_more"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_trade_more"
+            app:layout_constraintBottom_toBottomOf="@id/exchange"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/exchange" />
+
+        <ImageView
+            android:id="@+id/main_convert"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_trade_asset_convert"
+            app:layout_constraintBottom_toBottomOf="@id/exchange"
+            app:layout_constraintRight_toLeftOf="@id/main_more"
+            app:layout_constraintTop_toTopOf="@id/exchange" />
+
+        <ImageView
+            android:id="@+id/detail"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_trade_marke_detail"
+            app:layout_constraintBottom_toBottomOf="@id/exchange"
+            app:layout_constraintRight_toLeftOf="@id/main_convert"
+            app:layout_constraintTop_toTopOf="@id/exchange" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--<include layout="@layout/layout_title"
+        android:id="@+id/status"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_top_tab"
+        />-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/border_card_top"
         android:orientation="vertical"
+        android:paddingTop="14dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo">
+        app:layout_constraintTop_toBottomOf="@id/status">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:paddingHorizontal="10dp"
+            android:orientation="horizontal">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="?attr/bottomBackgroundPrimary"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/_mode_down"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_selector_arrow_down"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-        <include layout="@layout/layout_title" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="격리"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/_mode_down" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="?attr/bottomBackgroundPrimary"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/_leverage_down"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_selector_arrow_down"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="125x"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/_leverage_down" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="펀딩/카운트다운"
+                    style="@style/TextUnderlineDashed"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0100% / 07:38:01" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <include layout="@layout/layout_hr" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:paddingHorizontal="10dp"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/layout_type"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4" />
 
             <include
                 layout="@layout/layout_order_book_total"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
-
-            <include
-                layout="@layout/layout_type"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/_detail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/main_history"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/ic_more_history"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/main_tab"
+                android:id="@+id/main_inner_tab"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/main_history"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="36dp"
+                android:layout_weight="1"
 
+                app:tabBackground="@android:color/transparent"
                 app:tabGravity="start"
                 app:tabIndicator="@drawable/border_indicator"
                 app:tabMode="scrollable"
@@ -84,10 +275,22 @@
                     android:text="포지션 (1)" />
             </com.google.android.material.tabs.TabLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/main_history"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_more_history"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+        <include layout="@layout/layout_hr" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/main_pager"
+            android:paddingHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
@@ -96,10 +299,13 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/bottom_menu"
+        android:theme="@style/BottomNavigation"
+        app:itemBackground="?attr/bottomColor"
+        app:itemIconTint="@color/color_bottom_navigation"
+        app:itemTextColor="@color/color_bottom_navigation"
         app:labelVisibilityMode="labeled"
-        app:itemBackground="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

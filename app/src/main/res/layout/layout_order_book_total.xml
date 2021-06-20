@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/main_cell1_left"
+            android:id="@+id/main_sell1_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="39,983"
@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/main_cell1_right"
+            android:id="@+id/main_sell1_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0.289"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/main_cell2_left"
+            android:id="@+id/main_sell2_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="39,983"
@@ -44,7 +44,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/main_cell2_right"
+            android:id="@+id/main_sell2_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0.289"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/main_cell3left"
+            android:id="@+id/main_sell3left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="39,983"
@@ -68,7 +68,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/main_cell3_right"
+            android:id="@+id/main_sell3_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0.289"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/main_cell4_left"
+            android:id="@+id/main_sell4_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="39,983"
@@ -92,7 +92,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/main_cell4_right"
+            android:id="@+id/main_sell4_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0.289"
@@ -107,7 +107,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/main_cell5_left"
+            android:id="@+id/main_sell5_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="39,983"
@@ -116,7 +116,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/main_cell5_right"
+            android:id="@+id/main_sell5_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0.289"
@@ -131,7 +131,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/main_cell6_left"
+            android:id="@+id/main_sell6_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="39,983"
@@ -140,7 +140,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/main_cell6_right"
+            android:id="@+id/main_sell6_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0.289"
