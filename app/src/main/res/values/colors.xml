@@ -13,5 +13,5 @@
     <color name="selected">#EFB911</color>
 
     <color name="card_background">#FFFFFFFF</color>
-    <color name="text_gray">#AAAAAA</color>
+    <color name="text_gray">#FFAAAAAA</color>
 </resources>
