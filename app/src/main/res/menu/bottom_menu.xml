@@ -4,30 +4,30 @@
     <item
         android:enabled="false"
         android:id="@+id/a"
-        android:icon="@drawable/ic_temp"
+        android:icon="@drawable/ic_bottom1"
         android:title="홈" />
 
     <item
         android:enabled="false"
         android:id="@+id/b"
-        android:icon="@drawable/ic_more_history"
+        android:icon="@drawable/ic_bottom2"
         android:title="시장" />
 
     <item
         android:enabled="false"
         android:id="@+id/c"
-        android:icon="@drawable/ic_option_extend_default"
+        android:icon="@drawable/ic_bottom3"
         android:title="거래" />
 
     <item
         android:enabled="true"
         android:id="@+id/d"
-        android:icon="@drawable/ic_order_book_new_default"
+        android:icon="@drawable/ic_bottom4"
         android:title="선물" />
 
     <item
         android:enabled="false"
         android:id="@+id/e"
-        android:icon="@drawable/ic_selector_arrow_down"
+        android:icon="@drawable/ic_bottom5"
         android:title="지갑" />
 </menu>

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#1F2630">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/BottomBackground"
+        android:background="@drawable/background_primary"
         android:layout_width="match_parent"
         android:layout_height="30dp">
         <androidx.constraintlayout.widget.Guideline
@@ -22,139 +24,210 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.55" />
         <FrameLayout
-            android:id="@+id/main_type_buy_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/guideline_type_horizontal_right">
-            <ImageView
-                android:src="@drawable/background_type_sell"
-                android:id="@+id/main_type_buy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="매수"
-                android:layout_gravity="center" />
-        </FrameLayout>
-        <FrameLayout
             android:id="@+id/main_type_sell_layout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline_type_horizontal_left">
-            <ImageView
-                android:src="@drawable/background_type_buy"
+
+            <!--<ImageView
                 android:id="@+id/main_type_sell"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="#29313C"
+                android:src="@drawable/background_type_buy" />-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="매도"
                 android:layout_gravity="center" />
         </FrameLayout>
+        <FrameLayout
+            android:id="@+id/main_type_buy_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_type_horizontal_right">
+
+            <ImageView
+                android:id="@+id/main_type_buy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#29313C"
+                android:src="@drawable/background_type_sell"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="매수"
+                android:layout_gravity="center" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/background_primary"
+        android:id="@+id/use_able_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:id="@+id/info"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/ic_trade_info" />
+        android:layout_height="41dp"
+        android:background="#1F2630">
 
         <TextView
+            android:id="@+id/layout_type_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/main_order_book_type"
+            android:fontFamily="@font/binance_plex_medium"
+            android:text="사용 가능"
+            android:textColor="#878E96"
+            android:textSize="12dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:text="마켓 주문" />
+            app:layout_constraintVertical_bias="0.583" />
 
         <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/trade_image"
+            android:layout_width="10dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_margin_transfer"
             app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/ic_selector_arrow_down" />
+            app:layout_constraintTop_toTopOf="@id/layout_type_title"
+            app:layout_constraintVertical_bias="0.551" />
+
+        <TextView
+            android:id="@+id/main_trade_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="47dp"
+            android:fontFamily="@font/binance_plex_regular"
+            android:text="1982.30 USDT"
+            android:textColor="#FFFFFF"
+            android:textSize="12dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toLeftOf="@id/trade_image"
+            app:layout_constraintTop_toTopOf="@id/layout_type_title"
+            app:layout_constraintVertical_bias="1.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@drawable/background_primary">
+
+        <ImageView
+            android:id="@+id/info"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/main_order_book_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="마켓 주문"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            android:fontFamily="@font/binance_plex_regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="6dp"
+            android:layout_marginRight="14dp"
+            android:src="@drawable/awesome_caret_down"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/background_secondary"
+        android:layout_marginVertical="9dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
+            android:fontFamily="@font/binance_plex_regular"
+            android:paddingTop="6dp"
             android:text="시장 가격"
             android:textAlignment="center"
-            android:background="@drawable/background_secondary"
+            android:textColor="@color/deep_grey"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/background_primary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="34dp"
+        android:background="@drawable/background_primary">
+
         <ImageView
             android:id="@+id/main_type_market_minus"
             android:layout_width="16dp"
-            android:layout_height="16dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_minus"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:src="@drawable/ic_option_extend_default" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/main_type_market_plus"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_plus"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/ic_option_extend_default" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <TextView
             android:id="@+id/main_type_market_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="금액(BTC)"
-            android:background="@null"
-            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/binance_plex_regular"
+            android:text="금액(BTC)"
+            android:textColor="#808797"
+            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-   </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20.34dp"
+        android:layout_marginBottom="20.51dp">
+
         <ImageView
             android:id="@+id/_seek_1"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/ic_seek_select"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_seek_select_non"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="?attr/seekBarAfter" />
         <ImageView
             android:id="@+id/_seek_5"
@@ -219,16 +292,20 @@
         android:id="@+id/main_tl_sl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_checked"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/checked"
+            android:layout_marginRight="4dp"
             android:layout_gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:textColor="#878E96"
+            android:textSize="12dp"
             android:text="TL/SL"
             style="@style/TextUnderlineDashed"/>
     </LinearLayout>
@@ -237,36 +314,47 @@
         android:id="@+id/main_reduce_only"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="11dp"
+        >
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_checked"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/checked"
+            android:layout_marginRight="4dp"
             android:layout_gravity="center" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="리듀스 온리"
-            style="@style/TextUnderlineDashed" />
+            android:textSize="12dp"
+            android:textColor="#878E96"
+            android:text="리듀스 온리" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#7E7F7F"
+            android:textSize="12dp"
+            android:fontFamily="@font/binance_plex_medium"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="최대 구매" />
+            android:text="최대" />
 
         <TextView
-            android:id="@+id/main_type_market_total"
+            android:id="@+id/main_type_market_max_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4.448 BTC"
+            android:textColor="#DAE0EC"
+            android:textSize="12dp"
+            android:fontFamily="@font/binance_plex_light"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -274,30 +362,40 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#7E7F7F"
+            android:textSize="12dp"
+            android:fontFamily="@font/binance_plex_medium"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/TextUnderlineDashed"
             android:text="비용" />
 
         <TextView
-            android:id="@+id/main_type_market_cost"
+            android:id="@+id/main_type_market_cost_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0 USDT"
+            android:textColor="#DAE0EC"
+            android:textSize="12dp"
+            android:fontFamily="@font/binance_plex_light"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:backgroundTint="@color/buy_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="매수/롱" />
+        android:backgroundTint="@color/buy_color"
+        android:text="매수/롱"
+        android:textColor="@color/white" />
 </LinearLayout>
+<!--
+<View android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" />-->

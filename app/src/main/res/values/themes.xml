@@ -32,6 +32,10 @@
         <item name="android:fontFamily">@font/plex_regular</item>
     </style>
 
+    <style name="Text.Medium" parent="android:TextAppearance">
+        <item name="android:fontFamily">@font/plex_medium</item>
+    </style>
+
     <style name="BottomNavigation" parent="@style/ThemeOverlay.MaterialComponents">
         <item name="android:fontFamily">@font/plex_regular</item>
         <item name="android:background">?attr/bottomColor</item>
@@ -39,7 +43,7 @@
 
     <style name="TextUnderlineDashed" parent="android:TextAppearance">
         <item name="android:background">@drawable/underline_dashed</item>
-        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textColor">@color/default_grey</item>
     </style>
 
     <style name="BottomBackground" parent="@style/ThemeOverlay.MaterialComponents">
@@ -51,13 +55,80 @@
     </style>
 
     <style name="SeekLine">
-        <item name="android:background">?attr/seekBarBefore</item>
+        <item name="android:background">#333B46</item>
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_height">2dp</item>
     </style>
 
     <style name="SeekItemSize">
-        <item name="android:layout_width">10dp</item>
-        <item name="android:layout_height">10dp</item>
+        <item name="android:layout_width">8dp</item>
+        <item name="android:layout_height">8dp</item>
+    </style>
+
+    <style name="OrderLeftText">
+        <item name="android:fontFamily">@font/plex_regular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:paddingTop">1.2dp</item>
+        <item name="android:paddingBottom">1.2dp</item>
+    </style>
+
+    <style name="OrderRightText">
+        <item name="android:fontFamily">@font/plex_regular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
+    <style name="OrderOffset">
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+
+    <style name="TopTabText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/plex_regular</item>
+        <item name="android:layout_margin">1.5dp</item>
+    </style>
+
+    <style name="FundingAndCount">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/plex_regular</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CostText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/plex_regular</item>
+    </style>
+
+    <style name="PositionButtonText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/plex_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+    </style>
+
+    <style name="PositionInfoText">
+        <item name="android:textColor">@color/default_grey</item>
+        <item name="android:fontFamily">@font/plex_medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="PositionInfoTitle" parent="PositionInfoText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="PositionInfoLineTop" parent="PositionInfoText">
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="PositionInfoLineMiddle" parent="PositionInfoText">
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="PositionInfoLineBottom" parent="PositionInfoText">
+        <item name="android:layout_marginBottom">10dp</item>
     </style>
 </resources>

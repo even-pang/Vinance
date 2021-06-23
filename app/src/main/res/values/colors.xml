@@ -7,14 +7,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="buy_color">#2EBD86</color>
+    <color name="buy_color">#FF2EBD86</color>
     <color name="sell_color">#F6465D</color>
 
     <color name="selected">#EFB911</color>
 
     <color name="card_background">#FFFFFFFF</color>
-    <color name="text_gray">#FFAAAAAA</color>
+    <color name="deep_grey">#4F5867</color>
+    <color name="default_grey">#868E9B</color>
+    <color name="icon_tint">#757688</color>
 
-    <color name="buy_chart_color">#882EBD86</color>
-    <color name="sell_chart_color">#88F6465D</color>
+    <color name="buy_chart_color">#223539</color>
+    <color name="sell_chart_color">#352933</color>
 </resources>
