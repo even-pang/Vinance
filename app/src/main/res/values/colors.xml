@@ -12,11 +12,25 @@
 
     <color name="selected">#EFB911</color>
 
-    <color name="card_background">#FFFFFFFF</color>
     <color name="deep_grey">#4F5867</color>
     <color name="default_grey">#868E9B</color>
     <color name="icon_tint">#757688</color>
 
     <color name="buy_chart_color">#223539</color>
     <color name="sell_chart_color">#352933</color>
+
+    <color name="default_background">#181E25</color>
+    <color name="card_color">#FF202630</color>
+    <color name="card_btn_normal">#29313C</color>
+    <color name="card_btn_disable">#333B46</color>
+    <color name="card_plus_minus">#717A8B</color>
+    <color name="card_arrow">#747788</color>
+
+    <color name="border_color">#333C45</color>
+    <color name="seek_dark">#333B46</color>
+    <color name="seek_light">#858E9D</color>
+
+    <color name="text_normal">#858F9B</color>
+
+    <color name="tab_background">#202630</color>
 </resources>

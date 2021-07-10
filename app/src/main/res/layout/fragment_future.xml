@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.project.vinance.view.sub.StickScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/future_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.future.FutureFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_future_top" />
+
+        <include
+            android:id="@+id/top_title"
+            layout="@layout/layout_future_top_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_card_top"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/card_top"
+                layout="@layout/layout_future_card_top" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginBottom="30dp"
+                android:orientation="horizontal"
+                android:paddingTop="15dp">
+
+                <include
+                    android:id="@+id/card_left"
+                    layout="@layout/layout_future_card_left" />
+
+                <include
+                    android:id="@+id/card_right"
+                    layout="@layout/layout_future_card_right" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/card_color"
+            android:orientation="horizontal">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/future_inner_tab"
+                style="@style/TabStyle"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:background="@color/card_color"
+                android:paddingHorizontal="6dp">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/future_page1_title" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/future_page2_title" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <ImageView
+                android:id="@+id/future_history"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:paddingVertical="1dp"
+                android:src="@drawable/ic_more_history" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/border_color" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/future_pager"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="@color/card_color"
+            android:paddingHorizontal="10dp" />
+    </LinearLayout>
+</com.project.vinance.view.sub.StickScrollView>

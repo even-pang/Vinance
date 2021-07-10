@@ -2,11 +2,79 @@
     <string name="app_name">Vinance</string>
     <string name="logo">로고</string>
 
-    <string name="tab1_prev">대기 주문 </string>
-    <string name="tab2_prev">포지션 </string>
+    <string name="future_title">%1$s%2$s</string>
 
-    <string name="top_tab1_title">USDⓈ-M</string>
-    <string name="top_tab2_title">COIN-M</string>
-    <string name="top_tab3_title">옵션</string>
-    <string name="top_tab4_title">배틀</string>
+    <string name="future_page1_title">대기 주문 (%d)</string>
+    <string name="future_page2_title">포지션 (%d)</string>
+
+    <string name="usds_m">USDⓈ-M</string>
+    <string name="coin_m">COIN-M</string>
+    <string name="option">옵션</string>
+    <string name="battle">배틀</string>
+
+    <string name="buy">매수</string>
+    <string name="sell">매도</string>
+
+    <string name="price">가격</string>
+    <string name="amount">금액</string>
+    <string name="unit_with_bracket">(%s)</string>
+    <string name="unit">%s</string>
+    <string name="type">%s</string>
+    <string name="usable">사용 가능</string>
+
+    <string name="amount_with_unit">금액(%s)</string>
+
+    <string name="home">홈</string>
+    <string name="markets">마켓</string>
+    <string name="trades">거래</string>
+    <string name="futures">선물</string>
+    <string name="wallets">지갑</string>
+
+    <string name="margin_mode_isolated">격리</string>
+    <string name="margin_mode_cross">교차</string>
+    <string name="exclaim">!</string>
+    <string name="perpetual">무기한</string>
+
+    <string name="wallet_tab1_title">개요</string>
+    <string name="wallet_tab2_title">현물</string>
+    <string name="wallet_tab3_title">마진</string>
+    <string name="wallet_tab4_title">선물</string>
+    <string name="wallet_tab5_title">P2P</string>
+    <string name="wallet_tab6_title">수익 창출</string>
+    <string name="wallet_tab7_title">풀</string>
+
+    <string name="wallet_future_tab1_title">@string/positions</string>
+    <string name="wallet_future_tab2_title">@string/asset</string>
+    <string name="wallet_future_tab3_title">@string/collaterals</string>
+
+    <string name="positions">포지션</string>
+    <string name="asset">자산</string>
+    <string name="collaterals">담보</string>
+
+    <string name="deposit">입금</string>
+    <string name="withdraw">출금</string>
+    <string name="transfer">전송</string>
+    <string name="portfolio">포트폴리오</string>
+    <string name="spot">현물</string>
+    <string name="cross_margin">교차 마진</string>
+    <string name="isolated_margin">격리 마진</string>
+    <string name="usds_present">USDⓈ-M 선물</string>
+    <string name="coin_present">COIN-M 선물</string>
+    <string name="stock">주식</string>
+    <string name="p2p">P2P</string>
+    <string name="earn">수익 창출</string>
+    <string name="pool">풀</string>
+    <string name="t_option">T-옵션</string>
+    <string name="third_party_account">제3자 계정</string>
+    <string name="pnl_analysis">PNL 분석</string>
+    <string name="borrow_repay">차용/상환</string>
+    <string name="convert">전환</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="wallet_balance">지갑 잔고</string>
+    <string name="margin_balance">마진 잔고</string>
+    <string name="unrealized_pnl">미실현 PNL</string>
+    <string name="available_for_withdrawal">출금 가능</string>
+    <string name="ltx">LTX</string>
+    <string name="locked">잠김</string>
 </resources>

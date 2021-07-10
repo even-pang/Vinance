@@ -4,6 +4,6 @@
     <corners android:radius="@dimen/radius_default" />
     <stroke
         android:width="1dp"
-        android:color="#FF29313C" />
-    <solid android:color="#FF29313C" />
+        android:color="@color/card_btn_normal" />
+    <solid android:color="@color/card_btn_normal" />
 </shape>

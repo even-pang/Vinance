@@ -26,6 +26,9 @@ class StickScrollView @JvmOverloads constructor(context: Context, attrs: Attribu
     private var mIsHeaderSticky = false
     private var mHeaderInitPosition = 0f
 
+    val isHeaderStick
+        get() = mIsHeaderSticky
+
     override fun onGlobalLayout() {
         mHeaderInitPosition = header?.top?.toFloat() ?: 0f
     }

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/recycle_wallet_future_asset_title_image"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_temp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/_recycle_wallet_future_asset_title"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@id/recycle_wallet_future_asset_title_image"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/recycle_wallet_future_asset_title"
+            style="@style/ButtonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="BNB" />
+
+        <ImageView
+            android:id="@+id/recycle_wallet_future_asset_info_image"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_info" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/NormalText"
+        android:id="@+id/_recycle_wallet_future_asset_wallet_balance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/wallet_balance"
+        app:layout_constraintEnd_toStartOf="@id/_recycle_wallet_future_asset_between"
+        app:layout_constraintTop_toBottomOf="@id/_recycle_wallet_future_asset_title"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        style="@style/ButtonText"
+        android:id="@+id/recycle_wallet_future_asset_wallet_balance_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        app:layout_constraintTop_toBottomOf="@id/_recycle_wallet_future_asset_wallet_balance"
+        app:layout_constraintStart_toStartOf="@id/_recycle_wallet_future_asset_wallet_balance"
+        app:layout_constraintEnd_toEndOf="@id/_recycle_wallet_future_asset_wallet_balance"
+        android:text="0.00000000" />
+
+    <Space
+        android:id="@+id/_recycle_wallet_future_asset_between"
+        android:layout_width="8dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/_recycle_wallet_future_asset_wallet_balance"
+        app:layout_constraintBottom_toBottomOf="@id/_recycle_wallet_future_asset_wallet_balance"
+        app:layout_constraintStart_toEndOf="@id/_recycle_wallet_future_asset_wallet_balance"
+        app:layout_constraintEnd_toStartOf="@id/_recycle_wallet_future_asset_unrealized_pnl"/>
+
+    <TextView
+        style="@style/NormalText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/_recycle_wallet_future_asset_unrealized_pnl"
+        app:layout_constraintTop_toTopOf="@id/_recycle_wallet_future_asset_wallet_balance"
+        app:layout_constraintBottom_toBottomOf="@id/_recycle_wallet_future_asset_wallet_balance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/_recycle_wallet_future_asset_between"
+        android:text="@string/unrealized_pnl" />
+
+    <TextView
+        android:id="@+id/_recycle_wallet_future_asset_unrealized_pnl_value"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        style="@style/ButtonText"
+        android:text="0.00000000"
+        app:layout_constraintTop_toTopOf="@id/recycle_wallet_future_asset_wallet_balance_value"
+        app:layout_constraintBottom_toBottomOf="@id/recycle_wallet_future_asset_wallet_balance_value"
+        app:layout_constraintStart_toStartOf="@id/_recycle_wallet_future_asset_unrealized_pnl"
+        app:layout_constraintEnd_toEndOf="@id/_recycle_wallet_future_asset_unrealized_pnl" />
+
+    <TextView
+        style="@style/NormalText"
+        android:id="@+id/_recycle_wallet_future_asset_margin_balance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/margin_balance"
+        app:layout_constraintTop_toBottomOf="@id/recycle_wallet_future_asset_wallet_balance_value"
+        app:layout_constraintStart_toStartOf="@id/_recycle_wallet_future_asset_wallet_balance"
+        app:layout_constraintEnd_toEndOf="@id/_recycle_wallet_future_asset_wallet_balance"/>
+
+    <TextView
+        style="@style/ButtonText"
+        android:id="@+id/recycle_wallet_future_asset_margin_balance_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="0.00000000"
+        app:layout_constraintTop_toBottomOf="@id/_recycle_wallet_future_asset_margin_balance"
+        app:layout_constraintStart_toStartOf="@id/_recycle_wallet_future_asset_wallet_balance"
+        app:layout_constraintEnd_toEndOf="@id/_recycle_wallet_future_asset_wallet_balance"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/_recycle_wallet_future_asset_available_for_withdrawal"
+        style="@style/NormalText"
+        android:text="@string/available_for_withdrawal"
+        app:layout_constraintTop_toTopOf="@id/_recycle_wallet_future_asset_margin_balance"
+        app:layout_constraintBottom_toBottomOf="@id/_recycle_wallet_future_asset_margin_balance"
+        app:layout_constraintStart_toStartOf="@id/_recycle_wallet_future_asset_unrealized_pnl"
+        app:layout_constraintEnd_toEndOf="@id/_recycle_wallet_future_asset_unrealized_pnl" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/recycle_wallet_future_asset_available_for_withdrawal_value"
+        style="@style/ButtonText"
+        android:text="0.00000000"
+        app:layout_constraintTop_toTopOf="@id/recycle_wallet_future_asset_margin_balance_value"
+        app:layout_constraintBottom_toBottomOf="@id/recycle_wallet_future_asset_margin_balance_value"
+        app:layout_constraintStart_toStartOf="@id/_recycle_wallet_future_asset_unrealized_pnl"
+        app:layout_constraintEnd_toEndOf="@id/_recycle_wallet_future_asset_unrealized_pnl" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        app:layout_constraintTop_toBottomOf="@id/recycle_wallet_future_asset_margin_balance_value"
+        android:layout_marginTop="10dp"
+        android:background="@color/border_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

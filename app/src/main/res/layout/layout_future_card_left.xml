@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="4dp"
+    android:layout_weight="18"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/future_image_container"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/background_primary"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <ImageView
+            android:id="@+id/future_type_buy"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:background="@drawable/background_to_right"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/buy"
+            android:textColor="@color/white"
+            android:textSize="15.5sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/sell"
+            android:textColor="@color/default_grey"
+            android:textSize="15.5sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/usable_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:id="@+id/_usable_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/binance_plex_medium"
+            android:text="@string/usable"
+            android:textColor="#878E96"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <ImageView
+            android:id="@+id/trade_image"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_margin_transfer"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/future_trade_tether"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/unit"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/trade_image" />
+
+        <TextView
+            android:id="@+id/future_trade_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:fontFamily="@font/binance_plex_regular"
+            android:text="1982.30"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/future_trade_tether"
+            app:layout_constraintTop_toTopOf="@id/future_trade_tether" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_primary"
+        android:paddingVertical="3dp">
+
+        <ImageView
+            android:id="@+id/info"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/future_order_book_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/binance_plex_regular"
+            android:text="리밋 주문"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_big"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="6dp"
+            android:layout_marginRight="14dp"
+            android:src="@drawable/awesome_caret_down"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/card_arrow" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="9dp"
+        android:background="@drawable/background_primary"
+        android:paddingVertical="8dp">
+
+        <ImageView
+            android:id="@+id/future_type_price_minus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_control_minus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/card_plus_minus" />
+
+        <ImageView
+            android:id="@+id/future_type_price_plus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_control_plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/card_plus_minus" />
+
+        <TextView
+            android:id="@+id/future_type_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/plex_semi_bold"
+            android:text="30000.00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_bigger"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_primary"
+        android:paddingVertical="6dp">
+
+        <ImageView
+            android:id="@+id/future_type_market_minus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_control_minus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#47505F" />
+
+        <ImageView
+            android:id="@+id/future_type_market_plus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_control_plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/card_plus_minus" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/binance_plex_regular"
+                android:text="금액("
+                android:textColor="#5F6774"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/future_type_market_price_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/plex_regular"
+                android:text="BTC"
+                android:textColor="#5F6774"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=")"
+                android:fontFamily="@font/plex_regular"
+                android:textColor="#5F6774"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20.34dp"
+        android:layout_marginBottom="20.51dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/_seek_1"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_seek_select"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:tint="@color/seek_light" />
+
+        <ImageView
+            android:id="@+id/_seek_5"
+            style="@style/SeekItemSize"
+            android:src="@drawable/ic_seek_select_non"
+            app:layout_constraintBottom_toBottomOf="@id/_seek_1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/_seek_1"
+            app:tint="@color/seek_dark" />
+
+        <ImageView
+            android:id="@+id/_seek_3"
+            style="@style/SeekItemSize"
+            android:src="@drawable/ic_seek_select_non"
+            app:layout_constraintBottom_toBottomOf="@id/_seek_1"
+            app:layout_constraintEnd_toStartOf="@id/_seek_5"
+            app:layout_constraintStart_toEndOf="@id/_seek_1"
+            app:layout_constraintTop_toTopOf="@id/_seek_1"
+            app:tint="@color/seek_dark" />
+
+        <ImageView
+            android:id="@+id/_seek_2"
+            style="@style/SeekItemSize"
+            android:src="@drawable/ic_seek_select_non"
+            app:layout_constraintBottom_toBottomOf="@id/_seek_1"
+            app:layout_constraintLeft_toRightOf="@id/_seek_1"
+            app:layout_constraintRight_toLeftOf="@id/_seek_3"
+            app:layout_constraintTop_toTopOf="@id/_seek_1"
+            app:tint="@color/seek_dark" />
+
+        <ImageView
+            android:id="@+id/_seek_4"
+            style="@style/SeekItemSize"
+            android:src="@drawable/ic_seek_select_non"
+            app:layout_constraintBottom_toBottomOf="@id/_seek_1"
+            app:layout_constraintLeft_toRightOf="@id/_seek_3"
+            app:layout_constraintRight_toLeftOf="@id/_seek_5"
+            app:layout_constraintTop_toTopOf="@id/_seek_1"
+            app:tint="@color/seek_dark" />
+
+        <View
+            style="@style/SeekLine"
+            app:layout_constraintBottom_toBottomOf="@id/_seek_1"
+            app:layout_constraintLeft_toRightOf="@id/_seek_1"
+            app:layout_constraintRight_toLeftOf="@id/_seek_2"
+            app:layout_constraintTop_toTopOf="@id/_seek_1" />
+
+        <View
+            style="@style/SeekLine"
+            app:layout_constraintBottom_toBottomOf="@id/_seek_1"
+            app:layout_constraintLeft_toRightOf="@id/_seek_2"
+            app:layout_constraintRight_toLeftOf="@id/_seek_3"
+            app:layout_constraintTop_toTopOf="@id/_seek_1" />
+
+        <View
+            style="@style/SeekLine"
+            app:layout_constraintBottom_toBottomOf="@id/_seek_1"
+            app:layout_constraintLeft_toRightOf="@id/_seek_3"
+            app:layout_constraintRight_toLeftOf="@id/_seek_4"
+            app:layout_constraintTop_toTopOf="@id/_seek_1" />
+
+        <View
+            style="@style/SeekLine"
+            app:layout_constraintBottom_toBottomOf="@id/_seek_1"
+            app:layout_constraintLeft_toRightOf="@id/_seek_4"
+            app:layout_constraintRight_toLeftOf="@id/_seek_5"
+            app:layout_constraintTop_toTopOf="@id/_seek_1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- TL/SL -->
+    <LinearLayout
+        android:id="@+id/main_tl_sl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/ic_check_non" />
+
+        <TextView
+            style="@style/TextUnderlineDashed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="TP/SL"
+            android:textColor="#878E96"
+            android:textSize="12dp" />
+    </LinearLayout>
+    <!-- 리듀스 온리 -->
+    <LinearLayout
+        android:id="@+id/main_reduce_only"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/ic_check_non" />
+
+        <TextView
+            style="@style/TextUnderlineDashed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="리듀스 온리"
+            android:textColor="#878E96"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp">
+
+        <TextView
+            style="@style/CostText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최대"
+            android:textColor="@color/default_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/future_type_market_max_coin"
+            style="@style/CostText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/type"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/main_type_market_max_value"
+            style="@style/CostText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:text="4.448"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/future_type_market_max_coin"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp">
+
+        <TextView
+            style="@style/CostText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/underline_dashed"
+            android:fontFamily="@font/binance_plex_medium"
+            android:text="비용"
+            android:textColor="@color/default_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/future_type_market_cost_tether"
+            style="@style/CostText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/unit"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/future_type_market_cost_value"
+            style="@style/CostText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:text="0.00"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/future_type_market_cost_tether"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_btn_buy"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:text="매수/롱"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
+</LinearLayout>

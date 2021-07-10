@@ -3,7 +3,5 @@
     android:shape="rectangle"
     android:thicknessRatio="99">
     <corners android:radius="@dimen/radius_default" />
-    <solid android:color="#FF1F2630" />
-    <!--<stroke android:width="3dp"
-        android:color="@android:color/transparent" />-->
+    <solid android:color="@color/tab_background" />
 </shape>

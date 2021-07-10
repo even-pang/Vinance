@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/recycle_wallet_future_collaterals_title_image"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_temp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recycle_wallet_future_collaterals_title"
+        style="@style/ButtonText"
+        android:layout_width="0dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="BTC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/recycle_wallet_future_collaterals_title_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/_recycle_wallet_future_collaterals_ltx"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/ltx"
+        style="@style/NormalText"
+        app:layout_constraintEnd_toStartOf="@id/_recycle_wallet_future_collaterals_between"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycle_wallet_future_collaterals_title_image" />
+
+    <TextView
+        android:id="@+id/recycle_wallet_future_collaterals_ltx_value"
+        style="@style/NormalText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0.00%"
+        android:textColor="@color/buy_color"
+        app:layout_constraintEnd_toEndOf="@id/_recycle_wallet_future_collaterals_ltx"
+        app:layout_constraintStart_toStartOf="@id/_recycle_wallet_future_collaterals_ltx"
+        app:layout_constraintTop_toBottomOf="@id/_recycle_wallet_future_collaterals_ltx" />
+
+    <Space
+        android:id="@+id/_recycle_wallet_future_collaterals_between"
+        android:layout_width="8dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/_recycle_wallet_future_collaterals_ltx"
+        app:layout_constraintEnd_toStartOf="@id/_recycle_wallet_future_collaterals_locked"
+        app:layout_constraintStart_toEndOf="@id/_recycle_wallet_future_collaterals_ltx"
+        app:layout_constraintTop_toTopOf="@id/_recycle_wallet_future_collaterals_ltx" />
+
+    <TextView
+        android:id="@+id/_recycle_wallet_future_collaterals_locked"
+        style="@style/NormalText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/locked"
+        app:layout_constraintBottom_toBottomOf="@id/_recycle_wallet_future_collaterals_ltx"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/_recycle_wallet_future_collaterals_between"
+        app:layout_constraintTop_toTopOf="@id/_recycle_wallet_future_collaterals_ltx" />
+
+    <TextView
+        android:id="@+id/recycle_wallet_future_collaterals_locked_value"
+        style="@style/ButtonText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="0.00000000"
+        app:layout_constraintBottom_toBottomOf="@id/recycle_wallet_future_collaterals_ltx_value"
+        app:layout_constraintEnd_toEndOf="@id/_recycle_wallet_future_collaterals_locked"
+        app:layout_constraintStart_toStartOf="@id/_recycle_wallet_future_collaterals_locked"
+        app:layout_constraintTop_toTopOf="@id/recycle_wallet_future_collaterals_ltx_value" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/border_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycle_wallet_future_collaterals_ltx_value" />
+</androidx.constraintlayout.widget.ConstraintLayout>
