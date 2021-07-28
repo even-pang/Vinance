@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp">
+
+        <ImageView
+            android:id="@+id/recycle_position_share"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_trade_position_share"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/recycle_position_symbol_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_short"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_symbol_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_symbol_title" />
+
+        <TextView
+            android:id="@+id/recycle_position_symbol_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/plex_semi_bold"
+            android:text="BTCUSDT 무기한"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_symbol_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/recycle_position_mode_type"
+            style="@style/NormalText"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="격리"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_symbol_title"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_symbol_title"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_symbol_title" />
+
+        <TextView
+            android:id="@+id/recycle_position_mode_scale"
+            style="@style/NormalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="1x"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_symbol_title"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_mode_type"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_symbol_title" />
+
+        <LinearLayout
+            android:layout_width="18dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_symbol_title"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_mode_scale"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_symbol_title">
+
+            <!-- 그림 방식 -->
+            <ImageView
+                android:id="@+id/recycle_position_display1"
+                style="@style/PositionExclaimImage"
+                app:layout_constraintBottom_toBottomOf="@id/recycle_position_symbol_title"
+                app:layout_constraintStart_toEndOf="@id/recycle_position_mode_scale"
+                app:layout_constraintTop_toTopOf="@id/recycle_position_symbol_title"
+                app:tint="@color/buy_color" />
+
+            <ImageView
+                android:id="@+id/recycle_position_display2"
+                style="@style/PositionExclaimImage"
+                app:layout_constraintBottom_toBottomOf="@id/recycle_position_display1"
+                app:layout_constraintStart_toEndOf="@id/recycle_position_display1"
+                app:layout_constraintTop_toTopOf="@id/recycle_position_display1" />
+
+            <ImageView
+                android:id="@+id/recycle_position_display3"
+                style="@style/PositionExclaimImage"
+                app:layout_constraintBottom_toBottomOf="@id/recycle_position_display1"
+                app:layout_constraintStart_toEndOf="@id/recycle_position_display2"
+                app:layout_constraintTop_toTopOf="@id/recycle_position_display1" />
+
+            <ImageView
+                android:id="@+id/recycle_position_display4"
+                style="@style/PositionExclaimImage"
+                app:layout_constraintBottom_toBottomOf="@id/recycle_position_display1"
+                app:layout_constraintStart_toEndOf="@id/recycle_position_display3"
+                app:layout_constraintTop_toTopOf="@id/recycle_position_display1" />
+
+            <!-- 글자 방식 -->
+            <!--<TextView
+                android:id="@+id/recycle_position_display1"
+                style="@style/PositionExclaimText"
+                android:textColor="@color/buy_color"
+                app:layout_constraintBottom_toBottomOf="@id/recycle_position_mode_type"
+                app:layout_constraintStart_toEndOf="@id/recycle_position_mode_scale"
+                app:layout_constraintTop_toTopOf="@id/recycle_position_mode_type"
+                app:tint="@color/buy_color" />
+
+            <TextView
+                android:id="@+id/recycle_position_display2"
+                style="@style/PositionExclaimText"
+                app:layout_constraintBottom_toBottomOf="@id/recycle_position_mode_type"
+                app:layout_constraintStart_toEndOf="@id/recycle_position_display1"
+                app:layout_constraintTop_toTopOf="@id/recycle_position_mode_type" />
+
+            <TextView
+                android:id="@+id/recycle_position_display3"
+                style="@style/PositionExclaimText"
+                app:layout_constraintBottom_toBottomOf="@id/recycle_position_mode_type"
+                app:layout_constraintStart_toEndOf="@id/recycle_position_display2"
+                app:layout_constraintTop_toTopOf="@id/recycle_position_mode_type" />
+
+            <TextView
+                android:id="@+id/recycle_position_display4"
+                style="@style/PositionExclaimText"
+                app:layout_constraintBottom_toBottomOf="@id/recycle_position_mode_type"
+                app:layout_constraintStart_toEndOf="@id/recycle_position_display3"
+                app:layout_constraintTop_toTopOf="@id/recycle_position_mode_type" />-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/recycle_position_pnl_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/recycle_position_roe_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycle_position_symbol_title">
+
+            <TextView
+                style="@style/NormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/underline_dashed"
+                android:text="미실현 PNL (" />
+
+            <TextView
+                android:id="@+id/recycle_position_pnl_tether"
+                style="@style/NormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/underline_dashed"
+                android:text="USDT" />
+
+            <TextView
+                style="@style/NormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/underline_dashed"
+                android:text=")" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recycle_position_pnl_value"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="start"
+            android:text="-0.02"
+            android:textColor="@color/sell_color"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@id/recycle_position_roe_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycle_position_pnl_title" />
+
+        <TextView
+            android:id="@+id/recycle_position_roe_title"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="end"
+            android:text="ROE"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_pnl_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_pnl_title"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_pnl_title" />
+
+        <TextView
+            android:id="@+id/recycle_position_roe_value"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="1dp"
+            android:gravity="end"
+            android:text="-0.2%"
+            android:textColor="@color/sell_color"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_pnl_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_pnl_value"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_pnl_value" />
+
+        <LinearLayout
+            android:id="@+id/recycle_position_size_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/recycle_position_margin_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycle_position_pnl_value">
+
+            <TextView
+                style="@style/NormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/underline_dashed"
+                android:text="사이즈(" />
+
+            <TextView
+                android:id="@+id/recycle_position_size_coin"
+                style="@style/NormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/underline_dashed"
+                android:text="BTC" />
+
+            <TextView
+                style="@style/NormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/underline_dashed"
+                android:text=")" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recycle_position_size_value"
+            style="@style/PositionInfoMargin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="0.001"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/recycle_position_margin_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycle_position_size_title" />
+
+        <LinearLayout
+            android:id="@+id/recycle_position_margin_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/recycle_position_size_value"
+            app:layout_constraintEnd_toStartOf="@id/recycle_position_danger_title"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_size_title">
+
+            <TextView
+                style="@style/NormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="마진 (" />
+
+            <TextView
+                android:id="@+id/recycle_position_margin_tether"
+                style="@style/NormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USDT" />
+
+            <TextView
+                style="@style/NormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=")" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_add_margin" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recycle_position_margin_value"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="39.13"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_size_value"
+            app:layout_constraintEnd_toStartOf="@id/recycle_position_danger_value"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_size_value"
+            app:layout_constraintTop_toBottomOf="@id/recycle_position_margin_title" />
+
+
+        <TextView
+            android:id="@+id/recycle_position_danger_title"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="end"
+            android:text="위험"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_size_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_margin_title"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_size_title" />
+
+        <TextView
+            android:id="@+id/recycle_position_danger_value"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="end"
+            android:text="0.39%"
+            android:textColor="@color/buy_color"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_size_value"
+            app:layout_constraintEnd_toEndOf="@id/recycle_position_danger_title"
+            app:layout_constraintStart_toStartOf="@id/recycle_position_danger_title"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_size_value" />
+
+        <TextView
+            android:id="@+id/recycle_position_entry_price_title"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="진입 가격"
+            app:layout_constraintEnd_toStartOf="@id/recycle_position_market_price_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycle_position_size_value" />
+
+        <TextView
+            android:id="@+id/recycle_position_entry_price_value"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="39138.44"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/recycle_position_market_price_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycle_position_entry_price_title" />
+
+        <TextView
+            android:id="@+id/recycle_position_market_price_title"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="시장 평균가"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_entry_price_title"
+            app:layout_constraintEnd_toStartOf="@id/recycle_position_liquidation_title"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_entry_price_title"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_entry_price_title" />
+
+        <TextView
+            android:id="@+id/recycle_position_market_price_value"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="39171.87"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_entry_price_value"
+            app:layout_constraintEnd_toStartOf="@id/recycle_position_liquidation_value"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_entry_price_value"
+            app:layout_constraintTop_toBottomOf="@id/recycle_position_market_price_title" />
+
+        <TextView
+            android:id="@+id/recycle_position_liquidation_title"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="end"
+            android:text="청산 가격"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_entry_price_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_market_price_title"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_entry_price_title" />
+
+        <TextView
+            android:id="@+id/recycle_position_liquidation_value"
+            style="@style/NormalText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="end"
+            android:text="--"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/recycle_position_entry_price_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/recycle_position_market_price_value"
+            app:layout_constraintTop_toTopOf="@id/recycle_position_entry_price_value" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:paddingVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/recycle_position_leverage"
+            style="@style/ButtonText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_secondary"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingVertical="6dp"
+            android:text="레버리지 조정" />
+
+        <TextView
+            android:id="@+id/recycle_position_stop_profit"
+            style="@style/ButtonText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_secondary"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingVertical="6dp"
+            android:text="스탑프로핏 &amp; 로스" />
+
+        <TextView
+            android:id="@+id/recycle_position_exit"
+            style="@style/ButtonText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_secondary"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingVertical="6dp"
+            android:text="포지션 종료" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/border_color" />
+</LinearLayout>

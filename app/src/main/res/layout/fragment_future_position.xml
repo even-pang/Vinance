@@ -54,9 +54,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:overScrollMode="never"
         android:id="@+id/fragment_position_view"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/recycle_position"
+        tools:listitem="@layout/recycle_future_position"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 </LinearLayout>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="16dp"
+    tools:context=".view.EntryActivity">
+
+    <LinearLayout
+        android:id="@+id/entry_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/entry_show_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="호가창"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <androidx.legacy.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            style="@style/BrightSpinner"
+            android:id="@+id/entry_spinner"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:popupBackground="@drawable/background_primary"
+            android:backgroundTint="@color/white"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/entry_add_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toTopOf="@id/entry_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/entry_future_balance_text"
+        style="@style/RecycleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:text="선물 잔고"
+        app:layout_constraintBottom_toTopOf="@id/entry_recycler_view"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/entry_future_balance_edit"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:textSize="15sp"
+        android:hint="0"
+        android:textColorHint="#f5f5dc"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/border_bottom"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@id/entry_future_balance_text"
+        app:layout_constraintStart_toEndOf="@id/entry_future_balance_text"
+        app:layout_constraintTop_toTopOf="@id/entry_future_balance_text" />
+
+    <TextView
+        android:id="@+id/entry_cash_balance_text"
+        style="@style/RecycleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현물 잔액"
+        app:layout_constraintBottom_toTopOf="@id/entry_future_balance_text"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/entry_cash_balance_edit"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:textSize="15sp"
+        android:textColorHint="#f5f5dc"
+        android:hint="0"
+        android:background="@drawable/border_bottom"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@id/entry_cash_balance_text"
+        app:layout_constraintStart_toEndOf="@id/entry_cash_balance_text"
+        app:layout_constraintTop_toTopOf="@id/entry_cash_balance_text" />
+
+    <TextView
+        android:id="@+id/entry_revenue_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="수익 기간"
+        style="@style/RecycleTextStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/entry_cash_balance_text" />
+
+    <EditText
+        android:id="@+id/entry_revenue_edit"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:textSize="15sp"
+        android:textColorHint="#f5f5dc"
+        android:hint="0"
+        android:background="@drawable/border_bottom"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="@id/entry_revenue_text"
+        app:layout_constraintStart_toEndOf="@id/entry_revenue_text"
+        app:layout_constraintTop_toTopOf="@id/entry_revenue_text" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/entry_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/border_vertical"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/entry_next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/entry_layout_top"
+        tools:listitem="@layout/recycler_input_data" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/entry_next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/card_btn_normal"
+        android:text="넘어가기"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/entry_recycler_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

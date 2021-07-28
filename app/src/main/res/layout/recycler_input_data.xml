@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="6dp"
+    android:background="@drawable/border_bottom"
+    android:paddingBottom="4dp">
+
+    <ImageView
+        android:id="@+id/recycler_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:src="@drawable/ic_close"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <TextView
+        android:id="@+id/recycler_search_result_text"
+        style="@style/RecycleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="검색 결과"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recycler_coin_type_text"
+        style="@style/RecycleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="코인 종류"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_search_result_text" />
+
+    <TextView
+        android:id="@+id/recycler_size_text"
+        style="@style/RecycleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="사이즈"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_coin_type_text" />
+
+    <TextView
+        android:id="@+id/recycler_leverage_text"
+        style="@style/RecycleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="레버리지"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_size_text" />
+
+    <TextView
+        android:id="@+id/recycler_entry_price_text"
+        style="@style/RecycleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="진입 가격"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_leverage_text" />
+
+    <TextView
+        android:id="@+id/recycler_long_short_text"
+        style="@style/RecycleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="롱/숏"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_entry_price_text" />
+
+    <TextView
+        android:id="@+id/recycler_adl_text"
+        style="@style/RecycleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="ADL"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_long_short_text" />
+
+    <TextView
+        android:id="@+id/recycler_search_result_value"
+        style="@style/RecycleTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/border_outline"
+        android:nextFocusRight="@id/recycler_coin_type_edit"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_search_result_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/recycler_search_result_text" />
+
+    <EditText
+        android:id="@+id/recycler_coin_type_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="6dp"
+        android:background="@drawable/border_bottom"
+        android:nextFocusRight="@id/recycler_size_edit"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_coin_type_text"
+        app:layout_constraintEnd_toStartOf="@id/recycler_coin_type_button"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/recycler_coin_type_text" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/recycler_coin_type_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginVertical="6dp"
+        android:text="검색"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_coin_type_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/recycler_coin_type_text" />
+
+    <EditText
+        android:id="@+id/recycler_size_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="6dp"
+        android:background="@drawable/border_bottom"
+        android:inputType="numberDecimal"
+        android:nextFocusRight="@id/recycler_leverage_edit"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_size_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/recycler_size_text" />
+
+    <EditText
+        android:id="@+id/recycler_leverage_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="6dp"
+        android:background="@drawable/border_bottom"
+        android:inputType="number"
+        android:nextFocusRight="@id/recycler_entry_price_edit"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_leverage_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/recycler_leverage_text" />
+
+    <EditText
+        android:id="@+id/recycler_entry_price_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="6dp"
+        android:background="@drawable/border_bottom"
+        android:inputType="numberDecimal"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_entry_price_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/recycler_entry_price_text" />
+
+    <RadioGroup
+        android:id="@+id/recycler_long_short_radio"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="6dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_long_short_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/recycler_long_short_text">
+
+        <RadioButton
+            android:id="@+id/long_short_radio_long"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="롱"
+            android:textColor="@color/buy_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/long_short_radio_short"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="숏"
+            android:textColor="@color/sell_color"
+            android:textSize="15sp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/recycler_adl_radio"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_adl_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/recycler_adl_text">
+
+        <RadioButton
+            android:id="@+id/adl_radio_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0"
+            android:checked="true"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/adl_radio_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1"
+            android:textColor="@color/buy_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/adl_radio_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2"
+            android:textColor="@color/buy_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/adl_radio_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="3"
+            android:textColor="@color/buy_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/adl_radio_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="4"
+            android:textColor="@color/sell_color"
+            android:textSize="15sp" />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/card_btn_normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

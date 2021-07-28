@@ -1,6 +1,7 @@
 package com.project.vinance.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -8,9 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import com.google.gson.GsonBuilder
 import com.project.vinance.R
-import com.project.vinance.network.rest.BinanceAPI
+import com.project.vinance.calculate.Cal
+import com.project.vinance.databinding.ActivityMainBinding
+import com.project.vinance.network.rest.BinanceRest
 import com.project.vinance.network.socket.SimpleSocketClient
-import com.project.vinance.network.socket.SocketClient
 import com.project.vinance.view.fragment.future.FutureFragment
 import com.project.vinance.view.fragment.wallet.WalletFragment
 import com.project.vinance.view.implementation.ColorChangeListener
@@ -20,16 +22,16 @@ import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    private val coin = "BTC"
-    private val tether = "USDT"
+    private val TAG = MainActivity::class.java.simpleName
+    private lateinit var binding: ActivityMainBinding
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         init()
     }
@@ -49,25 +51,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var menus: List<TextView> = emptyList()
 
     private var currentFragment: Pair<Fragment, Int>? = null
-    private val viewModel = FutureViewModel
+    private val viewModel = GlobalData
     private val menuDrawables: Pair<List<Int>, List<Int?>> = Pair(
         listOf(R.drawable.ic_bottom_1, R.drawable.ic_bottom_2, R.drawable.ic_bottom_3, R.drawable.ic_bottom_4, R.drawable.ic_bottom_5),
         listOf(null, null, null, R.drawable.ic_bottom_4_selected, R.drawable.ic_bottom_5_selected)
     )
 
     private fun initBinding() {
-        viewModel.coin.value = coin
-        viewModel.tether.value = tether
-
         CoroutineScope(Dispatchers.Main).launch {
             val gson = GsonBuilder().setLenient().create()
-            val instance: Retrofit = Retrofit.Builder().baseUrl(BinanceAPI.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build()
-            val api = instance.create(BinanceAPI::class.java)
+            val instance: Retrofit = Retrofit.Builder().baseUrl(BinanceRest.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build()
+            val api = instance.create(BinanceRest::class.java)
 
-            val depth = async(Dispatchers.IO) { api.getDepth(coin + tether).execute().body() }
-            val markPrice = async(Dispatchers.IO) { api.getMarkPrice(coin + tether).execute().body() }
-            val symbolPrice = async(Dispatchers.IO) { api.getSymbolPrice(coin + tether).execute().body() }
-            val tickerPrice = async(Dispatchers.IO) { api.getTickerPriceChange(coin + tether).execute().body() }
+            val depth = async(Dispatchers.IO) { api.getDepth(GlobalData.showCoin.value + GlobalData.showTether.value).execute().body() }
+            val markPrice = async(Dispatchers.IO) { api.getMarkPrice(GlobalData.showCoin.value + GlobalData.showTether.value).execute().body() }
+            val symbolPrice = async(Dispatchers.IO) { api.getSymbolPrice(GlobalData.showCoin.value + GlobalData.showTether.value).execute().body() }
+            val tickerPrice = async(Dispatchers.IO) { api.getTickerPriceChange(GlobalData.showCoin.value + GlobalData.showTether.value).execute().body() }
 
             depth.start()
             markPrice.start()
@@ -75,13 +74,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             tickerPrice.start()
 
             // 시장가, 펀딩, 카운트다운
-            viewModel.contractPrice.value = BigDecimal(markPrice.await()?.markPrice ?: "0")
+            viewModel.contractPrice.value = BigDecimal(markPrice.await()?.markPrice)
             viewModel.fundingRate.value = BigDecimal(markPrice.await()?.lastFundingRate) * BigDecimal(100)
             viewModel.fundingTime.value = markPrice.await()?.nextFundingTime
 
             // 현재가
             viewModel.contractPrice.value = BigDecimal(symbolPrice.await()?.price ?: "0")
-            viewModel.contractPriceLeft.value = viewModel.contractPrice.value
+            viewModel.contractPriceLeft.value = BigDecimal(markPrice.await()!!.markPrice)
+//            findViewById<TextView>(R.id.future_order_book_scale).text = BigDecimal(1).movePointLeft(viewModel.contractPrice.value!!.scale()).toPlainString()
 
             // 전일대비
             viewModel.pricePercent.value = BigDecimal(tickerPrice.await()?.priceChangePercent ?: "0")
@@ -165,12 +165,45 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initSocket() {
-        viewModel.apply {
-            usableMoney.value = BigDecimal(50000)
-            scale = 125
-        }
         SimpleSocketClient.create()
-//        calculateMoney()
+        SimpleSocketClient.additionSubscribe()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            val gson = GsonBuilder().setLenient().create()
+            val instance: Retrofit = Retrofit.Builder().baseUrl(BinanceRest.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build()
+            val api = instance.create(BinanceRest::class.java)
+
+            withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+                FutureData.inputDataList.forEach { dto ->
+                    FutureData.exchangeInfo?.let { exchange ->
+                        val market = api.getMarkPrice(dto.coinName.first).execute().body()!!
+
+                        Log.d(TAG, "RESULT(${dto.coinName.first}) : $market")
+                        dto.marketPrice = BigDecimal(market.markPrice)
+
+//                    FutureViewModel.coinRoundingScale[dto.coinName.first] = exchange.symbols.find { it.symbol == dto.coinName.first }!!.pricePrecision
+                        val symbol = exchange.symbols.find { it.symbol == dto.coinName.first }!!
+                        dto.roundingPrice = symbol.pricePrecision
+                        dto.roundingQuantity = symbol.quantityPrecision
+                    }
+                }
+            }
+            Log.d(TAG, "FINAL : ${FutureData.inputDataList}")
+
+//            Log.d(TAG, "AFTER : ${FutureViewModel.inputDataList}")
+
+//            Log.d("API RESULT", FutureViewModel.inputMarketData.toString())
+
+
+            CoroutineScope(Dispatchers.Default).launch {
+                Cal.superCal()
+                (fragments[4] as WalletFragment).afterCal()
+
+                Log.d(TAG, FutureData.inputDataList.toString())
+            }
+
+//            println(FutureViewModel.inputDataList)
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -188,9 +221,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
 
-        println("RESUME!")
-        SocketClient.subscribe()
-        SimpleSocketClient.start(coin + tether)
+        SimpleSocketClient.start(GlobalData.showCoin.value + GlobalData.showTether.value)
     }
 
     /**
@@ -199,7 +230,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onStop() {
         super.onStop()
 
-        SimpleSocketClient.pause(coin + tether)
+        SimpleSocketClient.pause(GlobalData.showCoin.value + GlobalData.showTether.value)
     }
 
     /**
@@ -208,9 +239,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onDestroy() {
         super.onDestroy()
 
-        println("DESTROYED")
-        SocketClient.unsubscribe()
         SimpleSocketClient.stop()
+        FutureData.inputDataList.clear()
     }
 
     override fun onClick(v: View?) {
@@ -219,7 +249,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             menus[3].id -> {
                 fragments[3]?.let {
                     changeFragment(it, 3)
-                    viewModel.contractPriceLeft.value = viewModel.contractPrice.value
+                    viewModel.contractPriceLeft.value = viewModel.markPrice.value
 //                    SocketClient.openLimitCondition()
 //                    String.valueOf(myMoney.divide(limitPrice, RoundingMode.HALF_UP).multiply(scale))
 
@@ -230,6 +260,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             menus[4].id -> {
                 fragments[4]?.let {
                     changeFragment(it, 4)
+                    (fragments[4] as WalletFragment).updateOverview()
 
                     if (it is ColorChangeListener) it.changeStatusColor()
                 }

@@ -1,7 +1,9 @@
 package com.project.vinance.view.fragment.wallet
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -9,16 +11,26 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.project.vinance.R
+import com.project.vinance.databinding.FragmentWalletFutureBinding
+import com.project.vinance.view.FutureData
+import com.project.vinance.view.GlobalData
+import com.project.vinance.view.WalletData
 import com.project.vinance.view.implementation.TextChangeListenable
+import com.project.vinance.view.recycler.RecycleFuturePosition
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.util.*
 import kotlin.math.roundToInt
 
 class WalletFutureFragment : Fragment(), TextChangeListenable {
     companion object {
+        private val TAG = WalletFutureFragment::class.java.simpleName
         private const val PARAM = "PARAM"
+        private var i = 0; get() = field++
 
         @JvmStatic
         fun newInstance(param: String) = WalletFutureFragment().apply {
@@ -29,20 +41,74 @@ class WalletFutureFragment : Fragment(), TextChangeListenable {
     }
 
     private val param: String by lazy { arguments?.getString(PARAM) ?: "ERR" }
+    private var myView: View? = null
 
-    private val innerTab: TabLayout by lazy { requireActivity().findViewById(R.id.wallet_future_inner_tab) }
-    private val innerPager: ViewPager2 by lazy { requireActivity().findViewById(R.id.wallet_future_inner_pager) }
+    private lateinit var innerTab: TabLayout
+    private lateinit var innerPager: ViewPager2
+
+    private var _binding: FragmentWalletFutureBinding? = null
+    private val binding: FragmentWalletFutureBinding get() = _binding!!
+
+    private val walletPosition = WalletFuturePositionsFragment()
 
     override fun changeText(resId: Int, data: String?) {
-        // TODO
+        myView?.also { itemView ->
+            WalletData.let {
+                val wallet = it.walletBalance * it.exchangeRate
+                val pnl = it.totalUnrealizedPnl
+                val margin = wallet + pnl
+                // 마진 잔고 - 위
+                itemView.findViewById<TextView>(R.id.wallet_future_margin_balance_value).text =
+                    margin.setScale(4, RoundingMode.HALF_UP).toPlainString()
+                // 마진 잔고 - 아래
+                itemView.findViewById<TextView>(R.id.wallet_future_margin_balance_value_second).text =
+                    "≈ \$ ${margin.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+
+                // 지갑 잔고 - 위
+                itemView.findViewById<TextView>(R.id.wallet_future_wallet_balance_value).text =
+                    wallet.setScale(4, RoundingMode.HALF_UP).toPlainString()
+                // 지갑 잔고 - 아래
+                itemView.findViewById<TextView>(R.id.wallet_future_wallet_balance_value_second).text =
+                    "≈ \$ ${wallet.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+
+                // 총 미실현 PNL - 위
+                itemView.findViewById<TextView>(R.id.wallet_future_total_unrealized_pnl_value).text =
+                    pnl.setScale(4, RoundingMode.HALF_UP).toPlainString()
+                // 총 미실현 PNL - 아래
+                itemView.findViewById<TextView>(R.id.wallet_future_total_unrealized_pnl_value_second).text =
+                    "≈ \$ ${ pnl.setScale(4, RoundingMode.HALF_UP).toPlainString()}00"
+
+                // 총 잔고 - 왼쪽
+                itemView.findViewById<TextView>(R.id.wallet_future_title_value).text =
+                    margin.setScale(4, RoundingMode.HALF_UP).toPlainString()
+                // 총 잔고 - 오른쪽
+                itemView.findViewById<TextView>(R.id.wallet_future_subtitle_value).text =
+                    "≈ \$ ${ margin.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+            }
+        }
     }
 
+    fun changePosition() {
+        walletPosition.notifyPosition()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_wallet_future, container, false)
+        _binding = FragmentWalletFutureBinding.inflate(inflater, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_wallet_future, container, false)
+
+        innerTab = view.findViewById(R.id.wallet_future_inner_tab)
+        innerPager = view.findViewById(R.id.wallet_future_inner_pager)
+
+        val text = view.findViewById<TextView>(R.id.wallet_future_revenue_text)
+
+        text.text = String.format(Locale.getDefault(), "%s 수익 기간", FutureData.revenuePeriod)
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        myView = view
         super.onViewCreated(view, savedInstanceState)
 
         try {
@@ -56,10 +122,13 @@ class WalletFutureFragment : Fragment(), TextChangeListenable {
      * 초기 설정
      */
     private fun init() {
-        CoroutineScope(Dispatchers.Main).launch {
-            initDesign()
-            initFunction()
-        }
+        initDesign()
+        initFunction()
+        initPut()
+    }
+
+    private fun initPut() {
+        changeText(0, null)
     }
 
     /**
@@ -101,7 +170,7 @@ class WalletFutureFragment : Fragment(), TextChangeListenable {
      */
     private inner class WalletFutureViewAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
         private val fragment: List<Fragment> = listOf(
-            WalletFuturePositionsFragment(),
+            walletPosition,
             WalletFutureAssetFragment(),
             WalletFutureCollateralsFragment()
         )
@@ -113,5 +182,11 @@ class WalletFutureFragment : Fragment(), TextChangeListenable {
         override fun getItemCount(): Int {
             return fragment.size
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
     }
 }

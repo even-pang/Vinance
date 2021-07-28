@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingHorizontal="15dp"
     tools:context=".view.fragment.wallet.WalletFuturePositionsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +21,7 @@
             style="@style/NormalTabText"
             android:layout_width="wrap_content"
             android:layout_height="22dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="1dp"
             android:background="@drawable/background_secondary"
             android:paddingHorizontal="8dp"
             android:text="@string/usds_m"
@@ -34,26 +35,17 @@
             android:layout_height="22dp"
             android:layout_marginStart="16dp"
             android:paddingHorizontal="8dp"
-            android:text="@string/coin_m"
+            android:text="옵션"
             app:layout_constraintStart_toEndOf="@id/_wallet_future_position_usds_m"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/_wallet_future_position_empty"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="61dp"
-        android:src="@drawable/ic_wallet_empty_page"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/_wallet_future_position_menu" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="포지션이 없습니다."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/_wallet_future_position_empty" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wallet_future_position_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/recycle_wallet_future_position"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/_wallet_future_position_menu"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

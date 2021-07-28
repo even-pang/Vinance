@@ -24,7 +24,8 @@ import com.project.vinance.R
 import com.project.vinance.client.model.market.OrderBookEntry
 import com.project.vinance.databinding.FragmentFutureBinding
 import com.project.vinance.network.socket.SocketClient
-import com.project.vinance.view.FutureViewModel
+import com.project.vinance.view.FutureData
+import com.project.vinance.view.GlobalData
 import com.project.vinance.view.implementation.ColorChangeListener
 import com.project.vinance.view.implementation.FocusListenable
 import com.project.vinance.view.implementation.TextChangeListenable
@@ -43,6 +44,7 @@ import java.util.*
  * */
 class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextChangeListenable {
     companion object {
+
         private const val COIN_TYPE: String = "COIN_TYPE"
         private const val COIN_UNIT: String = "COIN_TETHER"
 
@@ -206,7 +208,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
 
     private var _binding: FragmentFutureBinding? = null
     private val binding get() = _binding!!
-    private val viewModel = FutureViewModel
+    private val viewModel = GlobalData
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentFutureBinding.inflate(inflater, container, false)
@@ -240,175 +242,193 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
      * 뷰 바인딩 설정
      * */
     private fun initBinding() {
-        // usdt
-        viewModel.tether.observe(requireActivity()) {
-            binding.topTitle.futureTitleTether.text = it
-            binding.cardRight.futurePriceTether.text = it
-            binding.cardLeft.futureTypeMarketCostTether.text = it
-            binding.cardLeft.futureTradeTether.text = it
-        }
-        // btc
-        viewModel.coin.observe(requireActivity()) {
-            binding.topTitle.futureTitleCoin.text = it
-            binding.cardRight.futureAmountCoin.text = it
-            binding.cardLeft.futureTypeMarketPriceCoin.text = it
-            binding.cardLeft.futureTypeMarketMaxCoin.text = it
-        }
-        // 전일대비
-        viewModel.pricePercent.observe(requireActivity()) {
-            val component = binding.topTitle.futureTitlePercentage
-            val change: String = if (it > BigDecimal.ZERO) { // 0보다 큼
-                component.setTextColor(requireActivity().getColor(R.color.buy_color))
-                "+" + it.setScale(2, RoundingMode.HALF_UP).toPlainString() + "%"
-            } else if (it < BigDecimal.ZERO) { // 0보다 작음
-                component.setTextColor(requireActivity().getColor(R.color.sell_color))
-                it.setScale(2, RoundingMode.HALF_UP).toPlainString() + "%"
-            } else { // 0
-                component.setTextColor(Color.WHITE)
-                it.setScale(2, RoundingMode.HALF_UP).toPlainString() + "%"
+        CoroutineScope(Dispatchers.Main).launch {
+
+
+            // usdt
+            viewModel.showTether.observe(requireActivity()) {
+                binding.topTitle.futureTitleTether.text = it
+                binding.cardRight.futurePriceTether.text = it
+                binding.cardLeft.futureTypeMarketCostTether.text = it
+                binding.cardLeft.futureTradeTether.text = it
+                binding.cardLeft.futureViewTypeTether.text = it
             }
-
-            component.text = change
-        }
-
-        // 펀딩
-        viewModel.fundingRate.observe(requireActivity()) {
-            val component = binding.cardTop.futureFunding
-            val fundingPercent = (it * BigDecimal(100)).setScale(4, RoundingMode.HALF_UP).toPlainString()
-
-            component.text = fundingPercent + "%"
-        }
-        // 카운트다운
-        viewModel.fundingTime.observe(requireActivity()) {
-            val remaining = it - System.currentTimeMillis()
-            binding.cardTop.futureCountdown.text = StringBuilder().run {
-                append(String.format(Locale.getDefault(), "%02d", remaining / 3600000))
-                append(":")
-                append(String.format(Locale.getDefault(), "%02d", remaining / 60000 % 60))
-                append(":")
-                append(String.format(Locale.getDefault(), "%02d", remaining / 1000 % 60))
+            // btc
+            viewModel.showCoin.observe(requireActivity()) {
+                binding.topTitle.futureTitleCoin.text = it
+                binding.cardRight.futureAmountCoin.text = it
+                binding.cardLeft.futureTypeMarketPriceCoin.text = it
+                binding.cardLeft.futureTypeMarketMaxCoin.text = it
+                binding.cardLeft.futureViewTypeCoin.text = it
             }
-        }
-
-        // 현재가
-        viewModel.contractPrice.observe(requireActivity()) {
-            val component = binding.cardRight.futureContractPrice
-            val before = BigDecimal(component.text.toString())
-
-            component.text = it.toPlainString()
-
-            when {
-                before > it -> { // 가격이 떨어짐
-                    component.setTextColor(requireActivity().getColor(R.color.sell_color))
-                }
-                before < it -> { // 가격이 올라감
+            // 전일대비
+            viewModel.pricePercent.observe(requireActivity()) {
+                val component = binding.topTitle.futureTitlePercentage
+                val change: String = if (it > BigDecimal.ZERO) { // 0보다 큼
                     component.setTextColor(requireActivity().getColor(R.color.buy_color))
-                }
-                else -> { // 가격이 동일함
+                    "+" + it.setScale(2, RoundingMode.HALF_UP).toPlainString() + "%"
+                } else if (it < BigDecimal.ZERO) { // 0보다 작음
+                    component.setTextColor(requireActivity().getColor(R.color.sell_color))
+                    it.setScale(2, RoundingMode.HALF_UP).toPlainString() + "%"
+                } else { // 0
                     component.setTextColor(Color.WHITE)
+                    it.setScale(2, RoundingMode.HALF_UP).toPlainString() + "%"
+                }
+
+                component.text = change
+            }
+
+            // 펀딩
+            viewModel.fundingRate.observe(requireActivity()) {
+                val component = binding.cardTop.futureFunding
+                val fundingPercent = (it * BigDecimal(100)).setScale(4, RoundingMode.HALF_UP).toPlainString()
+
+                component.text = fundingPercent + "%"
+            }
+            // 카운트다운
+            viewModel.fundingTime.observe(requireActivity()) {
+                val remaining = it - System.currentTimeMillis()
+                binding.cardTop.futureCountdown.text = StringBuilder().run {
+                    append(String.format(Locale.getDefault(), "%02d", remaining / 3600000))
+                    append(":")
+                    append(String.format(Locale.getDefault(), "%02d", remaining / 60000 % 60))
+                    append(":")
+                    append(String.format(Locale.getDefault(), "%02d", remaining / 1000 % 60))
                 }
             }
-        }
-        // 시장가
-        viewModel.markPrice.observe(requireActivity()) {
-            binding.cardRight.futureOrderBookMarketPrice.text = it.setScale(viewModel.contractPrice.value!!.scale(), RoundingMode.HALF_UP).toPlainString()
-        }
 
-        // 사용 가능
-        viewModel.usableMoney.observe(requireActivity()) {
-            binding.cardLeft.futureTradeValue.text = it.setScale(2, RoundingMode.HALF_UP).toPlainString()
-        }
+            // 현재가
+            binding.cardRight.futureOrderBookScale.text = BigDecimal(1).movePointLeft(viewModel.contractPrice.value!!.scale()).toPlainString()
+            viewModel.contractPrice.observe(requireActivity()) {
+                val component = binding.cardRight.futureContractPrice
+                val before = BigDecimal(component.text.toString())
 
-        // 파랑-초록 호가
-        viewModel.bidsAndAsks.observe(requireActivity()) {
-            val bids = listOf(
-                Pair(binding.cardRight.futureBuy1Left, binding.cardRight.futureBuy1Right),
-                Pair(binding.cardRight.futureBuy2Left, binding.cardRight.futureBuy2Right),
-                Pair(binding.cardRight.futureBuy3Left, binding.cardRight.futureBuy3Right),
-                Pair(binding.cardRight.futureBuy4Left, binding.cardRight.futureBuy4Right),
-                Pair(binding.cardRight.futureBuy5Left, binding.cardRight.futureBuy5Right),
-                Pair(binding.cardRight.futureBuy6Left, binding.cardRight.futureBuy6Right),
-                Pair(binding.cardRight.futureBuy7Left, binding.cardRight.futureBuy7Right),
-            )
-            val bidsBackground = listOf(
-                binding.cardRight.futureChartBuy1,
-                binding.cardRight.futureChartBuy2,
-                binding.cardRight.futureChartBuy3,
-                binding.cardRight.futureChartBuy4,
-                binding.cardRight.futureChartBuy5,
-                binding.cardRight.futureChartBuy6,
-                binding.cardRight.futureChartBuy7,
-            )
+                component.text = it.toPlainString()
 
-            val asks = listOf(
-                Pair(binding.cardRight.futureSell1Left, binding.cardRight.futureSell1Right),
-                Pair(binding.cardRight.futureSell2Left, binding.cardRight.futureSell2Right),
-                Pair(binding.cardRight.futureSell3Left, binding.cardRight.futureSell3Right),
-                Pair(binding.cardRight.futureSell4Left, binding.cardRight.futureSell4Right),
-                Pair(binding.cardRight.futureSell5Left, binding.cardRight.futureSell5Right),
-                Pair(binding.cardRight.futureSell6Left, binding.cardRight.futureSell6Right),
-                Pair(binding.cardRight.futureSell7Left, binding.cardRight.futureSell7Right)
-            )
-            val asksBackground = listOf(
-                binding.cardRight.futureChartSell1,
-                binding.cardRight.futureChartSell2,
-                binding.cardRight.futureChartSell3,
-                binding.cardRight.futureChartSell4,
-                binding.cardRight.futureChartSell5,
-                binding.cardRight.futureChartSell6,
-                binding.cardRight.futureChartSell7,
-            )
+                when {
+                    before > it -> { // 가격이 떨어짐
+                        component.setTextColor(requireActivity().getColor(R.color.sell_color))
+                    }
+                    before < it -> { // 가격이 올라감
+                        component.setTextColor(requireActivity().getColor(R.color.buy_color))
+                    }
+                    else -> { // 가격이 동일함
+                        component.setTextColor(Color.WHITE)
+                    }
+                }
+            }
 
-            val bidAndAskSum: MutableList<Pair<BigDecimal, BigDecimal>> = mutableListOf(Pair(BigDecimal.ZERO, BigDecimal.ZERO))
+            // 배율
+            binding.cardTop.futureLeverage.text = String.format("%dx", FutureData.scale.toInt())
+
+            // 시장가
+            viewModel.markPrice.observe(requireActivity()) {
+                binding.cardRight.futureOrderBookMarketPrice.text = it.setScale(viewModel.contractPrice.value!!.scale(), RoundingMode.HALF_UP).toPlainString()
+            }
+
+            // 사용 가능
+            binding.cardLeft.futureTradeValue.text = FutureData.futureBalance.setScale(2, RoundingMode.HALF_UP).toPlainString()
+            /*viewModel.usableMoney.observe(requireActivity()) {
+                binding.cardLeft.futureTradeValue.text = it.setScale(2, RoundingMode.HALF_UP).toPlainString()
+            }*/
+
+            // 파랑-초록 호가
+            viewModel.bidsAndAsks.observe(requireActivity()) {
+                val bids = listOf(
+                    Pair(binding.cardRight.futureBuy1Left, binding.cardRight.futureBuy1Right),
+                    Pair(binding.cardRight.futureBuy2Left, binding.cardRight.futureBuy2Right),
+                    Pair(binding.cardRight.futureBuy3Left, binding.cardRight.futureBuy3Right),
+                    Pair(binding.cardRight.futureBuy4Left, binding.cardRight.futureBuy4Right),
+                    Pair(binding.cardRight.futureBuy5Left, binding.cardRight.futureBuy5Right),
+                    Pair(binding.cardRight.futureBuy6Left, binding.cardRight.futureBuy6Right),
+                    Pair(binding.cardRight.futureBuy7Left, binding.cardRight.futureBuy7Right),
+                )
+                val bidsBackground = listOf(
+                    binding.cardRight.futureChartBuy1,
+                    binding.cardRight.futureChartBuy2,
+                    binding.cardRight.futureChartBuy3,
+                    binding.cardRight.futureChartBuy4,
+                    binding.cardRight.futureChartBuy5,
+                    binding.cardRight.futureChartBuy6,
+                    binding.cardRight.futureChartBuy7,
+                )
+
+                val asks = listOf(
+                    Pair(binding.cardRight.futureSell1Left, binding.cardRight.futureSell1Right),
+                    Pair(binding.cardRight.futureSell2Left, binding.cardRight.futureSell2Right),
+                    Pair(binding.cardRight.futureSell3Left, binding.cardRight.futureSell3Right),
+                    Pair(binding.cardRight.futureSell4Left, binding.cardRight.futureSell4Right),
+                    Pair(binding.cardRight.futureSell5Left, binding.cardRight.futureSell5Right),
+                    Pair(binding.cardRight.futureSell6Left, binding.cardRight.futureSell6Right),
+                    Pair(binding.cardRight.futureSell7Left, binding.cardRight.futureSell7Right)
+                )
+                val asksBackground = listOf(
+                    binding.cardRight.futureChartSell1,
+                    binding.cardRight.futureChartSell2,
+                    binding.cardRight.futureChartSell3,
+                    binding.cardRight.futureChartSell4,
+                    binding.cardRight.futureChartSell5,
+                    binding.cardRight.futureChartSell6,
+                    binding.cardRight.futureChartSell7,
+                )
+
+                val bidAndAskSum: MutableList<Pair<BigDecimal, BigDecimal>> = mutableListOf(Pair(BigDecimal.ZERO, BigDecimal.ZERO))
 //            val bid = bids[i].price * bidSum[i] / max * BigDecimal(1000)
 
-            // 가격, 금액 입력
-            for (i in bids.indices) {
-                val bidPrice = it.first[i].first
-                val bidQty = it.first[i].second
-                val askPrice = it.second[i].first
-                val askQty = it.second[i].second
+                // 가격, 금액 입력
+                for (i in bids.indices) {
+                    val bidPrice = it.first[i].first
+                    val bidQty = it.first[i].second
+                    val askPrice = it.second[i].first
+                    val askQty = it.second[i].second
 
-                bids[i].first.text = bidPrice
-                bids[i].second.text = bidQty
+                    bids[i].first.text = bidPrice
+                    bids[i].second.text = bidQty
 
-                asks[i].first.text = askPrice
-                asks[i].second.text = askQty
+                    asks[i].first.text = askPrice
+                    asks[i].second.text = askQty
 
-                // 다음 반복문을 위한 최대값 저장 용도
-                bidAndAskSum.add(Pair(bidAndAskSum[i].first + BigDecimal(bidQty), bidAndAskSum[i].second + BigDecimal(askQty)))
-            }
+                    // 다음 반복문을 위한 최대값 저장 용도
+                    bidAndAskSum.add(Pair(bidAndAskSum[i].first + BigDecimal(bidQty), bidAndAskSum[i].second + BigDecimal(askQty)))
+                }
 
 //            bidSum[len - 1] * bids[len - 1].price
-            val max = if (bidAndAskSum[FutureViewModel.ORDER_LIST_SIZE].first > bidAndAskSum[FutureViewModel.ORDER_LIST_SIZE].second) {
-                bidAndAskSum[FutureViewModel.ORDER_LIST_SIZE].first * BigDecimal(it.first[FutureViewModel.ORDER_LIST_SIZE - 1].first)
-            } else {
-                bidAndAskSum[FutureViewModel.ORDER_LIST_SIZE].second * BigDecimal(it.second[FutureViewModel.ORDER_LIST_SIZE - 1].first)
-            }
+                val max = if (bidAndAskSum[GlobalData.ORDER_LIST_SIZE].first > bidAndAskSum[GlobalData.ORDER_LIST_SIZE].second) {
+                    bidAndAskSum[GlobalData.ORDER_LIST_SIZE].first * BigDecimal(it.first[GlobalData.ORDER_LIST_SIZE - 1].first)
+                } else {
+                    bidAndAskSum[GlobalData.ORDER_LIST_SIZE].second * BigDecimal(it.second[GlobalData.ORDER_LIST_SIZE - 1].first)
+                }
 
-            for (i in bids.indices) {
+                for (i in bids.indices) {
 //                val bid = bids[i].price * bidSum[i] / max * BigDecimal(1000)
-                val bid = BigDecimal(it.first[i].first) * bidAndAskSum[i + 1].first / max * BigDecimal(1000)
-                val ask = BigDecimal(it.second[i].first) * bidAndAskSum[i + 1].second / max * BigDecimal(1000)
+                    val bid = BigDecimal(it.first[i].first) * bidAndAskSum[i + 1].first / max * BigDecimal(1000)
+                    val ask = BigDecimal(it.second[i].first) * bidAndAskSum[i + 1].second / max * BigDecimal(1000)
 
-                bidsBackground[i].layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, bid.toFloat())
-                asksBackground[i].layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, ask.toFloat())
+                    bidsBackground[i].layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, bid.toFloat())
+                    asksBackground[i].layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, ask.toFloat())
+                }
             }
-        }
 
-        viewModel.contractPriceLeft.observe(requireActivity()) {
-            binding.cardLeft.futureTypePrice.text = it.toPlainString()
+            // 왼쪽 시장가
+            val dto = FutureData.exchangeInfo?.let { dto ->
+                dto.symbols.find { s -> s.symbol == GlobalData.showCoin.value + GlobalData.showTether.value }
+            }
+            val roundQuantity = dto?.quantityPrecision ?: 0
+            val roundPrice = dto?.pricePrecision ?: 0
+            viewModel.contractPriceLeft.observe(requireActivity()) {
+                binding.cardLeft.futureTypePrice.text = it.setScale(roundPrice, RoundingMode.HALF_UP).toPlainString()
 
-            // 최대비용 계산
-            if (it != BigDecimal.ZERO) binding.cardLeft.mainTypeMarketMaxValue.text =
-                (viewModel.usableMoney.value!! / it * BigDecimal(viewModel.scale)).toPlainString()
+                // 최대비용 계산
+                if (it != BigDecimal.ZERO) binding.cardLeft.mainTypeMarketMaxValue.text =
+                    (FutureData.futureBalance / it * FutureData.scale).setScale(roundQuantity, RoundingMode.HALF_UP).toPlainString()
+            }
         }
     }
 
     private fun initSocket() {
 //        val socket = SocketClient()
 //        socket.futureChanger()
-        SocketClient.futureChanger()
+//        SocketClient.futureChanger()
     }
 
     /**
@@ -448,7 +468,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
         (innerPager.getChildAt(0) as RecyclerView).overScrollMode = View.OVER_SCROLL_NEVER
         TabLayoutMediator(innerTab, innerPager) { tab, position ->
             val tab1 = String.format(getString(R.string.future_page1_title), 0)
-            val tab2 = String.format(getString(R.string.future_page2_title), 1)
+            val tab2 = String.format(getString(R.string.future_page2_title), FutureData.inputDataList.size)
             val tabCount = listOf(tab1, tab2)
             tab.text = tabCount[position]
         }.attach()

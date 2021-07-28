@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.project.vinance.R
+import com.project.vinance.network.socket.SimpleSocketClient
 import com.project.vinance.view.recycler.RecycleFuturePosition
 
 class FuturePositionFragment : Fragment() {
@@ -21,7 +22,8 @@ class FuturePositionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val positionAdapter = RecycleFuturePosition()
+        val positionAdapter = RecycleFuturePosition(requireContext(), pager)
+        SimpleSocketClient.futureRecycle = pager?.layoutManager
         pager?.adapter = positionAdapter
     }
 }

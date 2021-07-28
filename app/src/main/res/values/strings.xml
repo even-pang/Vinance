@@ -42,6 +42,7 @@
     <string name="wallet_tab5_title">P2P</string>
     <string name="wallet_tab6_title">수익 창출</string>
     <string name="wallet_tab7_title">풀</string>
+    <string name="wallet_tab8_title">기프트</string>
 
     <string name="wallet_future_tab1_title">@string/positions</string>
     <string name="wallet_future_tab2_title">@string/asset</string>

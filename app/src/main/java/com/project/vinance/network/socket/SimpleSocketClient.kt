@@ -1,16 +1,23 @@
 package com.project.vinance.network.socket
 
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import com.project.vinance.R
+import com.project.vinance.calculate.Cal
 import com.project.vinance.network.socket.dto.*
-import com.project.vinance.view.FutureViewModel
+import com.project.vinance.view.FutureData
+import com.project.vinance.view.GlobalData
+import com.project.vinance.view.recycler.RecycleFuturePosition
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.*
 import java.math.BigDecimal
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.concurrent.timer
 
 /**
  * 소켓을 연결 및 해제하고 데이터를 바인딩 시킨다
@@ -21,6 +28,8 @@ object SimpleSocketClient {
     private const val EXIT_CODE = 1000
     private const val METHOD_SUBSCRIBE = "SUBSCRIBE"
     private const val METHOD_UNSUBSCRIBE = "UNSUBSCRIBE"
+
+    private val TAG = SimpleSocketClient::class.java.simpleName
 
     private var socket: WebSocket? = null
 
@@ -42,6 +51,49 @@ object SimpleSocketClient {
                 "id" : $REQUEST_ID
             }""".trimIndent()
 
+    /**
+     * 데이터로 입력한 코인의 시장가를 추가로 구독함
+     * */
+    fun additionSubscribe() {
+        var result = """
+            {
+                "method" : "$METHOD_SUBSCRIBE",
+                "params" : [
+        """.trimIndent()
+        FutureData.inputDataList.forEachIndexed { index, inputDataDTO ->
+            result += "\"${inputDataDTO.coinName.first.lowercase()}@markPrice@1s\""
+
+            if (index + 1 != FutureData.inputDataList.size) result += ","
+        }
+        result += """
+                ],
+                "id" : $REQUEST_ID
+            }
+        """.trimIndent()
+
+        socket?.send(result)
+    }
+
+    fun additionUnsubscribe() {
+        var result = """
+            {
+                "method" : "$METHOD_UNSUBSCRIBE",
+                "params" : [
+        """.trimIndent()
+        FutureData.inputDataList.forEachIndexed { index, inputDataDTO ->
+            result += "\"${inputDataDTO.coinName.first.lowercase()}@markPrice@1s\""
+
+            if (index + 1 != FutureData.inputDataList.size) result += ","
+        }
+        result += """
+                ],
+                "id" : $REQUEST_ID
+            }
+        """.trimIndent()
+
+        socket?.send(result)
+    }
+
     fun create() {
         val request = Request.Builder().url("wss://fstream.binance.com/ws").build()
 
@@ -50,61 +102,130 @@ object SimpleSocketClient {
         client.dispatcher.executorService.shutdown()
     }
 
+    private var timer: Timer? = null
+    private var changeable = true
+    private const val INTERVAL = 500L
+
     fun start(symbol: String) {
+        Log.d(TAG, "START")
         socket?.send(createMessage(METHOD_SUBSCRIBE, symbol.lowercase()))
+
+        timer(period = 100) {
+            if (Cal.fin) {
+                timer = timer(period = 1000) {
+                    try {
+                        Cal.subCal()
+
+                        futureRecycle?.let { layoutManager ->
+                            for (i in 0 until layoutManager.itemCount) {
+                                val pnl = layoutManager.findViewByPosition(i)?.findViewById<TextView>(R.id.recycle_position_pnl_value)
+                                val roe = layoutManager.findViewByPosition(i)?.findViewById<TextView>(R.id.recycle_position_roe_value)
+
+                                pnl?.let {
+                                    FutureData.inputDataList[i].let {
+                                        if (it.roe < BigDecimal.ZERO) {
+                                            futurePosition!!.toRedColor(pnl, roe!!, null)
+                                        } else {
+                                            futurePosition!!.toGreenColor(pnl, roe!!, null)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                this.cancel()
+            }
+        }
+
+        timer(period = INTERVAL) {
+            changeable = true
+        }
     }
 
     fun pause(symbol: String) {
+        Log.d(TAG, "PAUSE")
         socket?.send(createMessage(METHOD_UNSUBSCRIBE, symbol.lowercase()))
+        timer?.cancel()
+
+        additionUnsubscribe()
     }
 
     fun stop() {
-        socket?.close(EXIT_CODE, null)
+        Log.d(TAG, "STOP")
+//        socket?.close(EXIT_CODE, null)
+        socket = null
+
+        timer?.cancel()
+        futurePosition = null
+        changeable = true
+        Cal.fin = false
     }
 
-    private class SimpleSocket : WebSocketListener() {
-        private val handler by lazy { Handler(Looper.getMainLooper()) }
+    var futurePosition: RecycleFuturePosition? = null
+    var futureRecycle: RecyclerView.LayoutManager? = null
 
+    private class SimpleSocket : WebSocketListener() {
         override fun onOpen(webSocket: WebSocket, response: Response) {
-            println("Socket Open")
+            Log.d(TAG, "Socket Open")
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
             val dto = Gson().fromJson(text, EventNameDTO::class.java)
-
             CoroutineScope(Dispatchers.Main).launch {
                 when (dto.eventName) {
                     "24hrTicker" -> {
                         // 전일대비
                         val ticker = Gson().fromJson(text, SymbolTickerDTO::class.java)
-                        FutureViewModel.apply {
+                        GlobalData.apply {
                             pricePercent.value = BigDecimal(ticker.priceChangePercent)
                         }
-//                        println(ticker)
+//                        Log.d(TAG, ticker)
                     }
                     "aggTrade" -> {
                         val aggTrade = Gson().fromJson(text, AggregateTradeDTO::class.java)
-                        FutureViewModel.apply {
-                            contractPrice.value = BigDecimal(aggTrade.price)
+                        GlobalData.apply {
+                            if (changeable) {
+                                contractPrice.value = BigDecimal(aggTrade.price)
+                                changeable = false
+                            }
                         }
-//                        println(aggTrade)
+//                        Log.d(TAG, aggTrade)
                     }
                     "markPriceUpdate" -> {
                         // 펀딩, 카운트다운, 시장가
                         val markPrice = Gson().fromJson(text, MarkPriceDTO::class.java)
+//                        Log.d(TAG, "$markPrice")
 
-                        FutureViewModel.let {
+                        GlobalData.let { it ->
                             it.fundingRate.value = BigDecimal(markPrice.fundingRate)
                             it.fundingTime.value = markPrice.nextFundingTime
 
-                            it.markPrice.value = BigDecimal(markPrice.markPrice)
+                            if (markPrice.symbol == it.showCoin.value!! + it.showTether.value!!) {
+                                it.markPrice.value = BigDecimal(markPrice.markPrice)
+                            }
+
+                            FutureData.inputDataList.filter { it.coinName.first == markPrice.symbol }.forEach {
+                                it.marketPrice = BigDecimal(markPrice.markPrice)
+                            }
+
+
+                            futurePosition?.change()
+//                            it.inputDataList.find { it.coinName.first == markPrice.symbol }?.marketPrice = BigDecimal(markPrice.markPrice)
+
+//                            val index = it.inputDataList.indexOfFirst { it.coinName.first == markPrice.symbol }
+//                            futurePosition?.change(index)
+
+//                            Log.d(TAG, "RESULT: ${FutureViewModel.inputDataList}")
                         }
-//                        println(markPrice)
+//                        Log.d(TAG, "OK")
                     }
                     "depthUpdate" -> {
                         val depth = Gson().fromJson(text, PartialBookDepthDTO::class.java)
 
-                        FutureViewModel.apply {
+                        GlobalData.apply {
                             bidsAndAsks.value = Pair(
                                 depth.bidsUpdated.map {
                                     Pair(it[0], it[1])
@@ -115,14 +236,14 @@ object SimpleSocketClient {
                             )
 //                            asks.value = depth.asksUpdated.map { Pair(it[0], it[1]) }
                         }
-//                        println(depth)
+//                        Log.d(TAG, depth)
                     }
                 }
             }
         }
 
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-            println("Socket Closed")
+            Log.d(TAG, "Socket Closed")
         }
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {

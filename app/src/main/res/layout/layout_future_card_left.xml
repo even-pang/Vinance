@@ -154,7 +154,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="9dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/background_primary"
         android:paddingVertical="8dp">
 
@@ -194,6 +195,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/future_view_type_coin"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:text="BTC"
+            android:layout_marginEnd="1px"
+            android:fontFamily="@font/plex_regular"
+            android:textColor="@color/white"
+            android:background="@color/card_btn_normal"
+            android:textSize="@dimen/text_normal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/future_view_type_tether"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:text="USDT"
+            android:layout_marginStart="1px"
+            android:background="@color/card_btn_normal"
+            android:fontFamily="@font/plex_regular"
+            android:textColor="#434C5A"
+            android:textSize="@dimen/text_normal"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -1,498 +1,501 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.fragment.wallet.WalletFutureFragment">
-
-    <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:context=".view.fragment.wallet.WalletFutureFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_card_top"
-            android:paddingTop="25dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/_wallet_future_usds_m"
-                style="@style/NormalTabText"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/background_secondary"
-                android:paddingHorizontal="8dp"
-                android:text="@string/usds_m"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                style="@style/NormalTabText"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:layout_marginStart="16dp"
-                android:paddingHorizontal="8dp"
-                android:text="@string/coin_m"
-                app:layout_constraintStart_toEndOf="@id/_wallet_future_usds_m"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_convert_history"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/_wallet_future_total_balance"
-                style="@style/TextUnderlineDashed"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="총 잔고 (USD)"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_usds_m" />
-
-            <ImageView
-                android:layout_width="27dp"
-                android:layout_height="27dp"
-                android:paddingHorizontal="5dp"
-                android:src="@drawable/ic_wallet_eye_open"
-                app:layout_constraintBottom_toBottomOf="@id/_wallet_future_total_balance"
-                app:layout_constraintStart_toEndOf="@id/_wallet_future_total_balance"
-                app:layout_constraintTop_toTopOf="@id/_wallet_future_total_balance" />
-
-            <TextView
-                android:id="@+id/wallet_future_title_value"
-                style="@style/TitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="2dp"
-                android:text="0.0000"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_balance" />
-
-            <TextView
-                android:id="@+id/wallet_future_subtitle_value"
-                style="@style/NormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="≈ $0.000000"
-                app:layout_constraintBottom_toBottomOf="@id/wallet_future_title_value"
-                app:layout_constraintStart_toEndOf="@id/wallet_future_title_value"
-                app:layout_constraintTop_toTopOf="@id/wallet_future_title_value" />
-
-            <TextView
-                android:id="@+id/_wallet_future_analysis"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/card_btn_normal"
-                android:gravity="center"
-                android:paddingHorizontal="8dp"
-                android:text="@string/pnl_analysis"
-                android:textColor="@color/selected"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/wallet_future_title_value" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="#223C3D"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@id/_wallet_future_analysis"
-                app:layout_constraintStart_toEndOf="@id/_wallet_future_analysis"
-                app:layout_constraintTop_toTopOf="@id/_wallet_future_analysis">
+                android:background="@drawable/border_card_top"
+                android:paddingTop="25dp">
 
                 <TextView
+                    android:id="@+id/_wallet_future_usds_m"
+                    style="@style/NormalTabText"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="9dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/background_secondary"
+                    android:paddingHorizontal="8dp"
+                    android:text="@string/usds_m"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/NormalTabText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="16dp"
+                    android:paddingHorizontal="8dp"
+                    android:text="@string/coin_m"
+                    app:layout_constraintStart_toEndOf="@id/_wallet_future_usds_m"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_convert_history"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/_wallet_future_total_balance"
+                    style="@style/TextUnderlineDashed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="총 잔고 (USD)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_usds_m" />
+
+                <ImageView
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:paddingHorizontal="5dp"
+                    android:src="@drawable/ic_wallet_eye_open"
+                    app:layout_constraintBottom_toBottomOf="@id/_wallet_future_total_balance"
+                    app:layout_constraintStart_toEndOf="@id/_wallet_future_total_balance"
+                    app:layout_constraintTop_toTopOf="@id/_wallet_future_total_balance" />
+
+                <TextView
+                    android:id="@+id/wallet_future_title_value"
+                    style="@style/TitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:text="0.0000"
+                    android:textSize="30sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_balance" />
+
+                <TextView
+                    android:id="@+id/wallet_future_subtitle_value"
+                    style="@style/NormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="≈ $0.000000"
+                    app:layout_constraintBottom_toBottomOf="@id/wallet_future_title_value"
+                    app:layout_constraintStart_toEndOf="@id/wallet_future_title_value"
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_title_value" />
+
+                <TextView
+                    android:id="@+id/_wallet_future_analysis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/card_btn_normal"
                     android:gravity="center"
-                    android:text="0 수익 기간"
-                    android:textColor="#00C087"
+                    android:paddingHorizontal="8dp"
+                    android:text="@string/pnl_analysis"
+                    android:textColor="@color/selected"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_title_value" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:background="#223C3D"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="@id/_wallet_future_analysis"
                     app:layout_constraintStart_toEndOf="@id/_wallet_future_analysis"
-                    app:layout_constraintTop_toTopOf="@id/_wallet_future_analysis" />
+                    app:layout_constraintTop_toTopOf="@id/_wallet_future_analysis">
 
-                <ImageView
-                    android:layout_width="9dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="2dp"
-                    android:src="@drawable/ic_arrow_right_flat"
-                    app:tint="#00C087" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/wallet_future_revenue_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="9dp"
+                        android:gravity="center"
+                        android:text="0 수익 기간"
+                        android:textColor="#00C087"
+                        app:layout_constraintBottom_toBottomOf="@id/_wallet_future_analysis"
+                        app:layout_constraintStart_toEndOf="@id/_wallet_future_analysis"
+                        app:layout_constraintTop_toTopOf="@id/_wallet_future_analysis" />
 
-            <View
-                android:id="@+id/_wallet_border_1"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="16dp"
-                android:background="@color/border_color"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_analysis" />
+                    <ImageView
+                        android:layout_width="9dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="2dp"
+                        android:src="@drawable/ic_arrow_right_flat"
+                        app:tint="#00C087" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/_wallet_future_margin_balance"
-                style="@style/TextUnderlineDashed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="11dp"
-                android:text="마진 잔고 (USD)"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_border_1" />
-
-            <TextView
-                android:id="@+id/wallet_future_margin_balance_value"
-                style="@style/SecondTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="3dp"
-                android:text="0.0000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_margin_balance" />
-
-            <TextView
-                android:id="@+id/wallet_future_margin_balance_value_second"
-                style="@style/NormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="≈ $0.000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/wallet_future_margin_balance_value" />
-
-            <View
-                android:id="@+id/_wallet_border_2"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="11dp"
-                android:background="@color/border_color"
-                app:layout_constraintTop_toBottomOf="@id/wallet_future_margin_balance_value_second" />
-
-            <TextView
-                android:id="@+id/_wallet_future_total_unrealized_pnl"
-                style="@style/TextUnderlineDashed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="11dp"
-                android:text="총 미실현 PNL (USD)"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_border_2" />
-
-            <TextView
-                android:id="@+id/wallet_future_total_unrealized_pnl_value"
-                style="@style/SecondTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="3dp"
-                android:text="0.0000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_unrealized_pnl" />
-
-            <TextView
-                android:id="@+id/wallet_future_total_unrealized_pnl_value_second"
-                style="@style/NormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="≈ $0.000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/wallet_future_total_unrealized_pnl_value" />
-
-            <View
-                android:id="@+id/_wallet_border_3"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="11dp"
-                android:background="@color/border_color"
-                app:layout_constraintTop_toBottomOf="@id/wallet_future_total_unrealized_pnl_value_second" />
-
-            <TextView
-                android:id="@+id/_wallet_future_total_borrowed"
-                style="@style/TextUnderlineDashed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="11dp"
-                android:text="총 차용된 (USD)"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_border_3" />
-
-            <TextView
-                android:id="@+id/wallet_future_total_borrowed_value"
-                style="@style/SecondTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="3dp"
-                android:text="0.0000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_borrowed" />
-
-            <TextView
-                android:id="@+id/wallet_future_total_borrowed_value_second"
-                style="@style/NormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="≈ $0.000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/wallet_future_total_borrowed_value" />
-
-            <View
-                android:id="@+id/_wallet_border_4"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="11dp"
-                android:background="@color/border_color"
-                app:layout_constraintTop_toBottomOf="@id/wallet_future_total_borrowed_value_second" />
-
-            <View
-                android:id="@+id/_wallet_border_v"
-                android:layout_width="1px"
-                android:layout_height="0dp"
-                android:background="@color/border_color"
-                app:layout_constraintBottom_toBottomOf="@id/_wallet_border_4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/_wallet_border_1" />
-
-            <TextView
-                android:id="@+id/_wallet_future_wallet_balance"
-                style="@style/TextUnderlineDashed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="11dp"
-                android:text="지갑 잔고 (USD)"
-                app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_border_1" />
-
-            <TextView
-                android:id="@+id/wallet_future_wallet_balance_value"
-                style="@style/SecondTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="3dp"
-                android:text="0.0000"
-                app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_wallet_balance" />
-
-            <TextView
-                android:id="@+id/wallet_future_wallet_balance_value_second"
-                style="@style/NormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="≈ $0.000000"
-                app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                app:layout_constraintTop_toBottomOf="@id/wallet_future_wallet_balance_value" />
-
-            <TextView
-                android:id="@+id/_wallet_future_total_cross_collateral"
-                style="@style/TextUnderlineDashed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="11dp"
-                android:text="총 교차 담보 (USD)"
-                app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_border_2" />
-
-            <TextView
-                android:id="@+id/_wallet_future_total_cross_collateral_value"
-                style="@style/SecondTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="3dp"
-                android:text="0.0000"
-                app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_cross_collateral" />
-
-            <TextView
-                android:id="@+id/_wallet_future_total_cross_collateral_value_second"
-                style="@style/NormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="≈ $0.000000"
-                app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_cross_collateral_value" />
-
-            <TextView
-                android:id="@+id/_wallet_future_total_interest"
-                style="@style/TextUnderlineDashed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="11dp"
-                android:text="총 이자 (USD)"
-                app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_border_3" />
-
-            <TextView
-                android:id="@+id/_wallet_future_total_interest_value"
-                style="@style/SecondTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="3dp"
-                android:text="0.0000"
-                app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_interest" />
-
-            <TextView
-                android:id="@+id/_wallet_future_total_interest_value_second"
-                style="@style/NormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="≈ $0.000000"
-                app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_interest_value" />
-
-            <TextView
-                android:id="@+id/wallet_future_borrow_repay"
-                style="@style/ButtonText"
-                android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:layout_marginVertical="16dp"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/background_secondary"
-                android:gravity="center"
-                android:text="@string/borrow_repay"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/_wallet_between_1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_border_4" />
-
-            <Space
-                android:id="@+id/_wallet_between_1"
-                android:layout_width="8dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@id/wallet_future_borrow_repay"
-                app:layout_constraintEnd_toStartOf="@id/wallet_future_convert"
-                app:layout_constraintStart_toEndOf="@id/wallet_future_borrow_repay"
-                app:layout_constraintTop_toTopOf="@id/wallet_future_borrow_repay" />
-
-            <TextView
-                android:id="@+id/wallet_future_convert"
-                style="@style/ButtonText"
-                android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:background="@drawable/background_secondary"
-                android:gravity="center"
-                android:text="@string/convert"
-                app:layout_constraintEnd_toStartOf="@id/_wallet_between_2"
-                app:layout_constraintStart_toEndOf="@id/_wallet_between_1"
-                app:layout_constraintTop_toTopOf="@id/wallet_future_borrow_repay" />
-
-            <Space
-                android:id="@+id/_wallet_between_2"
-                android:layout_width="8dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@id/wallet_future_convert"
-                app:layout_constraintEnd_toStartOf="@id/wallet_future_transfer"
-                app:layout_constraintStart_toEndOf="@id/wallet_future_convert"
-                app:layout_constraintTop_toTopOf="@id/wallet_future_convert" />
-
-            <TextView
-                android:id="@+id/wallet_future_transfer"
-                style="@style/ButtonText"
-                android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/background_secondary"
-                android:gravity="center"
-                android:text="@string/transfer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/_wallet_between_2"
-                app:layout_constraintTop_toTopOf="@id/wallet_future_convert" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@color/card_color">
-
-            <LinearLayout
-                android:id="@+id/_wallet_future_notice"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/background_secondary"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp"
-                app:layout_constraintTop_toTopOf="parent">
+                <View
+                    android:id="@+id/_wallet_border_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/border_color"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_analysis" />
 
                 <TextView
+                    android:id="@+id/_wallet_future_margin_balance"
+                    style="@style/TextUnderlineDashed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:text="마진 잔고 (USD)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_1" />
+
+                <TextView
+                    android:id="@+id/wallet_future_margin_balance_value"
+                    style="@style/SecondTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:text="0.0000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_margin_balance" />
+
+                <TextView
+                    android:id="@+id/wallet_future_margin_balance_value_second"
+                    style="@style/NormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="≈ $0.000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_margin_balance_value" />
+
+                <View
+                    android:id="@+id/_wallet_border_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="11dp"
+                    android:background="@color/border_color"
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_margin_balance_value_second" />
+
+                <TextView
+                    android:id="@+id/_wallet_future_total_unrealized_pnl"
+                    style="@style/TextUnderlineDashed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:text="총 미실현 PNL (USD)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_2" />
+
+                <TextView
+                    android:id="@+id/wallet_future_total_unrealized_pnl_value"
+                    style="@style/SecondTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:text="0.0000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_unrealized_pnl" />
+
+                <TextView
+                    android:id="@+id/wallet_future_total_unrealized_pnl_value_second"
+                    style="@style/NormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="≈ $0.000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_total_unrealized_pnl_value" />
+
+                <View
+                    android:id="@+id/_wallet_border_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="11dp"
+                    android:background="@color/border_color"
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_total_unrealized_pnl_value_second" />
+
+                <TextView
+                    android:id="@+id/_wallet_future_total_borrowed"
+                    style="@style/TextUnderlineDashed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:text="총 차용된 (USD)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_3" />
+
+                <TextView
+                    android:id="@+id/wallet_future_total_borrowed_value"
+                    style="@style/SecondTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:text="0.0000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_borrowed" />
+
+                <TextView
+                    android:id="@+id/wallet_future_total_borrowed_value_second"
+                    style="@style/NormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="≈ $0.000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_total_borrowed_value" />
+
+                <View
+                    android:id="@+id/_wallet_border_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="11dp"
+                    android:background="@color/border_color"
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_total_borrowed_value_second" />
+
+                <View
+                    android:id="@+id/_wallet_border_v"
+                    android:layout_width="1px"
+                    android:layout_height="0dp"
+                    android:background="@color/border_color"
+                    app:layout_constraintBottom_toBottomOf="@id/_wallet_border_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/_wallet_border_1" />
+
+                <TextView
+                    android:id="@+id/_wallet_future_wallet_balance"
+                    style="@style/TextUnderlineDashed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:text="지갑 잔고 (USD)"
+                    app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_1" />
+
+                <TextView
+                    android:id="@+id/wallet_future_wallet_balance_value"
+                    style="@style/SecondTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:text="0.0000"
+                    app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_wallet_balance" />
+
+                <TextView
+                    android:id="@+id/wallet_future_wallet_balance_value_second"
+                    style="@style/NormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="≈ $0.000000"
+                    app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_wallet_balance_value" />
+
+                <TextView
+                    android:id="@+id/_wallet_future_total_cross_collateral"
+                    style="@style/TextUnderlineDashed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:text="총 교차 담보 (USD)"
+                    app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_2" />
+
+                <TextView
+                    android:id="@+id/_wallet_future_total_cross_collateral_value"
+                    style="@style/SecondTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:text="0.0000"
+                    app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_cross_collateral" />
+
+                <TextView
+                    android:id="@+id/_wallet_future_total_cross_collateral_value_second"
+                    style="@style/NormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="≈ $0.000000"
+                    app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_cross_collateral_value" />
+
+                <TextView
+                    android:id="@+id/_wallet_future_total_interest"
+                    style="@style/TextUnderlineDashed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:text="총 이자 (USD)"
+                    app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_3" />
+
+                <TextView
+                    android:id="@+id/_wallet_future_total_interest_value"
+                    style="@style/SecondTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:text="0.0000"
+                    app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_interest" />
+
+                <TextView
+                    android:id="@+id/_wallet_future_total_interest_value_second"
+                    style="@style/NormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="≈ $0.000000"
+                    app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_interest_value" />
+
+                <TextView
+                    android:id="@+id/wallet_future_borrow_repay"
                     style="@style/ButtonText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_marginVertical="16dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/background_secondary"
+                    android:gravity="center"
+                    android:text="@string/borrow_repay"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/_wallet_between_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_4" />
+
+                <Space
+                    android:id="@+id/_wallet_between_1"
+                    android:layout_width="8dp"
                     android:layout_height="wrap_content"
-                    android:text="수수료로 BNB 사용 (10% 할인)"
-                    android:textSize="10sp" />
+                    app:layout_constraintBottom_toBottomOf="@id/wallet_future_borrow_repay"
+                    app:layout_constraintEnd_toStartOf="@id/wallet_future_convert"
+                    app:layout_constraintStart_toEndOf="@id/wallet_future_borrow_repay"
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_borrow_repay" />
 
-                <ImageView
-                    android:layout_marginStart="11dp"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@drawable/ic_info" />
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/wallet_future_convert"
+                    style="@style/ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/background_secondary"
+                    android:gravity="center"
+                    android:text="@string/convert"
+                    app:layout_constraintEnd_toStartOf="@id/_wallet_between_2"
+                    app:layout_constraintStart_toEndOf="@id/_wallet_between_1"
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_borrow_repay" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/wallet_future_inner_tab"
-                style="@style/TabStyle"
+                <Space
+                    android:id="@+id/_wallet_between_2"
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/wallet_future_convert"
+                    app:layout_constraintEnd_toStartOf="@id/wallet_future_transfer"
+                    app:layout_constraintStart_toEndOf="@id/wallet_future_convert"
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_convert" />
+
+                <TextView
+                    android:id="@+id/wallet_future_transfer"
+                    style="@style/ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/background_secondary"
+                    android:gravity="center"
+                    android:text="@string/transfer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/_wallet_between_2"
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_convert" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="16dp"
-                android:background="#202732"
-                app:layout_constraintTop_toBottomOf="@id/_wallet_future_notice">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@color/card_color">
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="포지션" />
+                <LinearLayout
+                    android:id="@+id/_wallet_future_notice"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/background_secondary"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="자산" />
+                    <TextView
+                        style="@style/ButtonText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="수수료로 BNB 사용 (10% 할인)"
+                        android:textSize="10sp" />
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="담보" />
-            </com.google.android.material.tabs.TabLayout>
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginStart="11dp"
+                        android:src="@drawable/ic_info" />
+                </LinearLayout>
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:nestedScrollingEnabled="false"
-                android:id="@+id/wallet_future_inner_pager"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                app:layout_constraintTop_toBottomOf="@id/wallet_future_inner_tab" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/wallet_future_inner_tab"
+                    style="@style/TabStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#202732"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_notice">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="포지션" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="자산" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="담보" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/wallet_future_inner_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_inner_tab" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

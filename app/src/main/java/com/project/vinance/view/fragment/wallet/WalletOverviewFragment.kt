@@ -1,15 +1,19 @@
 package com.project.vinance.view.fragment.wallet
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.project.vinance.R
+import com.project.vinance.databinding.FragmentWalletOverviewBinding
+import com.project.vinance.view.WalletData
 import com.project.vinance.view.implementation.TextChangeListenable
 import com.project.vinance.view.sub.OverViewBot
 import com.project.vinance.view.sub.OverViewTop
+import java.math.RoundingMode
 import java.text.DecimalFormat
 
 class WalletOverviewFragment : Fragment(), TextChangeListenable {
@@ -27,6 +31,8 @@ class WalletOverviewFragment : Fragment(), TextChangeListenable {
                 putString(COIN_UNIT, "BTC")
             }
         }
+
+        private val TAG = WalletOverviewFragment::class.java.simpleName
     }
 
     /** first : top, second : bottom */
@@ -41,15 +47,47 @@ class WalletOverviewFragment : Fragment(), TextChangeListenable {
     }
 
     private val coinUnit: String by lazy { arguments?.getString(COIN_UNIT) ?: "" }
+    private var itemView: View? = null
+    private var _binding: FragmentWalletOverviewBinding? = null
 
     override fun changeText(resId: Int, data: String?) {
-        activity?.findViewById<TextView>(resId)?.text = data
+        itemView?.let { itemView ->
+            val totalLeft: TextView = itemView.findViewById(R.id.wallet_overview_title_value)
+            val totalRight: TextView = itemView.findViewById(R.id.wallet_overview_subtitle_value)
+            val cashTop: TextView = itemView.findViewById(R.id.wallet_overview_portfolio_0)
+            val cashBot: TextView = itemView.findViewById(R.id.wallet_overview_portfolio_0_sub)
+            val futureTop: TextView = itemView.findViewById(R.id.wallet_overview_portfolio_3)
+            val futureBot: TextView = itemView.findViewById(R.id.wallet_overview_portfolio_3_sub)
+
+
+            WalletData.run {
+                Log.d(TAG, "changeText: ${totalOverviewValue},${overviewCash},${overviewUsdsFuture}")
+                totalLeft.text = totalOverviewValue.first.setScale(8, RoundingMode.HALF_UP).toPlainString()
+                totalRight.text = "≈ \$${totalOverviewValue.second.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+
+                cashTop.text = "${overviewCash.first.setScale(8, RoundingMode.HALF_UP).toPlainString()}BTC"
+                cashBot.text = "≈ \$${overviewCash.second.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+
+                futureTop.text = "${overviewUsdsFuture.first.setScale(8, RoundingMode.HALF_UP).toPlainString()}BTC"
+                futureBot.text = "≈ \$${overviewUsdsFuture.second.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+            }
+        }
+    }
+
+    fun subTotalChange() {
+        itemView?.let { itemView ->
+            val totalRight: TextView = itemView.findViewById(R.id.wallet_overview_subtitle_value)
+
+            totalRight.text = "≈ \$${WalletData.totalOverviewValue.second.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_wallet_overview, container, false)
+        _binding = FragmentWalletOverviewBinding.inflate(inflater)
 
         portfolioView = listOf(
+            Pair(view.findViewById(R.id.wallet_overview_title_value), view.findViewById(R.id.wallet_overview_subtitle_value)),
             Pair(view.findViewById(R.id.wallet_overview_portfolio_0), view.findViewById(R.id.wallet_overview_portfolio_0_sub)),
             Pair(view.findViewById(R.id.wallet_overview_portfolio_1), view.findViewById(R.id.wallet_overview_portfolio_1_sub)),
             Pair(view.findViewById(R.id.wallet_overview_portfolio_2), view.findViewById(R.id.wallet_overview_portfolio_2_sub)),
@@ -61,14 +99,22 @@ class WalletOverviewFragment : Fragment(), TextChangeListenable {
             Pair(view.findViewById(R.id.wallet_overview_portfolio_8), view.findViewById(R.id.wallet_overview_portfolio_8_sub)),
             Pair(view.findViewById(R.id.wallet_overview_portfolio_9), view.findViewById(R.id.wallet_overview_portfolio_9_sub)),
         )
+        itemView = view
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        itemView = view
 
         init()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
     }
 
     private fun init() {

@@ -91,7 +91,6 @@
             android:id="@+id/future_pager"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:background="@color/card_color"
-            android:paddingHorizontal="10dp" />
+            android:background="@color/card_color" />
     </LinearLayout>
 </com.project.vinance.view.sub.StickScrollView>
