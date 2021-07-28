@@ -52,7 +52,7 @@ public class Cal {
                                 leverage, MathContext.DECIMAL128).multiply(BigDecimal.TEN)
                 );
 
-                BigDecimal maintenanceMargin = marketPrice.multiply(liqMaintenanceMarginPer.divide(back, MathContext.DECIMAL128).multiply(size, MathContext.DECIMAL128), MathContext.DECIMAL128);
+                BigDecimal maintenanceMargin = maintenanceMarginPer(symbol, marketPrice.multiply(size));
                 instance.getInputDataList().get(i).setMaintenanceMargin(maintenanceMargin);
                 BigDecimal margin = instance.getInputDataList().get(i).getMargin();
                 BigDecimal pnl = instance.getInputDataList().get(i).getPnl();
@@ -141,7 +141,7 @@ public class Cal {
             BigDecimal back = new BigDecimal("100");
             BigDecimal MarketPrice = getMarketPrice(symbol);
             BigDecimal liqMaintenanceMarginPer = maintenanceMarginPer(symbol, EntryPrice.multiply(size).divide(leverage, MathContext.DECIMAL128));
-            BigDecimal maintenanceMargin = MarketPrice.multiply(liqMaintenanceMarginPer.divide(back, MathContext.DECIMAL128).multiply(size, MathContext.DECIMAL128), MathContext.DECIMAL128);
+            BigDecimal maintenanceMargin = maintenanceMarginPer(symbol, MarketPrice.multiply(size));
             BigDecimal margin = instance.getInputDataList().get(i).getMargin();
             BigDecimal pnl = instance.getInputDataList().get(i).getPnl();
 
