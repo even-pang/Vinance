@@ -2,6 +2,7 @@ package com.project.vinance.view.fragment.future
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.project.vinance.R
 import com.project.vinance.client.model.market.OrderBookEntry
 import com.project.vinance.databinding.FragmentFutureBinding
+import com.project.vinance.network.rest.vo.ExchangeInfoDTO
 import com.project.vinance.network.socket.SocketClient
 import com.project.vinance.view.FutureData
 import com.project.vinance.view.GlobalData
@@ -34,6 +36,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
+import java.math.MathContext
 import java.math.RoundingMode
 import java.util.*
 
@@ -63,6 +66,8 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
         }
 
         private var closeData = BigDecimal.ZERO
+
+        private val TAG: String = FutureFragment::class.java.simpleName
     }
 
     private val coinType: String by lazy { arguments?.getString(COIN_TYPE) ?: "ERR" }
@@ -208,7 +213,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
 
     private var _binding: FragmentFutureBinding? = null
     private val binding get() = _binding!!
-    private val viewModel = GlobalData
+    private val global = GlobalData
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentFutureBinding.inflate(inflater, container, false)
@@ -246,7 +251,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
 
 
             // usdt
-            viewModel.showTether.observe(requireActivity()) {
+            global.showTether.observe(requireActivity()) {
                 binding.topTitle.futureTitleTether.text = it
                 binding.cardRight.futurePriceTether.text = it
                 binding.cardLeft.futureTypeMarketCostTether.text = it
@@ -254,7 +259,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
                 binding.cardLeft.futureViewTypeTether.text = it
             }
             // btc
-            viewModel.showCoin.observe(requireActivity()) {
+            global.showCoin.observe(requireActivity()) {
                 binding.topTitle.futureTitleCoin.text = it
                 binding.cardRight.futureAmountCoin.text = it
                 binding.cardLeft.futureTypeMarketPriceCoin.text = it
@@ -262,7 +267,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
                 binding.cardLeft.futureViewTypeCoin.text = it
             }
             // 전일대비
-            viewModel.pricePercent.observe(requireActivity()) {
+            global.pricePercent.observe(requireActivity()) {
                 val component = binding.topTitle.futureTitlePercentage
                 val change: String = if (it > BigDecimal.ZERO) { // 0보다 큼
                     component.setTextColor(requireActivity().getColor(R.color.buy_color))
@@ -279,14 +284,14 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
             }
 
             // 펀딩
-            viewModel.fundingRate.observe(requireActivity()) {
+            global.fundingRate.observe(requireActivity()) {
                 val component = binding.cardTop.futureFunding
                 val fundingPercent = (it * BigDecimal(100)).setScale(4, RoundingMode.HALF_UP).toPlainString()
 
                 component.text = fundingPercent + "%"
             }
             // 카운트다운
-            viewModel.fundingTime.observe(requireActivity()) {
+            global.fundingTime.observe(requireActivity()) {
                 val remaining = it - System.currentTimeMillis()
                 binding.cardTop.futureCountdown.text = StringBuilder().run {
                     append(String.format(Locale.getDefault(), "%02d", remaining / 3600000))
@@ -298,18 +303,32 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
             }
 
             // 현재가
-            binding.cardRight.futureOrderBookScale.text = BigDecimal(1).movePointLeft(viewModel.contractPrice.value!!.scale()).toPlainString()
-            viewModel.contractPrice.observe(requireActivity()) {
+            FutureData.exchangeInfo?.let { exchange ->
+                exchange.symbols.find { it.symbol == global.showCoin.value!! + global.showTether.value!! }?.let {
+                    val decimal = BigDecimal(it.filters[0].tickSize).stripTrailingZeros()
+//                    val scale = BigDecimal(it.filters[0].tickSize).stripTrailingZeros().toPlainString().split(".")[1].length
+                    binding.cardRight.futureOrderBookScale.text = decimal.toPlainString()
+                }
+            }
+            //binding.cardRight.futureOrderBookScale.text = BigDecimal(1).movePointLeft(global.contractPrice.value!!.scale()).toPlainString()
+            global.contractPrice.observe(requireActivity()) { decimal ->
                 val component = binding.cardRight.futureContractPrice
                 val before = BigDecimal(component.text.toString())
+                FutureData.exchangeInfo?.let { exchange ->
+                    exchange.symbols.find { it.symbol == global.showCoin.value!! + global.showTether.value!! }?.let {
+                        val scale = BigDecimal(it.filters[0].tickSize).stripTrailingZeros().toPlainString().split(".")[1].length
+                        component.text = decimal.setScale(scale, RoundingMode.HALF_UP).toPlainString()
+                    }
+                }
+//                val find = global.coinList.find { e -> e == global.showCoin.value ?: "" + global.showTether }
 
-                component.text = it.toPlainString()
+//                component.text = it.toPlainString()
 
                 when {
-                    before > it -> { // 가격이 떨어짐
+                    before > decimal -> { // 가격이 떨어짐
                         component.setTextColor(requireActivity().getColor(R.color.sell_color))
                     }
-                    before < it -> { // 가격이 올라감
+                    before < decimal -> { // 가격이 올라감
                         component.setTextColor(requireActivity().getColor(R.color.buy_color))
                     }
                     else -> { // 가격이 동일함
@@ -322,8 +341,14 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
             binding.cardTop.futureLeverage.text = String.format("%dx", FutureData.scale.toInt())
 
             // 시장가
-            viewModel.markPrice.observe(requireActivity()) {
-                binding.cardRight.futureOrderBookMarketPrice.text = it.setScale(viewModel.contractPrice.value!!.scale(), RoundingMode.HALF_UP).toPlainString()
+            global.markPrice.observe(requireActivity()) { decimal ->
+                FutureData.exchangeInfo?.let { exchange ->
+                    exchange.symbols.find { it.symbol == global.showCoin.value!! + global.showTether.value!! }?.let {
+                        val scale = BigDecimal(it.filters[0].tickSize).stripTrailingZeros().toPlainString().split(".")[1].length
+                        binding.cardRight.futureOrderBookMarketPrice.text = decimal.setScale(scale, RoundingMode.HALF_UP).toPlainString()
+                    }
+                }
+//                binding.cardRight.futureOrderBookMarketPrice.text = decimal.setScale(global.contractPrice.value!!.scale(), RoundingMode.HALF_UP).toPlainString()
             }
 
             // 사용 가능
@@ -333,7 +358,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
             }*/
 
             // 파랑-초록 호가
-            viewModel.bidsAndAsks.observe(requireActivity()) {
+            global.bidsAndAsks.observe(requireActivity()) {
                 val bids = listOf(
                     Pair(binding.cardRight.futureBuy1Left, binding.cardRight.futureBuy1Right),
                     Pair(binding.cardRight.futureBuy2Left, binding.cardRight.futureBuy2Right),
@@ -376,15 +401,27 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
 //            val bid = bids[i].price * bidSum[i] / max * BigDecimal(1000)
 
                 // 가격, 금액 입력
+
+                val scale: Int
+                if (FutureData.exchangeInfo != null) {
+                    val exchange = FutureData.exchangeInfo!!;
+                    val find = exchange.symbols.find { it.symbol == global.showCoin.value!! + global.showTether.value!! }
+                    scale = if (find != null) {
+                        BigDecimal(find.filters[0].tickSize).stripTrailingZeros().toPlainString().split(".")[1].length
+                    } else {
+                        1;
+                    }
+                } else {
+                    scale = 1
+                }
                 for (i in bids.indices) {
-                    val bidPrice = it.first[i].first
-                    val bidQty = it.first[i].second
-                    val askPrice = it.second[i].first
-                    val askQty = it.second[i].second
+                    val bidPrice = BigDecimal(it.first[i].first).setScale(scale, RoundingMode.HALF_UP).toPlainString()
+                    val bidQty = BigDecimal(it.first[i].second).setScale(scale, RoundingMode.HALF_UP).toPlainString()
+                    val askPrice = BigDecimal(it.second[i].first).setScale(scale, RoundingMode.HALF_UP).toPlainString()
+                    val askQty = BigDecimal(it.second[i].second).setScale(scale, RoundingMode.HALF_UP).toPlainString()
 
                     bids[i].first.text = bidPrice
                     bids[i].second.text = bidQty
-
                     asks[i].first.text = askPrice
                     asks[i].second.text = askQty
 
@@ -415,12 +452,22 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
             }
             val roundQuantity = dto?.quantityPrecision ?: 0
             val roundPrice = dto?.pricePrecision ?: 0
-            viewModel.contractPriceLeft.observe(requireActivity()) {
-                binding.cardLeft.futureTypePrice.text = it.setScale(roundPrice, RoundingMode.HALF_UP).toPlainString()
+            global.contractPriceLeft.observe(requireActivity()) { decimal ->
+                var newDecimal: BigDecimal = decimal;
+                FutureData.exchangeInfo?.let { exchange ->
+                    exchange.symbols.find { it.symbol == global.showCoin.value!! + global.showTether.value!! }?.let {
+                        val scale = BigDecimal(it.filters[0].tickSize).stripTrailingZeros().toPlainString().split(".")[1].length
+                        newDecimal = decimal.setScale(scale, RoundingMode.HALF_UP)
 
+                        binding.cardLeft.futureTypePrice.text = newDecimal.toPlainString()
+                    }
+                }
+//                binding.cardLeft.futureTypePrice.text = it.setScale(roundPrice, RoundingMode.HALF_UP).toPlainString()
+
+                if (decimal != BigDecimal.ZERO) Log.d(TAG, "initBinding: ${FutureData.futureBalance}, $decimal ${FutureData.scale}, $roundQuantity")
                 // 최대비용 계산
-                if (it != BigDecimal.ZERO) binding.cardLeft.mainTypeMarketMaxValue.text =
-                    (FutureData.futureBalance / it * FutureData.scale).setScale(roundQuantity, RoundingMode.HALF_UP).toPlainString()
+                if (decimal != BigDecimal.ZERO) binding.cardLeft.mainTypeMarketMaxValue.text =
+                    (FutureData.futureBalance.divide(decimal, MathContext.DECIMAL128) * FutureData.scale).setScale(roundQuantity, RoundingMode.HALF_UP).toPlainString()
             }
         }
     }

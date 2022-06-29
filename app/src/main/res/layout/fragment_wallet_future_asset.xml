@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="@id/_wallet_future_asset_menu"
         app:layout_constraintBottom_toBottomOf="@id/_wallet_future_asset_menu"
         app:layout_constraintStart_toEndOf="@id/_wallet_future_asset_menu"
-        android:text="없는 잔고 숨기기" />
+        android:text="Hide 0 Balances" />
 
     <androidx.recyclerview.widget.RecyclerView
         tools:itemCount="3"

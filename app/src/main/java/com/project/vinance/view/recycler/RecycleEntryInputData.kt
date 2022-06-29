@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.vinance.R
 import com.project.vinance.databinding.RecyclerInputDataBinding
 import com.project.vinance.view.sub.InputDataDTO
+import java.util.logging.Logger
 
 class RecycleEntryInputData(private val coinList: List<String>, private val recyclerManager: RecyclerView.LayoutManager) :
     RecyclerView.Adapter<RecycleEntryInputData.ViewHolder>() {
@@ -26,7 +27,9 @@ class RecycleEntryInputData(private val coinList: List<String>, private val recy
         init {
             binding.recyclerCoinTypeButton.setOnClickListener {
                 val editText = binding.recyclerCoinTypeEdit.text
+                Log.i("SPECIAL", binding.recyclerCoinTypeEdit.text.toString())
 
+                Log.i("SPECIAL", coinList.toString());
                 coinList.find { (it == editText.toString().uppercase()) or (it.substring(0, it.length - 4) == editText.toString().uppercase())
                 }?.let { binding.recyclerSearchResultValue.text = it }
             }

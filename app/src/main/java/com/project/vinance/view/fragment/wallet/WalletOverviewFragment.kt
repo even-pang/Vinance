@@ -13,8 +13,8 @@ import com.project.vinance.view.WalletData
 import com.project.vinance.view.implementation.TextChangeListenable
 import com.project.vinance.view.sub.OverViewBot
 import com.project.vinance.view.sub.OverViewTop
+import java.math.BigDecimal
 import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class WalletOverviewFragment : Fragment(), TextChangeListenable {
     companion object {
@@ -59,23 +59,42 @@ class WalletOverviewFragment : Fragment(), TextChangeListenable {
             val futureTop: TextView = itemView.findViewById(R.id.wallet_overview_portfolio_3)
             val futureBot: TextView = itemView.findViewById(R.id.wallet_overview_portfolio_3_sub)
 
-
             WalletData.run {
+                if (overviewCash.second.stripTrailingZeros() == BigDecimal.ZERO) {
+                    cashBot.visibility = View.GONE
+                } else {
+                    cashBot.visibility = View.VISIBLE
+                }
+                if (overviewUsdsFuture.second.stripTrailingZeros() == BigDecimal.ZERO) {
+                    futureBot.visibility = View.GONE
+                } else {
+                    futureBot.visibility = View.VISIBLE
+                }
+
                 Log.d(TAG, "changeText: ${totalOverviewValue},${overviewCash},${overviewUsdsFuture}")
                 totalLeft.text = totalOverviewValue.first.setScale(8, RoundingMode.HALF_UP).toPlainString()
                 totalRight.text = "≈ \$${totalOverviewValue.second.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
 
-                cashTop.text = "${overviewCash.first.setScale(8, RoundingMode.HALF_UP).toPlainString()}BTC"
+                cashTop.text = "${overviewCash.first.setScale(8, RoundingMode.HALF_UP).toPlainString()} BTC"
                 cashBot.text = "≈ \$${overviewCash.second.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
 
-                futureTop.text = "${overviewUsdsFuture.first.setScale(8, RoundingMode.HALF_UP).toPlainString()}BTC"
+                futureTop.text = "${overviewUsdsFuture.first.setScale(8, RoundingMode.HALF_UP).toPlainString()} BTC"
                 futureBot.text = "≈ \$${overviewUsdsFuture.second.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+
+
             }
         }
     }
 
     fun subTotalChange() {
         itemView?.let { itemView ->
+            if (WalletData.overviewCash.second == BigDecimal.ZERO) {
+                itemView.findViewById<TextView>(R.id.wallet_overview_portfolio_0_sub).visibility = View.GONE
+            }
+            if (WalletData.overviewUsdsFuture.second == BigDecimal.ZERO) {
+                itemView.findViewById<TextView>(R.id.wallet_overview_portfolio_3_sub).visibility = View.GONE
+            }
+
             val totalRight: TextView = itemView.findViewById(R.id.wallet_overview_subtitle_value)
 
             totalRight.text = "≈ \$${WalletData.totalOverviewValue.second.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
@@ -97,7 +116,6 @@ class WalletOverviewFragment : Fragment(), TextChangeListenable {
             Pair(view.findViewById(R.id.wallet_overview_portfolio_6), view.findViewById(R.id.wallet_overview_portfolio_6_sub)),
             Pair(view.findViewById(R.id.wallet_overview_portfolio_7), view.findViewById(R.id.wallet_overview_portfolio_7_sub)),
             Pair(view.findViewById(R.id.wallet_overview_portfolio_8), view.findViewById(R.id.wallet_overview_portfolio_8_sub)),
-            Pair(view.findViewById(R.id.wallet_overview_portfolio_9), view.findViewById(R.id.wallet_overview_portfolio_9_sub)),
         )
         itemView = view
 
@@ -118,7 +136,7 @@ class WalletOverviewFragment : Fragment(), TextChangeListenable {
     }
 
     private fun init() {
-        for (i in portfolioView.indices) {
+        /*for (i in portfolioView.indices) {
             val currentTop = portfolioView[i].first
             val currentTopValue = portfolioData.first[i]
 
@@ -126,12 +144,15 @@ class WalletOverviewFragment : Fragment(), TextChangeListenable {
             currentTop.text = if (currentTopValue == 0.0) String.format("%.2f %s", 0.0, coinUnit)
             else String.format("%s %s", currentTopValue.toBigDecimal().toPlainString(), coinUnit)
 
+            Log.d(TAG, "$i value : $currentTopValue")
+
             val currentBot = portfolioView[i].second
             if (currentTopValue == 0.0) {
-//                currentBot.visibility = View.GONE
+                currentBot.visibility = View.GONE
             } else {
                 currentBot.text = String.format("≈ \$%s %s", DecimalFormat("0.#").format(portfolioData.second[i]), coinUnit)
+                currentBot.visibility = View.VISIBLE
             }
-        }
+        }*/
     }
 }

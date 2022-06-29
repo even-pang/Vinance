@@ -4,8 +4,8 @@
     android:id="@+id/future_status"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
-    android:paddingTop="13dp">
+    android:paddingBottom="8dp"
+    android:paddingTop="12dp">
 
     <ImageView
         android:id="@+id/exchange"
@@ -13,18 +13,25 @@
         android:layout_height="20dp"
         android:layout_marginStart="15dp"
         android:src="@drawable/ic_title_left"
+        android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="@id/future_title_coin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@id/future_title_coin" />
 
+
+    <!--<item name="android:textColor">@color/white</item>
+    <item name="android:textSize">22sp</item>-->
     <TextView
         android:id="@+id/future_title_coin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/plex_medium"
-        android:paddingStart="10dp"
+        android:paddingStart="5dp"
         android:text="BTC"
-        style="@style/TitleText"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        android:letterSpacing="0.05"
         app:layout_constraintLeft_toRightOf="@id/exchange"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,8 +42,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/future_title_coin"
         android:paddingEnd="4.25dp"
-        style="@style/TitleText"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        android:letterSpacing="0.02"
         android:fontFamily="@font/plex_medium"
+        android:textStyle="bold"
         android:text="USDT" />
 
 
@@ -58,12 +68,10 @@
         android:id="@+id/perpetual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="2dp"
         android:fontFamily="@font/binance_plex_regular"
         android:paddingStart="4dp"
-        android:paddingTop="5.25dp"
         android:paddingEnd="3dp"
-
         android:paddingBottom="2.5dp"
         android:text="@string/perpetual"
         android:textColor="#FFF"
@@ -73,8 +81,8 @@
 
     <ImageView
         android:id="@+id/future_menu_3"
-        android:layout_width="36dp"
-        android:layout_height="26dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginEnd="15dp"
         android:src="@drawable/ic_menu_3"
         app:layout_constraintBottom_toBottomOf="@id/future_title_coin"
@@ -83,18 +91,20 @@
 
     <ImageView
         android:id="@+id/future_menu_2"
-        android:layout_width="36dp"
-        android:layout_height="26dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:src="@drawable/ic_menu_2"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@id/future_title_coin"
         app:layout_constraintRight_toLeftOf="@id/future_menu_3"
         app:layout_constraintTop_toTopOf="@id/future_title_coin" />
 
     <ImageView
         android:id="@+id/future_menu_1"
-        android:layout_width="36dp"
-        android:layout_height="26dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:src="@drawable/ic_menu_1"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@id/future_title_coin"
         app:layout_constraintRight_toLeftOf="@id/future_menu_2"
         app:layout_constraintTop_toTopOf="@id/future_title_coin" />

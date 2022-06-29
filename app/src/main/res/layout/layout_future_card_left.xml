@@ -37,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/buy"
-            android:textColor="@color/white"
-            android:textSize="15.5sp"
+            android:textColor="#fff"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
             android:layout_gravity="center"
             android:text="@string/sell"
             android:textColor="@color/default_grey"
-            android:textSize="15.5sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline"
@@ -71,7 +71,7 @@
             android:fontFamily="@font/binance_plex_medium"
             android:text="@string/usable"
             android:textColor="#878E96"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -81,6 +81,7 @@
             android:layout_height="16dp"
             android:layout_marginStart="7dp"
             android:layout_marginTop="4dp"
+            android:padding="2dp"
             android:src="@drawable/ic_margin_transfer"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -92,7 +93,7 @@
             android:layout_marginEnd="5dp"
             android:text="@string/unit"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/trade_image" />
 
@@ -104,7 +105,7 @@
             android:fontFamily="@font/binance_plex_regular"
             android:text="1982.30"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/future_trade_tether"
             app:layout_constraintTop_toTopOf="@id/future_trade_tether" />
@@ -115,13 +116,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_primary"
-        android:paddingVertical="3dp">
+        android:paddingTop="3dp"
+        android:paddingBottom="2dp">
 
         <ImageView
             android:id="@+id/info"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginLeft="12dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="9dp"
+            android:padding="4dp"
             android:src="@drawable/ic_info"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -132,17 +135,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/binance_plex_regular"
-            android:text="리밋 주문"
+            android:text="Limit"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/text_big"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:layout_width="8dp"
-            android:layout_height="6dp"
+            android:layout_width="10dp"
+            android:layout_height="5dp"
             android:layout_marginRight="14dp"
             android:src="@drawable/awesome_caret_down"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -154,32 +157,36 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="9dp"
         android:background="@drawable/background_primary"
-        android:paddingVertical="8dp">
+        android:paddingTop="6dp"
+        android:paddingBottom="7dp">
 
         <ImageView
             android:id="@+id/future_type_price_minus"
-            android:layout_width="18dp"
+            android:layout_width="22dp"
             android:layout_height="18dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="9dp"
             android:src="@drawable/ic_control_minus"
+            android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/card_plus_minus" />
+            app:layout_constraintVertical_bias="0.514"
+            />
 
         <ImageView
             android:id="@+id/future_type_price_plus"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginEnd="10dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/ic_control_plus"
+            android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/card_plus_minus" />
+            />
 
         <TextView
             android:id="@+id/future_type_price"
@@ -188,7 +195,7 @@
             android:fontFamily="@font/plex_semi_bold"
             android:text="30000.00"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_bigger"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -197,37 +204,40 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:layout_marginBottom="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/future_view_type_coin"
             android:layout_width="0dp"
             android:layout_height="25dp"
-            android:text="BTC"
+            android:layout_gravity="center"
             android:layout_marginEnd="1px"
-            android:fontFamily="@font/plex_regular"
-            android:textColor="@color/white"
-            android:background="@color/card_btn_normal"
-            android:textSize="@dimen/text_normal"
             android:layout_weight="1"
+            android:background="@color/card_btn_normal"
+            android:fontFamily="@font/plex_regular"
             android:gravity="center"
-            android:layout_gravity="center"/>
+            android:text="BTC"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/future_view_type_tether"
             android:layout_width="0dp"
             android:layout_height="25dp"
-            android:text="USDT"
+            android:layout_gravity="center"
             android:layout_marginStart="1px"
+            android:layout_weight="1"
             android:background="@color/card_btn_normal"
             android:fontFamily="@font/plex_regular"
+            android:gravity="center"
+            android:text="USDT"
             android:textColor="#434C5A"
-            android:textSize="@dimen/text_normal"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"/>
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -235,29 +245,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_primary"
-        android:paddingVertical="6dp">
+        android:paddingTop="6dp"
+        android:paddingBottom="8dp">
 
         <ImageView
             android:id="@+id/future_type_market_minus"
-            android:layout_width="18dp"
+            android:layout_width="22dp"
             android:layout_height="18dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="9dp"
             android:src="@drawable/ic_control_minus"
+            android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="#47505F" />
+            />
 
         <ImageView
             android:id="@+id/future_type_market_plus"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginEnd="10dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/ic_control_plus"
+            android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/card_plus_minus" />
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -272,9 +285,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binance_plex_regular"
-                android:text="금액("
-                android:textColor="#5F6774"
-                android:textSize="16sp" />
+                android:text="Amount("
+                android:textColor="#5e6773"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/future_type_market_price_coin"
@@ -282,21 +296,25 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/plex_regular"
                 android:text="BTC"
-                android:textColor="#5F6774"
-                android:textSize="16sp" />
+                android:textColor="#5e6773"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=")"
                 android:fontFamily="@font/plex_regular"
-                android:textColor="#5F6774"
-                android:textSize="16sp" />
+                android:text=")"
+                android:textColor="#5e6773"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- TL/SL -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -307,17 +325,20 @@
 
         <ImageView
             android:id="@+id/_seek_1"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:src="@drawable/ic_seek_select"
+            android:layout_marginStart="3dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:tint="@color/seek_light" />
+            app:tint="@color/default_grey" />
 
         <ImageView
             android:id="@+id/_seek_5"
             style="@style/SeekItemSize"
             android:src="@drawable/ic_seek_select_non"
+            android:layout_marginEnd="3dp"
             app:layout_constraintBottom_toBottomOf="@id/_seek_1"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/_seek_1"
@@ -383,12 +404,11 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- TL/SL -->
     <LinearLayout
         android:id="@+id/main_tl_sl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="9dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -427,45 +447,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="리듀스 온리"
+            android:text="Reduce Only"
             android:textColor="#878E96"
             android:textSize="12dp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp">
+        android:layout_height="wrap_content">
 
         <TextView
-            style="@style/CostText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="최대"
+            android:fontFamily="@font/plex_regular"
+            android:text="Max"
             android:textColor="@color/default_grey"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/future_type_market_max_coin"
-            style="@style/CostText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/plex_regular"
             android:text="@string/type"
             android:textColor="@color/white"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/main_type_market_max_value"
-            style="@style/CostText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
+            android:fontFamily="@font/plex_regular"
             android:text="4.448"
             android:textColor="@color/white"
+            android:textSize="12sp"
+            android:layout_marginEnd="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/future_type_market_max_coin"
             app:layout_constraintTop_toTopOf="parent" />
@@ -478,36 +500,38 @@
         android:layout_marginBottom="9dp">
 
         <TextView
-            style="@style/CostText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/underline_dashed"
             android:fontFamily="@font/binance_plex_medium"
-            android:text="비용"
+            android:text="Cost"
             android:textColor="@color/default_grey"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/future_type_market_cost_tether"
-            style="@style/CostText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/plex_regular"
             android:text="@string/unit"
             android:textColor="@color/white"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/future_type_market_cost_value"
-            style="@style/CostText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
+            android:fontFamily="@font/plex_regular"
             android:text="0.00"
             android:textColor="@color/white"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/future_type_market_cost_tether"
             app:layout_constraintTop_toTopOf="parent" />
@@ -518,8 +542,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_btn_buy"
         android:gravity="center"
-        android:paddingVertical="8dp"
-        android:text="매수/롱"
+        android:paddingVertical="7dp"
+        android:text="Buy/Long"
         android:textColor="@color/white"
-        android:textSize="17sp" />
+        android:textSize="16sp" />
 </LinearLayout>

@@ -1,8 +1,9 @@
 package com.project.vinance.view.fragment.wallet
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -10,19 +11,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.project.vinance.view.InputActivity
 import com.project.vinance.R
 import com.project.vinance.databinding.FragmentWalletFutureBinding
 import com.project.vinance.view.FutureData
-import com.project.vinance.view.GlobalData
 import com.project.vinance.view.WalletData
 import com.project.vinance.view.implementation.TextChangeListenable
-import com.project.vinance.view.recycler.RecycleFuturePosition
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -62,28 +58,28 @@ class WalletFutureFragment : Fragment(), TextChangeListenable {
                     margin.setScale(4, RoundingMode.HALF_UP).toPlainString()
                 // 마진 잔고 - 아래
                 itemView.findViewById<TextView>(R.id.wallet_future_margin_balance_value_second).text =
-                    "≈ \$ ${margin.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+                    "≈ \$${margin.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
 
                 // 지갑 잔고 - 위
                 itemView.findViewById<TextView>(R.id.wallet_future_wallet_balance_value).text =
                     wallet.setScale(4, RoundingMode.HALF_UP).toPlainString()
                 // 지갑 잔고 - 아래
                 itemView.findViewById<TextView>(R.id.wallet_future_wallet_balance_value_second).text =
-                    "≈ \$ ${wallet.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+                    "≈ \$${wallet.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
 
                 // 총 미실현 PNL - 위
                 itemView.findViewById<TextView>(R.id.wallet_future_total_unrealized_pnl_value).text =
                     pnl.setScale(4, RoundingMode.HALF_UP).toPlainString()
                 // 총 미실현 PNL - 아래
                 itemView.findViewById<TextView>(R.id.wallet_future_total_unrealized_pnl_value_second).text =
-                    "≈ \$ ${ pnl.setScale(4, RoundingMode.HALF_UP).toPlainString()}00"
+                    "≈ \$${ pnl.setScale(4, RoundingMode.HALF_UP).toPlainString()}00"
 
                 // 총 잔고 - 왼쪽
                 itemView.findViewById<TextView>(R.id.wallet_future_title_value).text =
                     margin.setScale(4, RoundingMode.HALF_UP).toPlainString()
                 // 총 잔고 - 오른쪽
                 itemView.findViewById<TextView>(R.id.wallet_future_subtitle_value).text =
-                    "≈ \$ ${ margin.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+                    "≈ \$${ margin.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
             }
         }
     }
@@ -141,7 +137,11 @@ class WalletFutureFragment : Fragment(), TextChangeListenable {
 //        (innerPager.getChildAt(0) as RecyclerView).overScrollMode = View.OVER_SCROLL_NEVER
 
         TabLayoutMediator(innerTab, innerPager) { tab, position ->
-            val titles = listOf(R.string.wallet_future_tab1_title, R.string.wallet_future_tab2_title, R.string.wallet_future_tab3_title)
+            val titles = listOf(
+                R.string.wallet_future_tab1_title,
+                R.string.wallet_future_tab2_title,
+//                R.string.wallet_future_tab3_title,
+            )
 
             tab.text = requireContext().getString(titles[position])
         }.attach()
@@ -156,6 +156,12 @@ class WalletFutureFragment : Fragment(), TextChangeListenable {
         for (i in 0 until 3) {
             innerTab.getTabAt(i)?.view?.setOnLongClickListener(disableLongClick)
         }
+
+        // 입력 액티비티 열기
+        myView?.findViewById<ImageView>(R.id.wallet_future_go_next)?.setOnClickListener {
+            startActivity(Intent(requireActivity(), InputActivity::class.java))
+        }
+
 
         // 페이저 높이 설정
         println("height : " + resources.displayMetrics.heightPixels)

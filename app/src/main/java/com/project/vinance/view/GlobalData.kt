@@ -55,4 +55,7 @@ object GlobalData : ViewModel() {
     // 현재가 왼쪽 부분
     val contractPriceLeft: MutableLiveData<BigDecimal> = MutableLiveData(BigDecimal.ZERO)
 
+    // 코인 리스트
+    var coinList: List<String> = emptyList()
+
 }

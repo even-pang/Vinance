@@ -33,7 +33,7 @@ class RecycleWalletFuturePosition(private val context: Context): RecyclerView.Ad
 
             val roe = itemView.findViewById<TextView>(R.id.recycle_wallet_position_roe_value)
             val pnl = itemView.findViewById<TextView>(R.id.recycle_wallet_position_pnl_value)
-            if (RecycleFuturePosition.onceValue != null) {
+            /*if (RecycleFuturePosition.onceValue != null) {
                 if (RecycleFuturePosition.onceValue!! > 0) {
                     roe.setTextColor(ContextCompat.getColor(context, R.color.buy_color))
                     pnl.setTextColor(ContextCompat.getColor(context, R.color.buy_color))
@@ -41,7 +41,17 @@ class RecycleWalletFuturePosition(private val context: Context): RecyclerView.Ad
                     roe.setTextColor(ContextCompat.getColor(context, R.color.sell_color))
                     pnl.setTextColor(ContextCompat.getColor(context, R.color.sell_color))
                 }
-                RecycleFuturePosition.onceValue = null
+            }*/
+            try {
+                if (data.roe > BigDecimal.ZERO) {
+                    roe.setTextColor(ContextCompat.getColor(context, R.color.buy_color))
+                    pnl.setTextColor(ContextCompat.getColor(context, R.color.buy_color))
+                } else {
+                    roe.setTextColor(ContextCompat.getColor(context, R.color.sell_color))
+                    pnl.setTextColor(ContextCompat.getColor(context, R.color.sell_color))
+                }
+            } catch (e: Exception) {
+
             }
 
             itemView.findViewById<ImageView>(R.id.recycle_wallet_position_symbol_icon).setImageResource(res)
@@ -49,7 +59,11 @@ class RecycleWalletFuturePosition(private val context: Context): RecyclerView.Ad
             itemView.findViewById<TextView>(R.id.recycle_wallet_position_symbol_title).text = String.format("%s 무기한", coinName)
             itemView.findViewById<TextView>(R.id.recycle_wallet_position_mode_scale).text = String.format("%sx", data.leverage)
             pnl.text = data.pnl.setScale(2, RoundingMode.HALF_UP).toPlainString()
-            roe.text = String.format("%s%%", data.roe.setScale(2, RoundingMode.HALF_UP))
+            if (data.roe > BigDecimal.ZERO) {
+                roe.text = String.format("+ %s%%", data.roe.setScale(2, RoundingMode.HALF_UP))
+            } else {
+                roe.text = String.format("%s%%", data.roe.setScale(2, RoundingMode.HALF_UP))
+            }
             itemView.findViewById<TextView>(R.id.recycle_wallet_position_size_value).text =
                 BigDecimal(data.size).setScale(quantityRound, RoundingMode.HALF_UP).toPlainString()
             itemView.findViewById<TextView>(R.id.recycle_wallet_position_danger_value).text = String.format("%s%%", data.danger.setScale(2, RoundingMode.HALF_UP))

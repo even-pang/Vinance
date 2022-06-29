@@ -26,7 +26,7 @@ object SimpleSocketClient {
     private var REQUEST_ID = 1
         get() = field++
     private const val EXIT_CODE = 1000
-    private const val METHOD_SUBSCRIBE = "SUBSCRIBE"
+    const val METHOD_SUBSCRIBE = "SUBSCRIBE"
     private const val METHOD_UNSUBSCRIBE = "UNSUBSCRIBE"
 
     private val TAG = SimpleSocketClient::class.java.simpleName
@@ -39,7 +39,7 @@ object SimpleSocketClient {
      * markPrice 속도 : 1초, 3초(기본)
      * depth 속도 : 0.01초, 0.25초(기본), 0.5초
      */
-    private fun createMessage(method: String, symbol: String) = """
+    fun createMessage(method: String, symbol: String) = """
                 {
                 "method" : "$method",
                 "params" : [
@@ -50,6 +50,19 @@ object SimpleSocketClient {
                 ],
                 "id" : $REQUEST_ID
             }""".trimIndent()
+
+    fun deleteMessage() = """
+        {
+                "method" : "UNSUBSCRIBE",
+                "params" : [
+                    "${GlobalData.showCoin.value!!.lowercase() + GlobalData.showTether.value!!.lowercase()}@ticker",
+                    "${GlobalData.showCoin.value!!.lowercase() + GlobalData.showTether.value!!.lowercase()}@aggTrade",
+                    "${GlobalData.showCoin.value!!.lowercase() + GlobalData.showTether.value!!.lowercase()}@markPrice@1s",
+                    "${GlobalData.showCoin.value!!.lowercase() + GlobalData.showTether.value!!.lowercase()}@depth10@500ms"
+                ],
+                "id" : $REQUEST_ID
+            }""${'"'}.trimIndent()
+    """.trimIndent()
 
     /**
      * 데이터로 입력한 코인의 시장가를 추가로 구독함
@@ -103,7 +116,6 @@ object SimpleSocketClient {
     }
 
     private var timer: Timer? = null
-    private var changeable = true
     private const val INTERVAL = 500L
 
     fun start(symbol: String) {
@@ -136,31 +148,28 @@ object SimpleSocketClient {
                         e.printStackTrace()
                     }
                 }
+                Log.d(TAG, "SUPER TIMER")
                 this.cancel()
             }
-        }
-
-        timer(period = INTERVAL) {
-            changeable = true
         }
     }
 
     fun pause(symbol: String) {
         Log.d(TAG, "PAUSE")
-        socket?.send(createMessage(METHOD_UNSUBSCRIBE, symbol.lowercase()))
-        timer?.cancel()
-
-        additionUnsubscribe()
+//        socket?.send(createMessage(METHOD_UNSUBSCRIBE, symbol.lowercase()))
+//        timer?.cancel()
+//
+//        additionUnsubscribe()
     }
 
     fun stop() {
         Log.d(TAG, "STOP")
 //        socket?.close(EXIT_CODE, null)
-        socket = null
-
+//        socket = null
+        Log.d(TAG, "stop 멈춰제발씨발: ${GlobalData.showCoin.value!!.lowercase() + GlobalData.showTether.value!!.lowercase()}")
+        socket?.send(deleteMessage())
         timer?.cancel()
         futurePosition = null
-        changeable = true
         Cal.fin = false
     }
 
@@ -168,8 +177,16 @@ object SimpleSocketClient {
     var futureRecycle: RecyclerView.LayoutManager? = null
 
     private class SimpleSocket : WebSocketListener() {
+        private var changeable:Boolean = true
+        private var i: Int = 0
+            get() = field++
+
         override fun onOpen(webSocket: WebSocket, response: Response) {
             Log.d(TAG, "Socket Open")
+
+            timer(period = INTERVAL) {
+                changeable = true
+            }
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
@@ -188,9 +205,10 @@ object SimpleSocketClient {
                         val aggTrade = Gson().fromJson(text, AggregateTradeDTO::class.java)
                         GlobalData.apply {
                             if (changeable) {
+//                                Log.d(TAG, "$i RECEIVED ${aggTrade.price}")
                                 contractPrice.value = BigDecimal(aggTrade.price)
-                                changeable = false
                             }
+                            changeable = false
                         }
 //                        Log.d(TAG, aggTrade)
                     }

@@ -5,7 +5,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.project.vinance.view.FutureData;
-import com.project.vinance.view.GlobalData;
 import com.project.vinance.view.recycler.RecycleFuturePosition;
 import com.project.vinance.view.sub.InputDataDTO;
 import com.project.vinance.view.sub.enumerate.LongShort;
@@ -18,10 +17,11 @@ public class Cal {
     public static boolean fin = false;
 
     public static void superCal() {
+        Log.d("Cal2", "Init");
         try {
             //초기값 세팅
             FutureData instance = FutureData.INSTANCE;
-
+            Log.d("Cal2", instance.getInputDataList().toString());
             for (int i = 0; i < instance.getInputDataList().size(); i++) {
                 LongShort longShort = instance.getInputDataList().get(i).getLongShort();
                 String symbol = instance.getInputDataList().get(i).getCoinName().getFirst();
@@ -39,12 +39,16 @@ public class Cal {
 
                 //청산가격
                 BigDecimal liqPNL = BigDecimal.ZERO;
-                BigDecimal liqMaintenanceMarginPer = maintenanceMarginPer(symbol, entryNominalValue);
+                BigDecimal liqMaintenanceMarginPer = new BigDecimal(maintenanceMarginPer2(symbol, entryNominalValue));
+
+                /* entryPrice * (liqMaintenanceMarginPer / 100) * size */
                 BigDecimal liqMaintenanceMargin = entryPrice.multiply(liqMaintenanceMarginPer.divide(back, MathContext.DECIMAL128).multiply(size, MathContext.DECIMAL128), MathContext.DECIMAL128);
                 instance.getInputDataList().get(i).setMargin(
                         buyingPrice.subtract(commission)
                 );
                 BigDecimal liqPrice = BigDecimal.ZERO;
+
+                /* -1 * (1 - liqMaintenanceMargin / (buyingPrice - commission)) / leverage * 100 + (1 - liqMaintenanceMargin / (buyingPrice - commission)) */
                 BigDecimal liqROE = new BigDecimal("-1").multiply(
                         BigDecimal.ONE.subtract(liqMaintenanceMargin.divide(buyingPrice.subtract(commission), MathContext.DECIMAL128))).divide(
                         leverage, MathContext.DECIMAL128).multiply(back).add(
@@ -64,8 +68,8 @@ public class Cal {
                 // 0이랑 비교하니까 0보다 작으면 -1 같으면 0 크면 1
                 RecycleFuturePosition.Companion.setOnceValue((marketPrice.subtract(entryPrice)).multiply(size).multiply(ssiBbuggu).compareTo(BigDecimal.ZERO));
 
-            /*Log.d("ABC", "liq : " + liqPNL.toPlainString() + ", liqMargin% : " + liqMaintenanceMarginPer.toPlainString() +
-                    ", liqMargin : " + liqMaintenanceMargin.toPlainString() + ", roe : " + liqROE.toPlainString());*/
+                //Log.d("ABC", "liq : " + liqPNL.toPlainString() + ", liqMargin% : " + liqMaintenanceMarginPer.toPlainString() +
+                //        ", liqMargin : " + liqMaintenanceMargin.toPlainString() + ", roe : " + liqROE.toPlainString());
 //            -89.6399279855971194238847769553910820
                 instance.getInputDataList().get(i).setDanger(
                         maintenanceMargin.divide(margin.add(pnl), MathContext.DECIMAL128).multiply(new BigDecimal(100)).setScale(2, RoundingMode.HALF_UP)
@@ -74,25 +78,42 @@ public class Cal {
                 fin = true;
 
 //            Log.d("0", FutureViewModel.INSTANCE.getInputDataList().get(i).toString());
-
+                Log.d("Cal2", longShort.toString());
                 if (longShort == LongShort.Long) {
+                    Log.d("Cal_symbol", symbol);
+                    Log.d("Cal_entryNominalValue", entryNominalValue.toPlainString());
+                    Log.d("Cal_liqROE", liqROE.toPlainString());
+                    Log.d("Cal_buyingPrice", buyingPrice.toPlainString());
+                    Log.d("Cal_commission", commission.toPlainString());
+                    Log.d("Cal_liqPNL", liqPNL.toPlainString());
+
+//                    Log.d("Cal", "(entryNominalValue + (entryNominalValue * liqROE)) / (buyingPrice - commission) + liqPNL < 0");
+//                    Log.d("Cal_cal", "(" + entryNominalValue.toPlainString() + "+(" + entryNominalValue.toPlainString() + "*" + liqROE.toPlainString() +
+//                            "))/(" + buyingPrice.toPlainString() + "-" + commission.toPlainString() + ")+" + liqPNL.toPlainString());
+                    BigDecimal ak47 = maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128))));
+                    BigDecimal m16 = buyingPrice.subtract(commission).add(liqPNL);
+                    Log.d("Cal22222222222", ak47.toPlainString());
+                    Log.d("Cal22222222222", m16.toPlainString());
+
+                    /*symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(BigDecimal.ONE) < 0*/
+                    // 유지마진_퍼센트(진입가 + (진입가 * roe / 100)) / (구매가 - 수수료 + pnl)
+                    Log.d("Cal씨이이이잇펄", "ak47: " + maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))) + " || " + buyingPrice.subtract(commission).add(liqPNL));
                     while (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(BigDecimal.ONE) < 0) {
-                        BigDecimal ak47 = maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128))));
-                        Log.d("씨이이이잇펄", "ak47: " + ak47 + " || " + buyingPrice.subtract(commission).add(liqPNL));
-                        if (ak47.divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.009")) < 0) {
+                        //Log.d("Cal씨이이이잇펄", "ak47: " + maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))) + " || " + buyingPrice.subtract(commission).add(liqPNL));
+                        if(maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).compareTo(BigDecimal.ZERO) < 0) break;
+                        if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.009")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.01"));
-                        } else if (ak47.divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.09")) < 0) {
+                        } else if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.09")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.001"));
-                        } else if (ak47.divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.9")) < 0) {
+                        } else if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.9")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.0001"));
-                        } else if (ak47.divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.99")) < 0) {
+                        } else if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.99")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.00001"));
                         } else {
                             liqROE = liqROE.add(new BigDecimal("-0.000001"));
                         }
                         liqPrice = entryPrice.add(entryPrice.multiply(liqROE).divide(back, MathContext.DECIMAL128));
                         liqPNL = (liqPrice.subtract(entryPrice)).multiply(size);
-
                         //Log.d("1", FutureViewModel.INSTANCE.getInputDataList().toString());
 //                    Log.d("1", liqROE.toPlainString() + " || " + liqPrice.toPlainString());
                     }
@@ -124,10 +145,11 @@ public class Cal {
 
 //            Log.d("3", FutureViewModel.INSTANCE.getInputDataList().toString());
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        Log.d("Cal", FutureData.INSTANCE.getInputDataList().toString());
+        Log.d("Cal2", "SuperCal End");
     }
 
     public static void subCal() {
@@ -155,7 +177,7 @@ public class Cal {
             instance.getInputDataList().get(i).setRoe((BigDecimal.ONE.subtract(EntryPrice.divide(MarketPrice, MathContext.DECIMAL128))).multiply(back.multiply(leverage)).multiply(ssiBbuggu));
         }
 
-//        Log.d("Cal", FutureViewModel.INSTANCE.getInputDataList().toString());
+//        Log.d("Cal", FutureData.INSTANCE.getInputDataList().toString());
     }
 
     @NonNull
@@ -174,11 +196,13 @@ public class Cal {
         BigDecimal result = BigDecimal.ZERO;
         BigDecimal temp = nominalValue;
 
+        //Log.d("Cal_maint", symbol + "/" + nominalValue.toPlainString());
+
         switch (symbol) {
             case "BTCUSDT": {//125배
-                if (temp.compareTo(new BigDecimal("300000000")) >= 0) {
-                    result = result.add((temp.subtract(new BigDecimal("299999999"))).multiply(new BigDecimal("0.5")));
-                    temp = new BigDecimal("299999999");
+                if (temp.compareTo(new BigDecimal("300000000")) > 0) {
+                    result = result.add((temp.subtract(new BigDecimal("300000000"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("300000000");
                 }
                 if (temp.compareTo(new BigDecimal("200000000")) >= 0) {
                     result = result.add((temp.subtract(new BigDecimal("199999999"))).multiply(new BigDecimal("0.25")));
@@ -566,18 +590,19 @@ public class Cal {
             default:
                 throw new IllegalArgumentException("Unexpected value: " + symbol);
         }
+        //Log.d("Cal result", result.toPlainString());
         return result;
     }
 
-    /*public static String maintenanceMarginPer(String symbol, BigDecimal nominalValue) {
+    public static String maintenanceMarginPer2(String symbol, BigDecimal nominalValue) {
         switch (symbol) {
             case "BTCUSDT": {//125배
                 if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "0.4";
-                else if (nominalValue.compareTo(new BigDecimal("50000")) > 0 && nominalValue.compareTo(new BigDecimal("250000")) <= 0) return "0.5"; 0.005
-                else if (nominalValue.compareTo(new BigDecimal("250000")) > 0 && nominalValue.compareTo(new BigDecimal("1000000")) <= 0) return "1.0"; 0.01
-                else if (nominalValue.compareTo(new BigDecimal("1000000")) > 0 && nominalValue.compareTo(new BigDecimal("5000000")) <= 0) return "2.5"; 0.025
-                else if (nominalValue.compareTo(new BigDecimal("5000000")) > 0 && nominalValue.compareTo(new BigDecimal("20000000")) <= 0) return "5.0"; 0.05
-                else if (nominalValue.compareTo(new BigDecimal("20000000")) > 0 && nominalValue.compareTo(new BigDecimal("50000000")) <= 0) return "10.0"; 0.1
+                else if (nominalValue.compareTo(new BigDecimal("50000")) > 0 && nominalValue.compareTo(new BigDecimal("250000")) <= 0) return "0.5"; //0.005
+                else if (nominalValue.compareTo(new BigDecimal("250000")) > 0 && nominalValue.compareTo(new BigDecimal("1000000")) <= 0) return "1.0"; //0.01
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) > 0 && nominalValue.compareTo(new BigDecimal("5000000")) <= 0) return "2.5"; //0.025
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) > 0 && nominalValue.compareTo(new BigDecimal("20000000")) <= 0) return "5.0"; //0.05
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) > 0 && nominalValue.compareTo(new BigDecimal("50000000")) <= 0) return "10.0"; //0.1
                 else if (nominalValue.compareTo(new BigDecimal("50000000")) > 0 && nominalValue.compareTo(new BigDecimal("100000000")) <= 0) return "12.5";
                 else if (nominalValue.compareTo(new BigDecimal("100000000")) > 0 && nominalValue.compareTo(new BigDecimal("200000000")) <= 0) return "15.0";
                 else if (nominalValue.compareTo(new BigDecimal("200000000")) > 0 && nominalValue.compareTo(new BigDecimal("300000000")) <= 0) return "25.0";
@@ -772,5 +797,5 @@ public class Cal {
                 throw new IllegalArgumentException("Unexpected value: " + symbol);
         }
         return null;
-    }*/
+    }
 }

@@ -44,6 +44,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         initComponent()
         initFragment()
         initSocket()
+
+        val chartText: TextView = findViewById(R.id.main_bottom_chart_text)
+        val kind = GlobalData.showCoin.value ?: ""
+        val name = GlobalData.showTether.value ?: ""
+        chartText.setText("$kind$name Perpetual Chart")
     }
 
     private var fragmentView: FragmentContainerView? = null
@@ -63,32 +68,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val instance: Retrofit = Retrofit.Builder().baseUrl(BinanceRest.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build()
             val api = instance.create(BinanceRest::class.java)
 
-            val depth = async(Dispatchers.IO) { api.getDepth(GlobalData.showCoin.value + GlobalData.showTether.value).execute().body() }
-            val markPrice = async(Dispatchers.IO) { api.getMarkPrice(GlobalData.showCoin.value + GlobalData.showTether.value).execute().body() }
-            val symbolPrice = async(Dispatchers.IO) { api.getSymbolPrice(GlobalData.showCoin.value + GlobalData.showTether.value).execute().body() }
-            val tickerPrice = async(Dispatchers.IO) { api.getTickerPriceChange(GlobalData.showCoin.value + GlobalData.showTether.value).execute().body() }
-
-            depth.start()
-            markPrice.start()
-            symbolPrice.start()
-            tickerPrice.start()
+            val depth = api.getDepth(GlobalData.showCoin.value + GlobalData.showTether.value)
+            val markPrice = api.getMarkPrice(GlobalData.showCoin.value + GlobalData.showTether.value)
+            val symbolPrice = api.getSymbolPrice(GlobalData.showCoin.value + GlobalData.showTether.value)
+            val tickerPrice = api.getTickerPriceChange(GlobalData.showCoin.value + GlobalData.showTether.value)
 
             // 시장가, 펀딩, 카운트다운
-            viewModel.contractPrice.value = BigDecimal(markPrice.await()?.markPrice)
-            viewModel.fundingRate.value = BigDecimal(markPrice.await()?.lastFundingRate) * BigDecimal(100)
-            viewModel.fundingTime.value = markPrice.await()?.nextFundingTime
+            viewModel.contractPrice.value = BigDecimal(markPrice.markPrice)
+            viewModel.fundingRate.value = BigDecimal(markPrice.lastFundingRate) * BigDecimal(100)
+            viewModel.fundingTime.value = markPrice.nextFundingTime
 
             // 현재가
-            viewModel.contractPrice.value = BigDecimal(symbolPrice.await()?.price ?: "0")
-            viewModel.contractPriceLeft.value = BigDecimal(markPrice.await()!!.markPrice)
+            viewModel.contractPrice.value = BigDecimal(symbolPrice.price)
+            viewModel.contractPriceLeft.value = BigDecimal(markPrice.markPrice)
 //            findViewById<TextView>(R.id.future_order_book_scale).text = BigDecimal(1).movePointLeft(viewModel.contractPrice.value!!.scale()).toPlainString()
 
             // 전일대비
-            viewModel.pricePercent.value = BigDecimal(tickerPrice.await()?.priceChangePercent ?: "0")
+            viewModel.pricePercent.value = BigDecimal(tickerPrice.priceChangePercent ?: "0")
 
             // 호가
             val result = runCatching {
-                depth.await()?.let { block ->
+                depth.let { block ->
                     val bid = block.bids.map { Pair(it[0], it[1]) }
                     val ask = block.asks.map { Pair(it[0], it[1]) }
 
@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // 비활성 표시
         currentFragment?.let { currentFragment ->
             menus[currentFragment.second].setCompoundDrawablesWithIntrinsicBounds(0, menuDrawables.first[currentFragment.second], 0, 0)
-            menus[currentFragment.second].setTextColor(getColor(R.color.deep_grey))
+            menus[currentFragment.second].setTextColor(getColor(R.color.un_selected))
 
             menus[position].setCompoundDrawablesWithIntrinsicBounds(0, menuDrawables.second[position]!!, 0, 0)
             menus[position].setTextColor(getColor(R.color.selected))
@@ -165,7 +165,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initSocket() {
-        SimpleSocketClient.create()
+        SimpleSocketClient.createMessage(
+            SimpleSocketClient.METHOD_SUBSCRIBE,
+            GlobalData.showCoin.value!!.lowercase() + GlobalData.showTether.value!!.lowercase()
+        )
         SimpleSocketClient.additionSubscribe()
 
         CoroutineScope(Dispatchers.Main).launch {
@@ -176,7 +179,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
                 FutureData.inputDataList.forEach { dto ->
                     FutureData.exchangeInfo?.let { exchange ->
-                        val market = api.getMarkPrice(dto.coinName.first).execute().body()!!
+                        val market = api.getMarkPrice(dto.coinName.first)
 
                         Log.d(TAG, "RESULT(${dto.coinName.first}) : $market")
                         dto.marketPrice = BigDecimal(market.markPrice)
@@ -197,9 +200,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             CoroutineScope(Dispatchers.Default).launch {
                 Cal.superCal()
-                (fragments[4] as WalletFragment).afterCal()
 
-                Log.d(TAG, FutureData.inputDataList.toString())
+                (fragments[4] as WalletFragment).afterCal()
+                Log.d("$TAG AFTER", FutureData.inputDataList.toString())
             }
 
 //            println(FutureViewModel.inputDataList)

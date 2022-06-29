@@ -8,19 +8,25 @@
         android:id="@+id/recycler_future_trade_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="BTCUSDT 무기한"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginStart="15dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="BTCUSDT 무기한"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/plex_medium"
         app:layout_constraintEnd_toStartOf="@id/recycler_future_trade_date"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/recycler_future_trade_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2021-07-28 23:31:06"
+        android:textSize="12sp"
+        android:fontFamily="@font/plex_regular"
         android:layout_marginEnd="15dp"
         app:layout_constraintTop_toTopOf="@id/recycler_future_trade_title"
         app:layout_constraintBottom_toBottomOf="@id/recycler_future_trade_title"
@@ -31,11 +37,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="매도"
+        android:textSize="14sp"
+        android:textColor="@color/sell_color"
+        android:fontFamily="@font/plex_regular"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/recycler_future_trade_title"
         app:layout_constraintStart_toStartOf="@id/recycler_future_trade_title" />
 
     <TextView
+        style="@style/TradeSize"
         android:id="@+id/recycler_future_trade_price_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -47,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/recycler_future_trade_long_short" />
 
     <TextView
+        style="@style/TradeSize"
         android:id="@+id/recycler_future_trade_conclusion_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -58,6 +69,7 @@
         app:layout_constraintTop_toBottomOf="@id/recycler_future_trade_price_title" />
 
     <TextView
+        style="@style/TradeSize"
         android:id="@+id/recycler_future_trade_fee_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -69,43 +81,56 @@
         app:layout_constraintTop_toBottomOf="@id/recycler_future_trade_conclusion_title" />
 
     <TextView
+        style="@style/TradeSize"
         android:id="@+id/recycler_future_trade_pnl_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="실현 PNL (USDT)"
         android:layout_marginTop="7dp"
-        android:layout_marginBottom="9.5dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintStart_toStartOf="@id/recycler_future_trade_title"
         app:layout_constraintTop_toBottomOf="@id/recycler_future_trade_fee_title"
         app:layout_constraintEnd_toStartOf="@id/recycler_future_trade_pnl_value"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/recycler_future_trade_border"/>
 
     <TextView
+        style="@style/TradeSize"
         android:id="@+id/recycler_future_trade_price_value"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="39620.00"
+        android:gravity="right"
+        android:layout_marginEnd="15dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@id/recycler_future_trade_price_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/recycler_future_trade_price_title"
         app:layout_constraintBottom_toBottomOf="@id/recycler_future_trade_price_title" />
 
     <TextView
+        style="@style/TradeSize"
         android:id="@+id/recycler_future_trade_conclusion_value"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="39620.00"
+        android:gravity="right"
+        android:layout_marginEnd="15dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@id/recycler_future_trade_conclusion_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/recycler_future_trade_conclusion_title"
         app:layout_constraintBottom_toBottomOf="@id/recycler_future_trade_conclusion_title" />
 
     <TextView
+        style="@style/TradeSize"
         android:id="@+id/recycler_future_trade_fee_value"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="39620.00"
+        android:gravity="right"
+        android:layout_marginEnd="15dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@id/recycler_future_trade_fee_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/recycler_future_trade_fee_title"
@@ -113,15 +138,27 @@
 
 
     <TextView
+        style="@style/TradeSize"
         android:id="@+id/recycler_future_trade_pnl_value"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="39620.00"
+        android:gravity="right"
+        android:layout_marginEnd="15dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@id/recycler_future_trade_pnl_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/recycler_future_trade_pnl_title"
         app:layout_constraintBottom_toBottomOf="@id/recycler_future_trade_pnl_title" />
 
-
+    <View
+        android:id="@+id/recycler_future_trade_border"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color"
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

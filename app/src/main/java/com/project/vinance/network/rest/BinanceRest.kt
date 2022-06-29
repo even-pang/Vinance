@@ -13,24 +13,24 @@ interface BinanceRest {
 
     // 호가
     @GET("/fapi/v1/depth")
-    fun getDepth(@Query("symbol") symbol: String, @Query("limit") limit: Int? = 10): Call<DepthVO>
+    suspend fun getDepth(@Query("symbol") symbol: String, @Query("limit") limit: Int? = 10): DepthVO
 
     // 현재가
     @GET("/fapi/v1/ticker/price")
-    fun getSymbolPrice(@Query("symbol") symbol: String): Call<SymbolPriceVO>
+    suspend fun getSymbolPrice(@Query("symbol") symbol: String): SymbolPriceVO
 
     // 시장가, 펀딩/카운트다운
     @GET("/fapi/v1/premiumIndex")
-    fun getMarkPrice(@Query("symbol") symbol: String): Call<MarkPriceVO>
+    suspend fun getMarkPrice(@Query("symbol") symbol: String): MarkPriceVO
 
     // 전일대비
     @GET("/fapi/v1/ticker/24hr")
-    fun getTickerPriceChange(@Query("symbol") symbol: String): Call<TickerPriceChangeVO>
+    suspend fun getTickerPriceChange(@Query("symbol") symbol: String): TickerPriceChangeVO
 
     // 코인 정보
-    @GET("/fapi/v1/exchangeInfo")
-    fun getExchangeInfo(): Call<ExchangeInfoDTO>
+    @GET("fapi/v1/exchangeInfo")
+    suspend fun getExchangeInfo(): ExchangeInfoDTO
 
     @GET("/api/v1/ticker/price")
-    fun getPrice(@Query("symbol") symbol: String): Call<Price2VO>
+    suspend fun getPrice(@Query("symbol") symbol: String): Price2VO
 }

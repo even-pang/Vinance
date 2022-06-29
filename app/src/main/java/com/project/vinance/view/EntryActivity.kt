@@ -12,6 +12,7 @@ import com.project.vinance.R
 import com.project.vinance.databinding.ActivityEntryBinding
 import com.project.vinance.network.rest.BinanceRest
 import com.project.vinance.network.rest.vo.ExchangeInfoDTO
+import com.project.vinance.network.socket.SimpleSocketClient
 import com.project.vinance.view.recycler.RecycleEntryInputData
 import com.project.vinance.view.sub.InputDataDTO
 import com.project.vinance.view.sub.enumerate.ADL
@@ -30,8 +31,8 @@ class EntryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val year = 2021
-        val month = 8
-        val day = 5
+        val month = 9
+        val day = 31
 
         val maxUsable = Calendar.getInstance(Locale.getDefault())
         maxUsable.set(year, month - 1, day)
@@ -40,10 +41,12 @@ class EntryActivity : AppCompatActivity() {
         val current = System.currentTimeMillis()
 
         // 실행한 날짜가 지정한 날짜를 지난 경우
-        if (current >= shutdown) {
+        /*if (current >= shutdown) {
             Toast.makeText(this, "Can not open", Toast.LENGTH_SHORT).show()
             finish()
-        }
+        }*/
+
+        SimpleSocketClient.create()
 
         super.onCreate(savedInstanceState)
         binding = ActivityEntryBinding.inflate(layoutInflater)
@@ -67,15 +70,20 @@ class EntryActivity : AppCompatActivity() {
      * */
     private suspend fun initNetwork() = withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
         try {
-            FutureData.exchangeInfo = GlobalData.getClient(GlobalData.FAPI_URL).getExchangeInfo().execute().body()
-            val result = FutureData.exchangeInfo!!
+            FutureData.exchangeInfo = GlobalData.getClient(GlobalData.FAPI_URL).getExchangeInfo()
+            val result: ExchangeInfoDTO = FutureData.exchangeInfo!!
+
+            Log.i("SPECIAL", result.toString())
 
             coinDataList = (listOf("선택하세요") + result.symbols.filter { (it.contractType == "PERPETUAL") and (it.quoteAsset == "USDT") }
                 .map { it.symbol }) as MutableList<String>
+
+            GlobalData.coinList = coinDataList
             // 기존에 가져온 데이터에 필터 무기한과 USDT 값만 필터링하여 반환
-            ExchangeInfoDTO(result.timezone, result.serverTime, result.futuresType, result.rateLimits, result.assets,
-                result.symbols.filter { (it.contractType == "PERPETUAL") and (it.quoteAsset == "USDT") }
-            )
+            ExchangeInfoDTO(result.timezone, result.symbols)
+//            ExchangeInfoDTO(result.timezone, result.serverTime, result.futuresType, result.rateLimits, result.assets,
+//                result.symbols.filter { (it.contractType == "PERPETUAL") and (it.quoteAsset == "USDT") }
+//            )
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -221,10 +229,10 @@ class EntryActivity : AppCompatActivity() {
                         model.futureBalance = futureBalance
                         model.revenuePeriod = revenuePeriod
                     }
-
-                    startActivity(intent)
                 }
             }
+
+            startActivity(intent)
         }
     }
 }

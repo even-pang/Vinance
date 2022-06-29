@@ -20,6 +20,6 @@
         app:layout_constraintTop_toBottomOf="@id/_empty"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="주문 없음"
+        android:text="No open orders"
         android:textSize="14sp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

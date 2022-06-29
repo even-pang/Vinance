@@ -18,18 +18,44 @@
                 android:background="@drawable/border_card_top"
                 android:paddingTop="25dp">
 
-                <TextView
+                <LinearLayout
                     android:id="@+id/_wallet_future_usds_m"
-                    style="@style/NormalTabText"
                     android:layout_width="wrap_content"
                     android:layout_height="22dp"
-                    android:layout_marginStart="16dp"
+                    android:orientation="horizontal"
                     android:background="@drawable/background_secondary"
+                    android:layout_marginStart="16dp"
                     android:paddingHorizontal="8dp"
-                    android:text="@string/usds_m"
-                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+                    <TextView
+                        style="@style/NormalTabText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="USD"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/plex_regular" />
+                    <TextView
+                        style="@style/NormalTabText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Ⓢ-"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        android:fontFamily="@font/plex_regular" />
+                    <TextView
+                        style="@style/NormalTabText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="M"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/plex_regular" />
+                </LinearLayout>
 
                 <TextView
                     style="@style/NormalTabText"
@@ -38,12 +64,14 @@
                     android:layout_marginStart="16dp"
                     android:paddingHorizontal="8dp"
                     android:text="@string/coin_m"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/_wallet_future_usds_m"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:layout_width="23dp"
-                    android:layout_height="23dp"
+                    android:id="@+id/wallet_future_go_next"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
                     android:src="@drawable/ic_convert_history"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -53,18 +81,21 @@
                 <TextView
                     android:id="@+id/_wallet_future_total_balance"
                     style="@style/TextUnderlineDashed"
+                    android:textColor="@color/wallet_future"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="총 잔고 (USD)"
+                    android:text="Total Balance (USD)"
+                    android:fontFamily="@font/plex_medium"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_future_usds_m" />
 
                 <ImageView
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:paddingHorizontal="5dp"
+                    android:layout_marginStart="1dp"
                     android:src="@drawable/ic_wallet_eye_open"
                     app:layout_constraintBottom_toBottomOf="@id/_wallet_future_total_balance"
                     app:layout_constraintStart_toEndOf="@id/_wallet_future_total_balance"
@@ -76,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="1dp"
                     android:text="0.0000"
                     android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -98,12 +129,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="15dp"
                     android:background="@color/card_btn_normal"
                     android:gravity="center"
                     android:paddingHorizontal="8dp"
                     android:text="@string/pnl_analysis"
                     android:textColor="@color/selected"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/wallet_future_title_value" />
 
@@ -120,9 +152,10 @@
                         android:id="@+id/wallet_future_revenue_text"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="9dp"
+                        android:layout_marginStart="7dp"
                         android:gravity="center"
-                        android:text="0 수익 기간"
+                        android:text="0 Winning Days"
+                        android:textSize="10sp"
                         android:textColor="#00C087"
                         app:layout_constraintBottom_toBottomOf="@id/_wallet_future_analysis"
                         app:layout_constraintStart_toEndOf="@id/_wallet_future_analysis"
@@ -130,7 +163,7 @@
 
                     <ImageView
                         android:layout_width="9dp"
-                        android:layout_height="10dp"
+                        android:layout_height="9dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="2dp"
@@ -141,7 +174,7 @@
                 <View
                     android:id="@+id/_wallet_border_1"
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
+                    android:layout_height="1dp"
                     android:layout_marginTop="16dp"
                     android:background="@color/border_color"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_future_analysis" />
@@ -153,7 +186,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="11dp"
-                    android:text="마진 잔고 (USD)"
+                    android:text="Margin Balance (USD)"
+                    android:textColor="@color/default_grey"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_border_1" />
 
@@ -163,25 +197,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="2dp"
                     android:text="0.0000"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_future_margin_balance" />
 
                 <TextView
                     android:id="@+id/wallet_future_margin_balance_value_second"
-                    style="@style/NormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    style="@style/NormalText"
+                    android:textSize="12sp"
+                    android:layout_marginTop="18dp"
                     android:layout_marginStart="16dp"
                     android:text="≈ $0.000000"
+                    android:fontFamily="@font/plex_regular"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/wallet_future_margin_balance_value" />
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_margin_balance_value" />
 
                 <View
                     android:id="@+id/_wallet_border_2"
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
+                    android:layout_height="1dp"
                     android:layout_marginTop="11dp"
                     android:background="@color/border_color"
                     app:layout_constraintTop_toBottomOf="@id/wallet_future_margin_balance_value_second" />
@@ -193,7 +230,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="11dp"
-                    android:text="총 미실현 PNL (USD)"
+                    android:text="Total Unrealized PNL (USD)"
+                    android:textColor="@color/default_grey"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_border_2" />
 
@@ -203,7 +241,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="2dp"
                     android:text="0.0000"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_unrealized_pnl" />
@@ -215,18 +253,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="≈ $0.000000"
+                    android:fontFamily="@font/plex_regular"
+                    android:textSize="12sp"
+                    android:layout_marginTop="18dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/wallet_future_total_unrealized_pnl_value" />
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_total_unrealized_pnl_value" />
 
                 <View
                     android:id="@+id/_wallet_border_3"
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
+                    android:layout_height="1dp"
                     android:layout_marginTop="11dp"
                     android:background="@color/border_color"
                     app:layout_constraintTop_toBottomOf="@id/wallet_future_total_unrealized_pnl_value_second" />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/_wallet_future_total_borrowed"
                     style="@style/TextUnderlineDashed"
                     android:layout_width="wrap_content"
@@ -234,44 +275,48 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="11dp"
                     android:text="총 차용된 (USD)"
+                    android:textColor="@color/default_grey"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_3" />
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_3" />-->
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/wallet_future_total_borrowed_value"
                     style="@style/SecondTitleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="2dp"
                     android:text="0.0000"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_borrowed" />
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_borrowed" />-->
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/wallet_future_total_borrowed_value_second"
                     style="@style/NormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="≈ $0.000000"
+                    android:fontFamily="@font/plex_regular"
+                    android:textSize="12sp"
+                    android:layout_marginTop="18dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/wallet_future_total_borrowed_value" />
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_total_borrowed_value" />-->
 
-                <View
+                <!--<View
                     android:id="@+id/_wallet_border_4"
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
+                    android:layout_height="1dp"
                     android:layout_marginTop="11dp"
                     android:background="@color/border_color"
-                    app:layout_constraintTop_toBottomOf="@id/wallet_future_total_borrowed_value_second" />
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_total_borrowed_value_second" />-->
 
                 <View
                     android:id="@+id/_wallet_border_v"
-                    android:layout_width="1px"
+                    android:layout_width="1dp"
                     android:layout_height="0dp"
                     android:background="@color/border_color"
-                    app:layout_constraintBottom_toBottomOf="@id/_wallet_border_4"
+                    app:layout_constraintBottom_toBottomOf="@id/_wallet_border_3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/_wallet_border_1" />
@@ -283,7 +328,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="11dp"
-                    android:text="지갑 잔고 (USD)"
+                    android:text="Wallet Balance (USD)"
+                    android:textColor="@color/default_grey"
                     app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_border_1" />
 
@@ -293,20 +339,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="2dp"
                     android:text="0.0000"
                     app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_future_wallet_balance" />
 
                 <TextView
                     android:id="@+id/wallet_future_wallet_balance_value_second"
-                    style="@style/NormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    style="@style/NormalText"
+                    android:textSize="12sp"
+                    android:layout_marginTop="18dp"
                     android:layout_marginStart="16dp"
                     android:text="≈ $0.000000"
+                    android:fontFamily="@font/plex_regular"
                     app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                    app:layout_constraintTop_toBottomOf="@id/wallet_future_wallet_balance_value" />
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_wallet_balance_value" />
 
                 <TextView
                     android:id="@+id/_wallet_future_total_cross_collateral"
@@ -315,7 +364,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="11dp"
-                    android:text="총 교차 담보 (USD)"
+                    android:text="Total Borrowed (USD)"
+                    android:textColor="@color/default_grey"
                     app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_border_2" />
 
@@ -325,7 +375,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="2dp"
                     android:text="0.0000"
                     app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_cross_collateral" />
@@ -337,10 +387,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="≈ $0.000000"
+                    android:fontFamily="@font/plex_regular"
+                    android:textSize="12sp"
+                    android:layout_marginTop="18dp"
                     app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_cross_collateral_value" />
+                    app:layout_constraintTop_toTopOf="@id/_wallet_future_total_cross_collateral_value" />
 
-                <TextView
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintTop_toTopOf="@id/_wallet_future_total_cross_collateral_value"
+                    app:layout_constraintBottom_toBottomOf="@id/_wallet_future_total_cross_collateral_value_second"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="5dp"
+                    />
+
+                <!--<TextView
                     android:id="@+id/_wallet_future_total_interest"
                     style="@style/TextUnderlineDashed"
                     android:layout_width="wrap_content"
@@ -348,31 +411,35 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="11dp"
                     android:text="총 이자 (USD)"
+                    android:textColor="@color/default_grey"
                     app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_3" />
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_3" />-->
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/_wallet_future_total_interest_value"
                     style="@style/SecondTitleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="2dp"
                     android:text="0.0000"
                     app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_interest" />
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_interest" />-->
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/_wallet_future_total_interest_value_second"
                     style="@style/NormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="≈ $0.000000"
+                    android:fontFamily="@font/plex_regular"
+                    android:textSize="12sp"
+                    android:layout_marginTop="18dp"
                     app:layout_constraintStart_toStartOf="@id/_wallet_border_v"
-                    app:layout_constraintTop_toBottomOf="@id/_wallet_future_total_interest_value" />
+                    app:layout_constraintTop_toTopOf="@id/_wallet_future_total_interest_value" />-->
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/wallet_future_borrow_repay"
                     style="@style/ButtonText"
                     android:layout_width="0dp"
@@ -382,6 +449,8 @@
                     android:background="@drawable/background_secondary"
                     android:gravity="center"
                     android:text="@string/borrow_repay"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/plex_medium"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/_wallet_between_1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -394,7 +463,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/wallet_future_borrow_repay"
                     app:layout_constraintEnd_toStartOf="@id/wallet_future_convert"
                     app:layout_constraintStart_toEndOf="@id/wallet_future_borrow_repay"
-                    app:layout_constraintTop_toTopOf="@id/wallet_future_borrow_repay" />
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_borrow_repay" />-->
 
                 <TextView
                     android:id="@+id/wallet_future_convert"
@@ -404,11 +473,20 @@
                     android:background="@drawable/background_secondary"
                     android:gravity="center"
                     android:text="@string/convert"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/plex_medium"
+                    android:layout_marginVertical="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/_wallet_between_2"
-                    app:layout_constraintStart_toEndOf="@id/_wallet_between_1"
-                    app:layout_constraintTop_toTopOf="@id/wallet_future_borrow_repay" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/_wallet_border_3"
+                    />
+<!--                    app:layout_constraintEnd_toStartOf="@id/_wallet_between_2"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/_wallet_between_1"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/wallet_future_borrow_repay"-->
 
-                <Space
+                <androidx.legacy.widget.Space
                     android:id="@+id/_wallet_between_2"
                     android:layout_width="8dp"
                     android:layout_height="wrap_content"
@@ -426,6 +504,8 @@
                     android:background="@drawable/background_secondary"
                     android:gravity="center"
                     android:text="@string/transfer"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/plex_medium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/_wallet_between_2"
                     app:layout_constraintTop_toTopOf="@id/wallet_future_convert" />
@@ -435,34 +515,54 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/card_color">
 
                 <LinearLayout
                     android:id="@+id/_wallet_future_notice"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="42dp"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/background_secondary"
+                    android:background="@drawable/background_fee"
                     android:orientation="horizontal"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="13dp"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         style="@style/ButtonText"
+                        android:fontFamily="@font/plex_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="수수료로 BNB 사용 (10% 할인)"
-                        android:textSize="10sp" />
+                        android:text="Use BNB for fees (10% discount)"
+                        android:textSize="12sp" />
 
                     <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_marginStart="11dp"
-                        android:src="@drawable/ic_info" />
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="bottom"
+                        android:src="@drawable/ic_info_empty" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_inner_tab"
+                    app:layout_constraintBottom_toBottomOf="@id/wallet_future_inner_tab"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/wallet_future_inner_tab"
+                    android:background="#202732" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="@id/wallet_future_inner_tab"
+                    app:layout_constraintBottom_toBottomOf="@id/wallet_future_inner_tab"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/wallet_future_inner_tab"
+                    android:background="#202732" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/wallet_future_inner_tab"
@@ -471,22 +571,28 @@
                     android:layout_height="45dp"
                     android:layout_marginTop="16dp"
                     android:background="#202732"
+                    android:paddingHorizontal="0dp"
+                    android:layout_marginStart="7dp"
+                    app:tabPaddingStart="10dp"
+                    app:tabPaddingEnd="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/_wallet_future_notice">
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="포지션" />
+                        android:text="Position" />
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="자산" />
+                        android:text="Asset" />
 
-                    <com.google.android.material.tabs.TabItem
+                    <!--<com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="담보" />
+                        android:text="담보" />-->
                 </com.google.android.material.tabs.TabLayout>
 
                 <androidx.viewpager2.widget.ViewPager2
@@ -495,7 +601,13 @@
                     android:layout_height="500dp"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintTop_toBottomOf="@id/wallet_future_inner_tab" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    app:layout_constraintTop_toBottomOf="@id/wallet_future_inner_tab"
+                    android:background="#333b47" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

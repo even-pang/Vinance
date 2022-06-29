@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:id="@+id/trade_history_import_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+        <RadioButton
+            android:id="@+id/trade_history_import_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="살 때"
+            android:textColor="@color/buy_color"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:id="@+id/trade_history_import_sell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="팔 때"
+            android:textColor="@color/sell_color"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/trade_history_coin_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="10dp"
+        android:text="코인"
+        app:layout_constraintBottom_toBottomOf="@id/trade_history_coin_edit"
+        app:layout_constraintEnd_toEndOf="@id/trade_history_realized_pnl_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_coin_result" />
+
+    <TextView
+        android:id="@+id/trade_history_type_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="10dp"
+        android:text="타입"
+        app:layout_constraintBottom_toBottomOf="@id/trade_history_type_group"
+        app:layout_constraintEnd_toEndOf="@id/trade_history_realized_pnl_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/trade_history_type_group" />
+
+    <TextView
+        android:id="@+id/trade_history_datetime_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="10dp"
+        android:text="날짜"
+        app:layout_constraintBottom_toBottomOf="@id/trade_history_datetime_edit"
+        app:layout_constraintEnd_toEndOf="@id/trade_history_realized_pnl_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/trade_history_datetime_edit" />
+
+    <TextView
+        android:id="@+id/trade_history_price_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="10dp"
+        android:text="진입 가격"
+        app:layout_constraintBottom_toBottomOf="@id/trade_history_entry_price_edit"
+        app:layout_constraintEnd_toEndOf="@id/trade_history_realized_pnl_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/trade_history_entry_price_edit" />
+
+    <TextView
+        android:id="@+id/trade_history_sell_price_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="10dp"
+        android:text="판매 가격"
+        app:layout_constraintBottom_toBottomOf="@id/trade_history_sell_price_edit"
+        app:layout_constraintEnd_toEndOf="@id/trade_history_realized_pnl_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/trade_history_sell_price_edit" />
+
+
+    <TextView
+        android:id="@+id/trade_history_filled_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="10dp"
+        android:text="체결"
+        app:layout_constraintBottom_toBottomOf="@id/trade_history_filled_edit"
+        app:layout_constraintEnd_toEndOf="@id/trade_history_realized_pnl_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/trade_history_filled_edit" />
+
+    <TextView
+        android:id="@+id/trade_history_fee_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="10dp"
+        android:text="수수료 (USDT)"
+        app:layout_constraintBottom_toBottomOf="@id/trade_history_fee_value"
+        app:layout_constraintEnd_toEndOf="@id/trade_history_realized_pnl_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/trade_history_fee_value" />
+
+    <TextView
+        android:id="@+id/trade_history_realized_pnl_title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="10dp"
+        android:text="실현 PNL (USDT)"
+        app:layout_constraintBottom_toBottomOf="@id/trade_history_realized_pnl_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/trade_history_realized_pnl_value" />
+
+    <TextView
+        android:id="@+id/trade_history_coin_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/trade_history_coin_edit"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_import_group"/>
+
+    <Button
+        android:id="@+id/trade_history_coin_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_coin_result" />
+
+    <EditText
+        android:id="@+id/trade_history_coin_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:inputType="text"
+        android:paddingHorizontal="10dp"
+        android:hint="ex) btc, BTC, btcusdt, BTCUSDT"
+        android:textColorHint="@color/white"
+        android:nextFocusRight="@id/trade_history_datetime_edit"
+        app:layout_constraintBottom_toBottomOf="@id/trade_history_coin_button"
+        app:layout_constraintEnd_toStartOf="@id/trade_history_coin_button"
+        app:layout_constraintStart_toEndOf="@id/trade_history_coin_title"
+        app:layout_constraintTop_toTopOf="@id/trade_history_coin_button" />
+
+    <RadioGroup
+        android:id="@+id/trade_history_type_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/trade_history_type_title"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_coin_edit">
+
+        <RadioButton
+            android:id="@+id/trade_history_type_buy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="매수"
+            android:textColor="@color/buy_color" />
+
+        <RadioButton
+            android:id="@+id/trade_history_type_sell"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="매도"
+            android:textColor="@color/sell_color" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/trade_history_datetime_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:hint="ex) 2021-07-30 22:58:59"
+        android:textColorHint="@color/white"
+        android:nextFocusRight="@id/trade_history_entry_price_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/trade_history_datetime_title"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_type_group" />
+
+    <EditText
+        android:id="@+id/trade_history_entry_price_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/trade_history_price_title"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_datetime_edit" />
+
+    <EditText
+        android:id="@+id/trade_history_sell_price_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/trade_history_sell_price_title"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_entry_price_edit" />
+
+    <EditText
+        android:id="@+id/trade_history_filled_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/trade_history_filled_title"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_sell_price_edit" />
+
+    <TextView
+        android:id="@+id/trade_history_fee_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/trade_history_fee_title"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_filled_edit" />
+
+    <TextView
+        android:id="@+id/trade_history_realized_pnl_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/trade_history_realized_pnl_title"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_fee_value" />
+
+    <Button
+        android:id="@+id/trade_history_calculate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="계산하기"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/trade_history_realized_pnl_value" />
+
+    <Button
+        android:id="@+id/trade_history_delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="삭제"
+        android:textColor="#f00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/trade_history_calculate_button" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

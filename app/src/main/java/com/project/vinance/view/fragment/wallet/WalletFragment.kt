@@ -2,6 +2,7 @@ package com.project.vinance.view.fragment.wallet
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.project.vinance.view.FutureData
 import com.project.vinance.view.GlobalData
 import com.project.vinance.view.WalletData
 import com.project.vinance.view.implementation.ColorChangeListener
+import com.project.vinance.view.sub.MyTabLayout
 import com.project.vinance.view.sub.NeedToChangeList
 import com.project.vinance.view.sub.OverViewBot
 import com.project.vinance.view.sub.OverViewTop
@@ -92,8 +94,8 @@ class WalletFragment : Fragment(), ColorChangeListener {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
         doTimer()
     }
@@ -109,7 +111,7 @@ class WalletFragment : Fragment(), ColorChangeListener {
      * */
     private suspend fun initSocket() {
         withContext(Dispatchers.IO) {
-            val busd = GlobalData.getClient(GlobalData.API_URL).getPrice("BUSDUSDT").execute().body()!!
+            val busd = GlobalData.getClient(GlobalData.API_URL).getPrice("BUSDUSDT")
             WalletData.exchangeRate = BigDecimal(2) - BigDecimal(busd.price)
         }
     }
@@ -156,7 +158,7 @@ class WalletFragment : Fragment(), ColorChangeListener {
         exchangeTimer = timer(period = 2000) {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val busd = GlobalData.getClient(GlobalData.API_URL).getPrice("BUSDUSDT").execute().body()!!
+                    val busd = GlobalData.getClient(GlobalData.API_URL).getPrice("BUSDUSDT")
 
                     WalletData.exchangeRate = BigDecimal(2) - BigDecimal(busd.price)
                     withContext(Dispatchers.Main) { walletUiUpdate() }
@@ -180,7 +182,7 @@ class WalletFragment : Fragment(), ColorChangeListener {
             try {
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    val price = GlobalData.getClient(GlobalData.API_URL).getPrice("BTCBUSD").execute().body()!!
+                    val price = GlobalData.getClient(GlobalData.API_URL).getPrice("BTCBUSD")
 
                     val future = (WalletData.walletBalance * WalletData.exchangeRate + WalletData.totalUnrealizedPnl)
                         .divide(BigDecimal(price.price), MathContext.DECIMAL128)
@@ -201,12 +203,12 @@ class WalletFragment : Fragment(), ColorChangeListener {
     fun afterCal() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val busd = GlobalData.getClient(GlobalData.API_URL).getPrice("BUSDUSDT").execute().body()!!
+                val busd = GlobalData.getClient(GlobalData.API_URL).getPrice("BUSDUSDT")
 
                 WalletData.exchangeRate = BigDecimal(2) - BigDecimal(busd.price)
                 calculateWallet()
 
-                val price = GlobalData.getClient(GlobalData.API_URL).getPrice("BTCBUSD").execute().body()!!
+                val price = GlobalData.getClient(GlobalData.API_URL).getPrice("BTCBUSD")
                 //윗값을 먼저 세팅을 할거야 총가치 빼고
                 val future = (WalletData.walletBalance * WalletData.exchangeRate + WalletData.totalUnrealizedPnl)
                     .divide(BigDecimal(price.price), MathContext.DECIMAL128)
@@ -214,7 +216,7 @@ class WalletFragment : Fragment(), ColorChangeListener {
 
                 delay(500)
                 //위쪽값 쭉 입히고 아랫값을 입히는 친구
-                val price2 = GlobalData.getClient(GlobalData.API_URL).getPrice("BTCBUSD").execute().body()!!
+                val price2 = GlobalData.getClient(GlobalData.API_URL).getPrice("BTCBUSD")
 
                 val future2 = future * BigDecimal(price2.price)
                 val cash2 = cash * BigDecimal(price2.price)
@@ -252,7 +254,7 @@ class WalletFragment : Fragment(), ColorChangeListener {
         // 페이저 할당
         topPager?.adapter = WalletViewAdapter(requireActivity())
 
-        (topPager?.getChildAt(0) as RecyclerView).overScrollMode = View.OVER_SCROLL_NEVER
+//        (topPager?.getChildAt(0) as RecyclerView).overScrollMode = View.OVER_SCROLL_NEVER
         TabLayoutMediator(topTab!!, topPager!!) { tab, position ->
             val titles = listOf(
                 R.string.wallet_tab1_title,
@@ -261,8 +263,8 @@ class WalletFragment : Fragment(), ColorChangeListener {
                 R.string.wallet_tab4_title,
                 R.string.wallet_tab5_title,
                 R.string.wallet_tab6_title,
-                R.string.wallet_tab7_title,
-                R.string.wallet_tab8_title
+//                R.string.wallet_tab7_title,
+//                R.string.wallet_tab8_title
             )
 
             tab.text = requireContext().getString(titles[position])
@@ -275,6 +277,25 @@ class WalletFragment : Fragment(), ColorChangeListener {
                 if (position == 0) {
                     afterCal()
                 }
+            }
+        })
+
+        topTab?.setOnTouchListener { v, event -> false }
+        topTab?.isClickable = false
+        topTab?.isEnabled = false
+        topTab?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab!!.position > 2) {
+                    Log.d(TAG, "================================ NEED SCROLL ================================")
+                }
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
             }
         })
     }
@@ -317,11 +338,11 @@ class WalletFragment : Fragment(), ColorChangeListener {
                 overView,
                 WalletBlankFragment(),
                 WalletBlankFragment(),
+                WalletBlankFragment(),
                 future,
                 WalletBlankFragment(),
-                WalletBlankFragment(),
-                WalletBlankFragment(),
-                WalletBlankFragment()
+//                WalletBlankFragment(),
+//                WalletBlankFragment()
             )
         }
 

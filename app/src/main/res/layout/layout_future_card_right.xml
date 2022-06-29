@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="4dp"
+    android:layout_marginStart="12dp"
     android:layout_weight="27"
     android:orientation="vertical">
     <!-- 가격 영역 -->
@@ -20,8 +20,7 @@
             android:fontFamily="@font/binance_plex_regular"
             android:text="@string/price"
             android:textColor="#808797"
-            android:textSize="@dimen/text_normal"
-
+            android:textSize="12sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +37,7 @@
                 android:fontFamily="@font/binance_plex_regular"
                 android:text="("
                 android:textColor="#808797"
-                android:textSize="@dimen/text_normal" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/future_price_tether"
@@ -47,7 +46,7 @@
                 android:fontFamily="@font/binance_plex_regular"
                 android:text="USDT"
                 android:textColor="#808797"
-                android:textSize="@dimen/text_normal" />
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +54,7 @@
                 android:fontFamily="@font/binance_plex_regular"
                 android:text=")"
                 android:textColor="#808797"
-                android:textSize="@dimen/text_normal" />
+                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView
@@ -65,7 +64,7 @@
             android:fontFamily="@font/binance_plex_regular"
             android:text="@string/amount"
             android:textColor="#808797"
-            android:textSize="@dimen/text_normal"
+            android:textSize="12sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,7 +81,7 @@
                 android:fontFamily="@font/binance_plex_regular"
                 android:text="("
                 android:textColor="#808797"
-                android:textSize="@dimen/text_normal" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/future_amount_coin"
@@ -91,7 +90,7 @@
                 android:fontFamily="@font/binance_plex_regular"
                 android:text="BTC"
                 android:textColor="#808797"
-                android:textSize="@dimen/text_normal" />
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -99,7 +98,7 @@
                 android:fontFamily="@font/binance_plex_regular"
                 android:text=")"
                 android:textColor="#808797"
-                android:textSize="@dimen/text_normal" />
+                android:textSize="12sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -109,7 +108,7 @@
         style="@style/OrderOffset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackground">
 
         <LinearLayout
@@ -445,7 +444,7 @@
     지정가
     시장 평균가
    -->
-    <Space
+    <androidx.legacy.widget.Space
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
@@ -456,10 +455,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/binance_plex_medium"
-        android:gravity="bottom"
+        android:gravity="bottom|center_horizontal"
         android:text="0"
+        android:layout_marginEnd="3dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_bigger"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/_area_sell_7" />
@@ -470,16 +470,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="2dp"
         android:fontFamily="@font/binance_plex_medium"
-        android:gravity="top"
+        android:gravity="top|center_horizontal"
+        android:layout_marginEnd="3dp"
         android:text="0"
         android:textColor="#808797"
-        android:textSize="@dimen/text_normal"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/future_contract_price" />
 
-    <Space
+    <androidx.legacy.widget.Space
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
@@ -833,6 +835,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:baselineAligned="false"
+        android:paddingVertical="1dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/_area_buy_7">
 
@@ -849,13 +852,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="0"
+                android:textSize="10sp"
+                android:fontFamily="@font/plex_regular"
                 android:textColor="#808797"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:layout_width="7dp"
+                android:layout_width="9dp"
                 android:layout_height="5dp"
                 android:layout_marginEnd="5dp"
                 android:src="@drawable/awesome_caret_down"
@@ -873,7 +878,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_primary"
-            android:paddingHorizontal="5dp"
+            android:paddingHorizontal="6dp"
             android:paddingVertical="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -881,8 +886,10 @@
 
             <ImageView
                 android:id="@+id/future_order_book_selector"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:paddingHorizontal="2dp"
+                android:paddingVertical="2dp"
                 android:src="@drawable/ic_order_book_new_default" />
         </FrameLayout>
     </LinearLayout>

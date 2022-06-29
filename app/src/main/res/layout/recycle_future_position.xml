@@ -12,9 +12,9 @@
 
         <ImageView
             android:id="@+id/recycle_position_share"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/ic_trade_position_share"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,32 +33,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/plex_semi_bold"
-            android:text="BTCUSDT 무기한"
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/plex_medium"
+            android:text="BTCUSDT Perpetual"
             android:textColor="@color/white"
-            android:textSize="17sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/recycle_position_symbol_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/recycle_position_mode_type"
-            style="@style/NormalText"
-
+            android:textSize="12sp"
+            android:textColor="@color/default_grey"
+            android:textStyle="bold"
+            android:fontFamily="@font/plex_semi_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="격리"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="2dp"
+            android:text="Isolated"
             app:layout_constraintBottom_toBottomOf="@id/recycle_position_symbol_title"
             app:layout_constraintStart_toEndOf="@id/recycle_position_symbol_title"
             app:layout_constraintTop_toTopOf="@id/recycle_position_symbol_title" />
 
         <TextView
             android:id="@+id/recycle_position_mode_scale"
-            style="@style/NormalText"
+            android:textSize="12sp"
+            android:textColor="@color/default_grey"
+            android:fontFamily="@font/plex_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
             android:text="1x"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="@id/recycle_position_symbol_title"
@@ -66,15 +72,15 @@
             app:layout_constraintTop_toTopOf="@id/recycle_position_symbol_title" />
 
         <LinearLayout
-            android:layout_width="18dp"
-            android:layout_height="0dp"
+            android:layout_width="22dp"
+            android:layout_height="26dp"
             android:layout_marginStart="10dp"
             android:orientation="horizontal"
+            android:layout_marginTop="1dp"
             app:layout_constraintBottom_toBottomOf="@id/recycle_position_symbol_title"
             app:layout_constraintStart_toEndOf="@id/recycle_position_mode_scale"
             app:layout_constraintTop_toTopOf="@id/recycle_position_symbol_title">
 
-            <!-- 그림 방식 -->
             <ImageView
                 android:id="@+id/recycle_position_display1"
                 style="@style/PositionExclaimImage"
@@ -103,37 +109,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/recycle_position_display1"
                 app:layout_constraintStart_toEndOf="@id/recycle_position_display3"
                 app:layout_constraintTop_toTopOf="@id/recycle_position_display1" />
-
-            <!-- 글자 방식 -->
-            <!--<TextView
-                android:id="@+id/recycle_position_display1"
-                style="@style/PositionExclaimText"
-                android:textColor="@color/buy_color"
-                app:layout_constraintBottom_toBottomOf="@id/recycle_position_mode_type"
-                app:layout_constraintStart_toEndOf="@id/recycle_position_mode_scale"
-                app:layout_constraintTop_toTopOf="@id/recycle_position_mode_type"
-                app:tint="@color/buy_color" />
-
-            <TextView
-                android:id="@+id/recycle_position_display2"
-                style="@style/PositionExclaimText"
-                app:layout_constraintBottom_toBottomOf="@id/recycle_position_mode_type"
-                app:layout_constraintStart_toEndOf="@id/recycle_position_display1"
-                app:layout_constraintTop_toTopOf="@id/recycle_position_mode_type" />
-
-            <TextView
-                android:id="@+id/recycle_position_display3"
-                style="@style/PositionExclaimText"
-                app:layout_constraintBottom_toBottomOf="@id/recycle_position_mode_type"
-                app:layout_constraintStart_toEndOf="@id/recycle_position_display2"
-                app:layout_constraintTop_toTopOf="@id/recycle_position_mode_type" />
-
-            <TextView
-                android:id="@+id/recycle_position_display4"
-                style="@style/PositionExclaimText"
-                app:layout_constraintBottom_toBottomOf="@id/recycle_position_mode_type"
-                app:layout_constraintStart_toEndOf="@id/recycle_position_display3"
-                app:layout_constraintTop_toTopOf="@id/recycle_position_mode_type" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -148,22 +123,28 @@
             app:layout_constraintTop_toBottomOf="@id/recycle_position_symbol_title">
 
             <TextView
-                style="@style/NormalText"
+                android:textSize="12sp"
+                android:textColor="@color/default_grey"
+                android:fontFamily="@font/plex_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/underline_dashed"
-                android:text="미실현 PNL (" />
+                android:text="Unrealized PNL (" />
 
             <TextView
                 android:id="@+id/recycle_position_pnl_tether"
-                style="@style/NormalText"
+                android:textSize="12sp"
+                android:textColor="@color/default_grey"
+                android:fontFamily="@font/plex_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/underline_dashed"
                 android:text="USDT" />
 
             <TextView
-                style="@style/NormalText"
+                android:textSize="12sp"
+                android:textColor="@color/default_grey"
+                android:fontFamily="@font/plex_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/underline_dashed"
@@ -186,7 +167,9 @@
 
         <TextView
             android:id="@+id/recycle_position_roe_title"
-            style="@style/NormalText"
+            android:textSize="12sp"
+            android:textColor="@color/default_grey"
+            android:fontFamily="@font/plex_regular"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="end"
@@ -215,29 +198,35 @@
             android:id="@+id/recycle_position_size_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="11dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toStartOf="@id/recycle_position_margin_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycle_position_pnl_value">
 
             <TextView
-                style="@style/NormalText"
+                android:textSize="12sp"
+                android:textColor="@color/default_grey"
+                android:fontFamily="@font/plex_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/underline_dashed"
-                android:text="사이즈(" />
+                android:text="Size(" />
 
             <TextView
                 android:id="@+id/recycle_position_size_coin"
-                style="@style/NormalText"
+                android:textSize="12sp"
+                android:textColor="@color/default_grey"
+                android:fontFamily="@font/plex_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/underline_dashed"
                 android:text="BTC" />
 
             <TextView
-                style="@style/NormalText"
+                android:textSize="12sp"
+                android:textColor="@color/default_grey"
+                android:fontFamily="@font/plex_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/underline_dashed"
@@ -251,6 +240,7 @@
             android:layout_height="wrap_content"
             android:text="0.001"
             android:textColor="@color/white"
+            android:fontFamily="@font/plex_regular"
             app:layout_constraintEnd_toStartOf="@id/recycle_position_margin_value"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycle_position_size_title" />
@@ -259,35 +249,44 @@
             android:id="@+id/recycle_position_margin_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="0dp"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintBottom_toTopOf="@id/recycle_position_size_value"
             app:layout_constraintEnd_toStartOf="@id/recycle_position_danger_title"
             app:layout_constraintStart_toEndOf="@id/recycle_position_size_title">
 
             <TextView
-                style="@style/NormalText"
+                android:textSize="12sp"
+                android:textColor="@color/default_grey"
+                android:fontFamily="@font/plex_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="마진 (" />
+                android:text="Margin (" />
 
             <TextView
                 android:id="@+id/recycle_position_margin_tether"
-                style="@style/NormalText"
+                android:textSize="12sp"
+                android:textColor="@color/default_grey"
+                android:fontFamily="@font/plex_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="USDT" />
 
             <TextView
-                style="@style/NormalText"
+                android:textSize="12sp"
+                android:textColor="@color/default_grey"
+                android:fontFamily="@font/plex_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=")" />
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="5dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="4dp"
+                android:layout_gravity="bottom"
                 android:src="@drawable/ic_add_margin" />
         </LinearLayout>
 
@@ -296,9 +295,11 @@
             style="@style/NormalText"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="0dp"
             android:text="39.13"
             android:textColor="@color/white"
+            android:fontFamily="@font/plex_regular"
             app:layout_constraintBottom_toBottomOf="@id/recycle_position_size_value"
             app:layout_constraintEnd_toStartOf="@id/recycle_position_danger_value"
             app:layout_constraintStart_toEndOf="@id/recycle_position_size_value"
@@ -307,11 +308,13 @@
 
         <TextView
             android:id="@+id/recycle_position_danger_title"
-            style="@style/NormalText"
+            android:textSize="12sp"
+            android:textColor="@color/default_grey"
+            android:fontFamily="@font/plex_regular"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="end"
-            android:text="위험"
+            android:text="Risk"
             app:layout_constraintBottom_toBottomOf="@id/recycle_position_size_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/recycle_position_margin_title"
@@ -325,6 +328,7 @@
             android:gravity="end"
             android:text="0.39%"
             android:textColor="@color/buy_color"
+            android:fontFamily="@font/plex_regular"
             app:layout_constraintBottom_toBottomOf="@id/recycle_position_size_value"
             app:layout_constraintEnd_toEndOf="@id/recycle_position_danger_title"
             app:layout_constraintStart_toStartOf="@id/recycle_position_danger_title"
@@ -332,11 +336,13 @@
 
         <TextView
             android:id="@+id/recycle_position_entry_price_title"
-            style="@style/NormalText"
+            android:textSize="12sp"
+            android:textColor="@color/default_grey"
+            android:fontFamily="@font/plex_regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="진입 가격"
+            android:text="Entry Price"
             app:layout_constraintEnd_toStartOf="@id/recycle_position_market_price_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycle_position_size_value" />
@@ -348,17 +354,21 @@
             android:layout_height="wrap_content"
             android:text="39138.44"
             android:textColor="@color/white"
+            android:fontFamily="@font/plex_regular"
             app:layout_constraintEnd_toStartOf="@id/recycle_position_market_price_value"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycle_position_entry_price_title" />
 
         <TextView
             android:id="@+id/recycle_position_market_price_title"
-            style="@style/NormalText"
+            android:textSize="12sp"
+            android:textColor="@color/default_grey"
+            android:fontFamily="@font/plex_regular"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="16dp"
-            android:text="시장 평균가"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="0dp"
+            android:text="Mark Price"
             app:layout_constraintBottom_toBottomOf="@id/recycle_position_entry_price_title"
             app:layout_constraintEnd_toStartOf="@id/recycle_position_liquidation_title"
             app:layout_constraintStart_toEndOf="@id/recycle_position_entry_price_title"
@@ -369,9 +379,11 @@
             style="@style/NormalText"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="0dp"
             android:text="39171.87"
             android:textColor="@color/white"
+            android:fontFamily="@font/plex_regular"
             app:layout_constraintBottom_toBottomOf="@id/recycle_position_entry_price_value"
             app:layout_constraintEnd_toStartOf="@id/recycle_position_liquidation_value"
             app:layout_constraintStart_toEndOf="@id/recycle_position_entry_price_value"
@@ -379,11 +391,13 @@
 
         <TextView
             android:id="@+id/recycle_position_liquidation_title"
-            style="@style/NormalText"
+            android:textSize="12sp"
+            android:textColor="@color/default_grey"
+            android:fontFamily="@font/plex_regular"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="end"
-            android:text="청산 가격"
+            android:text="Liq. Price"
             app:layout_constraintBottom_toBottomOf="@id/recycle_position_entry_price_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/recycle_position_market_price_title"
@@ -392,11 +406,13 @@
         <TextView
             android:id="@+id/recycle_position_liquidation_value"
             style="@style/NormalText"
+            android:textSize="12sp"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:gravity="end"
-            android:text="--"
+            android:gravity="end|bottom"
+            android:text="44444"
             android:textColor="@color/white"
+            android:fontFamily="@font/plex_medium"
             app:layout_constraintBottom_toBottomOf="@id/recycle_position_entry_price_value"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/recycle_position_market_price_value"
@@ -410,42 +426,51 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <!--
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/white</item>-->
         <TextView
             android:id="@+id/recycle_position_leverage"
-            style="@style/ButtonText"
+            android:textColor="@color/white"
+            android:fontFamily="@font/plex_regular"
+            android:textSize="12sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/background_secondary"
             android:gravity="center"
             android:maxLines="1"
-            android:paddingVertical="6dp"
-            android:text="레버리지 조정" />
+            android:paddingVertical="8dp"
+            android:text="Adjust Leverage" />
 
         <TextView
             android:id="@+id/recycle_position_stop_profit"
-            style="@style/ButtonText"
+            android:textColor="@color/white"
+            android:fontFamily="@font/plex_regular"
+            android:textSize="12sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="8dp"
             android:layout_weight="1"
             android:background="@drawable/background_secondary"
             android:gravity="center"
             android:maxLines="1"
-            android:paddingVertical="6dp"
-            android:text="스탑프로핏 &amp; 로스" />
+            android:paddingVertical="8dp"
+            android:text="Stop Profit &amp; Loss" />
 
         <TextView
             android:id="@+id/recycle_position_exit"
-            style="@style/ButtonText"
+            android:textColor="@color/white"
+            android:fontFamily="@font/plex_regular"
+            android:textSize="12sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/background_secondary"
             android:gravity="center"
             android:maxLines="1"
-            android:paddingVertical="6dp"
-            android:text="포지션 종료" />
+            android:paddingVertical="8dp"
+            android:text="Close Position" />
     </LinearLayout>
 
     <View

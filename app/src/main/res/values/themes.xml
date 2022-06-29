@@ -16,6 +16,9 @@
         <item name="android:fontFamily">@font/plex_regular</item>
         <item name="android:textSize">@dimen/text_normal</item>
         <item name="android:windowBackground">@color/default_background</item>
+
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">false</item>
     </style>
 
     <style name="TabStyle" parent="Widget.MaterialComponents.TabLayout">
@@ -29,8 +32,34 @@
         <item name="tabSelectedTextColor">@color/white</item>
         <item name="tabTextAppearance">@style/TabFont</item>
         <item name="tabMinWidth">0dp</item>
-        <!--<item name="tabPaddingStart">8dp</item>
-        <item name="tabPaddingEnd">8dp</item>-->
+    </style>
+
+    <style name="WalletTab" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabBackground">@null</item>
+        <item name="tabGravity">start</item>
+        <item name="tabIndicator">@drawable/border_indicator</item>
+        <item name="tabIndicatorColor">@color/selected</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabTextColor">@color/text_normal</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextAppearance">@style/TabFont</item>
+        <item name="tabMinWidth">0dp</item>
+<!--        <item name="tabPaddingStart">0dp</item>-->
+<!--        <item name="tabPaddingEnd">0dp</item>-->
+    </style>
+
+    <style name="TabText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/plex_regular</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TradeTabText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/plex_regular</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Font.SemiBold" parent="android:TextAppearance">
@@ -62,7 +91,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:layout_weight">1</item>
-        <item name="tint">@color/deep_grey</item>
+        <item name="tint">@color/exclaim_dark_color</item>
         <item name="android:src">@drawable/ic_exclaim_mark</item>
     </style>
 
@@ -102,16 +131,22 @@
 
     <style name="OrderLeftText">
         <item name="android:fontFamily">@font/plex_regular</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:paddingTop">1.2dp</item>
-        <item name="android:paddingBottom">1.2dp</item>
-        <item name="android:layout_marginTop">1dp</item>
-        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">1.3dp</item>
+        <item name="android:paddingBottom">1.3dp</item>
+        <item name="android:layout_marginTop">0.2dp</item>
+        <item name="android:layout_marginBottom">0.2dp</item>
     </style>
 
     <style name="OrderRightText">
-        <item name="android:fontFamily">@font/plex_regular</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/plex_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
+    <style name="OverViewRight">
+        <item name="android:fontFamily">@font/plex_medium</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">#FFF</item>
     </style>
 
@@ -165,7 +200,7 @@
     </style>
 
     <style name="MainBottomNavigation" parent="@style/TextAppearance.AppCompat">
-        <item name="android:drawablePadding">5dp</item>
+        <item name="android:drawablePadding">6dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/deep_grey</item>
@@ -186,5 +221,21 @@
     <style name="BrightSpinner" parent="Widget.AppCompat.Spinner">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="OverviewLeft">
+        <item name="android:fontFamily">@font/plex_medium</item>
+        <item name="android:textColor">@color/default_grey</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="OverviewImageSize">
+        <item name="android:layout_width">21dp</item>
+        <item name="android:layout_height">21dp</item>
+    </style>
+
+    <style name="TradeSize">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/plex_regular</item>
     </style>
 </resources>

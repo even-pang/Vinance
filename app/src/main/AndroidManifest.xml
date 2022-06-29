@@ -7,11 +7,12 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_app"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_app_round"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Vinance">
-        <activity android:name=".view.FutureTradeListActivity"></activity>
+        <activity android:name=".view.InputActivity" />
+        <activity android:name=".view.FutureTradeListActivity" />
         <activity
             android:name=".view.EntryActivity"
             android:screenOrientation="portrait">
@@ -23,7 +24,7 @@
         </activity>
         <activity
             android:name=".view.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

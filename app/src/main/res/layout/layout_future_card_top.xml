@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:background="@drawable/background_primary"
-        android:paddingVertical="3dp"
+        android:paddingVertical="2dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,8 +21,41 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/margin_mode_isolated"
+            android:layout_marginVertical="0.5dp"
+            android:fontFamily="@font/plex_regular"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="6dp"
+            android:fontFamily="@font/plex_regular"
+            android:src="@drawable/ic_selector_arrow_down"
+            app:tint="@color/icon_tint" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/_select_2"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10.75dp"
+        android:background="@drawable/background_primary"
+        android:paddingVertical="2dp"
+        app:layout_constraintLeft_toRightOf="@id/_select_1"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/future_leverage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="125x"
+            android:layout_marginVertical="0.5dp"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
         <ImageView
             android:layout_width="8dp"
@@ -34,31 +67,24 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="60dp"
+        android:id="@+id/_select_3"
+        android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10.75dp"
         android:background="@drawable/background_primary"
-        android:paddingVertical="3dp"
-        app:layout_constraintLeft_toRightOf="@id/_select_1"
+        android:paddingVertical="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toRightOf="@id/_select_2"
         app:layout_constraintTop_toTopOf="parent">
-
         <TextView
-            android:id="@+id/future_leverage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="125x"
+            android:text="S"
+            android:layout_marginVertical="0.5dp"
             android:textColor="@color/white"
-            android:textSize="15sp" />
-
-        <ImageView
-            android:layout_width="8dp"
-            android:layout_height="6dp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="6dp"
-            android:src="@drawable/ic_selector_arrow_down"
-            app:tint="@color/icon_tint" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <TextView
@@ -67,45 +93,57 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
-        android:text="펀딩 / 카운트다운"
-        android:textSize="12sp"
+        android:text="Funding / Countdown"
+        android:textSize="10sp"
+        android:textColor="#848e9c"
+        android:fontFamily="@font/plex_regular"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/future_countdown"
-        style="@style/FutureFundingAndCount"
+        android:textSize="12sp"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:text="07:38:01"
+        android:letterSpacing="-0.01"
+        android:fontFamily="@font/plex_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/_funding_countdown" />
 
     <TextView
         android:id="@+id/_countdown_splitter"
-        style="@style/FutureFundingAndCount"
+        android:textSize="12sp"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" / "
+        android:letterSpacing="-0.01"
+        android:fontFamily="@font/plex_medium"
         app:layout_constraintEnd_toStartOf="@id/future_countdown"
         app:layout_constraintTop_toBottomOf="@id/_funding_countdown" />
 
     <TextView
         android:id="@+id/future_funding"
-        style="@style/FutureFundingAndCount"
+        android:textSize="12sp"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/plex_medium"
         android:text="0.0100%"
+        android:letterSpacing="-0.01"
         app:layout_constraintEnd_toStartOf="@id/_countdown_splitter"
         app:layout_constraintTop_toBottomOf="@id/_funding_countdown" />
+
     <View
         app:layout_constraintTop_toBottomOf="@id/_countdown_splitter"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="9.25dp"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/border_color" />
+        android:background="#323c45" />
 
 </androidx.constraintlayout.widget.ConstraintLayout><!-- end top layout -->

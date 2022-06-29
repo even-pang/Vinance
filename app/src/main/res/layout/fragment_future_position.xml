@@ -16,8 +16,8 @@
         <ImageView
             android:src="@drawable/ic_check_non"
             android:id="@+id/recycle_hide_pair"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -25,25 +25,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="다른 페어 숨기기"
+            android:text="Hide Other Pairs"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:layout_marginLeft="6dp"
-            app:layout_constraintBottom_toBottomOf="@id/recycle_hide_pair"
+            android:layout_marginLeft="7dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/recycle_hide_pair" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="전체 종료"
+            android:text="Close All"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:background="@drawable/background_secondary"
             android:textColor="@color/white"
-            android:textSize="13sp"
-            android:paddingHorizontal="6dp"
-            android:paddingVertical="6dp"/>
+            android:textSize="12sp"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="3dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -53,6 +54,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:overScrollMode="never"
+        android:nestedScrollingEnabled="false"
         android:id="@+id/fragment_position_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

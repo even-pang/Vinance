@@ -7,13 +7,18 @@
     android:layout_marginTop="16dp"
     android:background="@drawable/background_top_tab"
     android:orientation="horizontal"
-    android:padding="1dp"
+    android:padding="1.5dp"
     android:weightSum="100">
 
+    <!--<item name="android:textStyle">bold</item>
+    <item name="android:textSize">15sp</item>
+    <item name="android:textColor">@color/text_normal</item>
+        -->
     <TextView
-        style="@style/NormalTabText"
+        android:textSize="14sp"
         android:layout_margin="1.5dp"
         android:layout_width="0dp"
+        android:fontFamily="@font/plex_medium"
         android:layout_height="match_parent"
         android:layout_weight="27"
         android:background="@drawable/background_top_tab_clicked"
@@ -22,29 +27,35 @@
         android:textColor="@color/white" />
 
     <TextView
-        style="@style/NormalTabText"
+        android:textSize="14sp"
         android:layout_margin="1.5dp"
         android:layout_width="0dp"
+        android:fontFamily="@font/plex_medium"
         android:layout_height="match_parent"
         android:layout_weight="27"
         android:gravity="center"
+        android:textColor="#848e9c"
         android:text="@string/coin_m" />
 
     <TextView
-        style="@style/NormalTabText"
+        android:textSize="14sp"
+        android:fontFamily="@font/plex_medium"
         android:layout_margin="1.5dp"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="22"
         android:gravity="center"
+        android:textColor="#848e9c"
         android:text="@string/option" />
 
     <TextView
-        style="@style/NormalTabText"
+        android:textSize="14sp"
+        android:fontFamily="@font/plex_medium"
         android:layout_margin="1.5dp"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="25"
         android:gravity="center"
+        android:textColor="#848e9c"
         android:text="@string/battle" />
 </LinearLayout>

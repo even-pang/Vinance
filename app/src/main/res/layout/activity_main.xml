@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,51 +20,107 @@
     <LinearLayout
         android:id="@+id/main_bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/card_color"
-        android:orientation="horizontal"
-        android:paddingTop="9dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            style="@style/MainBottomNavigation"
-            android:id="@+id/main_menu_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/home"
-            app:drawableTopCompat="@drawable/ic_bottom_1" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#333c45" />
 
-        <TextView
-            style="@style/MainBottomNavigation"
-            android:id="@+id/main_menu_2"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/markets"
-            app:drawableTopCompat="@drawable/ic_bottom_2" />
+            android:background="@color/card_color"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp"
+            android:orientation="horizontal">
 
-        <TextView
-            style="@style/MainBottomNavigation"
-            android:id="@+id/main_menu_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/trades"
-            app:drawableTopCompat="@drawable/ic_bottom_3" />
+            <TextView
+                android:id="@+id/main_bottom_chart_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="BTCUSDT Perpetual Chart"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
 
-        <TextView
-            style="@style/MainBottomNavigation"
-            android:id="@+id/main_menu_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/futures"
-            android:textColor="@color/selected"
-            app:drawableTopCompat="@drawable/ic_bottom_4_selected" />
+            <androidx.legacy.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-        <TextView
-            style="@style/MainBottomNavigation"
-            android:id="@+id/main_menu_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wallets"
-            app:drawableTopCompat="@drawable/ic_bottom_5" />
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_up"
+                android:contentDescription="arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#333c45" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/card_color"
+            android:orientation="horizontal"
+            android:paddingTop="9dp">
+
+            <TextView
+                style="@style/MainBottomNavigation"
+                android:textSize="10sp"
+                android:id="@+id/main_menu_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home"
+                android:textColor="@color/un_selected"
+                app:drawableTopCompat="@drawable/ic_bottom_1" />
+
+            <TextView
+                style="@style/MainBottomNavigation"
+                android:textSize="10sp"
+                android:id="@+id/main_menu_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/markets"
+                android:textColor="@color/un_selected"
+                app:drawableTopCompat="@drawable/ic_bottom_2" />
+
+            <TextView
+                style="@style/MainBottomNavigation"
+                android:textSize="10sp"
+                android:id="@+id/main_menu_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trades"
+                android:textColor="@color/un_selected"
+                app:drawableTopCompat="@drawable/ic_bottom_3" />
+
+            <TextView
+                style="@style/MainBottomNavigation"
+                android:textSize="10sp"
+                android:id="@+id/main_menu_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/futures"
+                android:textColor="@color/selected"
+                app:drawableTopCompat="@drawable/ic_bottom_4_selected" />
+
+            <TextView
+                style="@style/MainBottomNavigation"
+                android:textSize="10sp"
+                android:id="@+id/main_menu_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wallets"
+                android:textColor="@color/un_selected"
+                app:drawableTopCompat="@drawable/ic_bottom_5" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="29dp"
                 android:orientation="horizontal"
                 android:paddingTop="15dp">
 
@@ -56,10 +56,10 @@
                 android:id="@+id/future_inner_tab"
                 style="@style/TabStyle"
                 android:layout_width="0dp"
-                android:layout_height="36dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:background="@color/card_color"
-                android:paddingHorizontal="6dp">
+                android:layout_marginHorizontal="3dp">
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
@@ -74,10 +74,10 @@
 
             <ImageView
                 android:id="@+id/future_history"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginHorizontal="13dp"
                 android:paddingVertical="1dp"
                 android:src="@drawable/ic_more_history" />
         </LinearLayout>

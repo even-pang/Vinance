@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +15,8 @@ import com.project.vinance.R
 import com.project.vinance.databinding.RecycleFuturePositionBinding
 import com.project.vinance.network.socket.SimpleSocketClient
 import com.project.vinance.view.FutureData
-import com.project.vinance.view.sub.enumerate.ADL
 import com.project.vinance.view.sub.InputDataDTO
+import com.project.vinance.view.sub.enumerate.ADL
 import com.project.vinance.view.sub.enumerate.LongShort
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -40,7 +39,7 @@ class RecycleFuturePosition(private val context: Context, private val pager: Rec
 
             val roe = itemView.findViewById<TextView>(R.id.recycle_position_roe_value)
             val pnl = itemView.findViewById<TextView>(R.id.recycle_position_pnl_value)
-            if (onceValue != null) {
+            /*if (onceValue != null) {
                 if (onceValue!! > 0) {
                     roe.setTextColor(ContextCompat.getColor(context, R.color.buy_color))
                     pnl.setTextColor(ContextCompat.getColor(context, R.color.buy_color))
@@ -48,7 +47,17 @@ class RecycleFuturePosition(private val context: Context, private val pager: Rec
                     roe.setTextColor(ContextCompat.getColor(context, R.color.sell_color))
                     pnl.setTextColor(ContextCompat.getColor(context, R.color.sell_color))
                 }
-                onceValue = null
+            }*/
+            try {
+                if (data.roe > BigDecimal.ZERO) {
+                    roe.setTextColor(ContextCompat.getColor(context, R.color.buy_color))
+                    pnl.setTextColor(ContextCompat.getColor(context, R.color.buy_color))
+                } else {
+                    roe.setTextColor(ContextCompat.getColor(context, R.color.sell_color))
+                    pnl.setTextColor(ContextCompat.getColor(context, R.color.sell_color))
+                }
+            } catch (e: Exception) {
+
             }
 
             itemView.findViewById<ImageView>(R.id.recycle_position_symbol_icon).setImageResource(res)
@@ -56,13 +65,18 @@ class RecycleFuturePosition(private val context: Context, private val pager: Rec
             itemView.findViewById<TextView>(R.id.recycle_position_symbol_title).text = String.format("%s 무기한", coinName)
             itemView.findViewById<TextView>(R.id.recycle_position_mode_scale).text = String.format("%sx", data.leverage)
             pnl.text = data.pnl.setScale(2, RoundingMode.HALF_UP).toPlainString()
-            roe.text = String.format("%s%%", data.roe.setScale(2, RoundingMode.HALF_UP))
+
+            if (data.roe > BigDecimal.ZERO) {
+                roe.text = String.format("+ %s%%", data.roe.setScale(2, RoundingMode.HALF_UP))
+            } else {
+                roe.text = String.format("%s%%", data.roe.setScale(2, RoundingMode.HALF_UP))
+            }
             itemView.findViewById<TextView>(R.id.recycle_position_size_value).text =
                 BigDecimal(data.size).setScale(quantityRound, RoundingMode.HALF_UP).toPlainString()
             itemView.findViewById<TextView>(R.id.recycle_position_danger_value).text = String.format("%s%%", data.danger.setScale(2, RoundingMode.HALF_UP))
             itemView.findViewById<TextView>(R.id.recycle_position_margin_value).text = data.margin.setScale(2, RoundingMode.HALF_UP).toPlainString()
             itemView.findViewById<TextView>(R.id.recycle_position_entry_price_value).text =
-                BigDecimal(data.entryPrice).setScale(priceRound, RoundingMode.HALF_UP).toPlainString()
+                BigDecimal(data.entryPrice).setScale(priceRound, RoundingMode.FLOOR).toPlainString()
             itemView.findViewById<TextView>(R.id.recycle_position_market_price_value).text =
                 data.marketPrice.setScale(priceRound, RoundingMode.HALF_UP).toPlainString()
             itemView.findViewById<TextView>(R.id.recycle_position_liquidation_value).text =
