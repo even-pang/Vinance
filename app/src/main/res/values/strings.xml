@@ -48,8 +48,8 @@
     <string name="wallet_future_tab2_title">@string/asset</string>
     <string name="wallet_future_tab3_title">@string/collaterals</string>
 
-    <string name="positions">포지션</string>
-    <string name="asset">자산</string>
+    <string name="positions">Positions</string>
+    <string name="asset">Asset</string>
     <string name="collaterals">담보</string>
 
     <string name="deposit">입금</string>

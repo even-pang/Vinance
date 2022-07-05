@@ -1,9 +1,7 @@
 package com.project.vinance.calculate;
 
 import android.util.Log;
-
 import androidx.annotation.NonNull;
-
 import com.project.vinance.view.FutureData;
 import com.project.vinance.view.recycler.RecycleFuturePosition;
 import com.project.vinance.view.sub.InputDataDTO;
@@ -42,19 +40,25 @@ public class Cal {
                 BigDecimal liqMaintenanceMarginPer = new BigDecimal(maintenanceMarginPer2(symbol, entryNominalValue));
 
                 /* entryPrice * (liqMaintenanceMarginPer / 100) * size */
-                BigDecimal liqMaintenanceMargin = entryPrice.multiply(liqMaintenanceMarginPer.divide(back, MathContext.DECIMAL128).multiply(size, MathContext.DECIMAL128), MathContext.DECIMAL128);
+                BigDecimal liqMaintenanceMargin = entryPrice.multiply(liqMaintenanceMarginPer.divide(back, MathContext.DECIMAL128)
+                                                                                             .multiply(size, MathContext.DECIMAL128),
+                        MathContext.DECIMAL128);
                 instance.getInputDataList().get(i).setMargin(
                         buyingPrice.subtract(commission)
                 );
                 BigDecimal liqPrice = BigDecimal.ZERO;
 
-                /* -1 * (1 - liqMaintenanceMargin / (buyingPrice - commission)) / leverage * 100 + (1 - liqMaintenanceMargin / (buyingPrice - commission)) */
+                /* -1 * (1 - liqMaintenanceMargin / (buyingPrice - commission)) / leverage * 100 + (1 - liqMaintenanceMargin /
+                (buyingPrice - commission)) */
                 BigDecimal liqROE = new BigDecimal("-1").multiply(
-                        BigDecimal.ONE.subtract(liqMaintenanceMargin.divide(buyingPrice.subtract(commission), MathContext.DECIMAL128))).divide(
-                        leverage, MathContext.DECIMAL128).multiply(back).add(
-                        (BigDecimal.ONE.subtract(liqMaintenanceMargin.divide(buyingPrice.subtract(commission), MathContext.DECIMAL128))).divide(
-                                leverage, MathContext.DECIMAL128).multiply(BigDecimal.TEN)
-                );
+                                                                BigDecimal.ONE.subtract(liqMaintenanceMargin.divide(buyingPrice.subtract(commission), MathContext.DECIMAL128)))
+                                                        .divide(
+                                                                leverage, MathContext.DECIMAL128).multiply(back).add(
+                                (BigDecimal.ONE.subtract(liqMaintenanceMargin.divide(buyingPrice.subtract(commission),
+                                        MathContext.DECIMAL128)))
+                                        .divide(
+                                                leverage, MathContext.DECIMAL128).multiply(BigDecimal.TEN)
+                        );
 
                 BigDecimal maintenanceMargin = maintenanceMarginPer(symbol, marketPrice.multiply(size));
                 instance.getInputDataList().get(i).setMaintenanceMargin(maintenanceMargin);
@@ -63,16 +67,19 @@ public class Cal {
                 BigDecimal ssiBbuggu = longShort == LongShort.Short ? new BigDecimal("-1") : BigDecimal.ONE;
 
                 instance.getInputDataList().get(i).setPnl((marketPrice.subtract(entryPrice)).multiply(size).multiply(ssiBbuggu));
-                instance.getInputDataList().get(i).setRoe((BigDecimal.ONE.subtract(entryPrice.divide(marketPrice, MathContext.DECIMAL128))).multiply(back.multiply(leverage)).multiply(ssiBbuggu));
+                instance.getInputDataList().get(i).setRoe((BigDecimal.ONE.subtract(entryPrice.divide(marketPrice, MathContext.DECIMAL128)))
+                        .multiply(back.multiply(leverage)).multiply(ssiBbuggu));
 
                 // 0이랑 비교하니까 0보다 작으면 -1 같으면 0 크면 1
-                RecycleFuturePosition.Companion.setOnceValue((marketPrice.subtract(entryPrice)).multiply(size).multiply(ssiBbuggu).compareTo(BigDecimal.ZERO));
+                RecycleFuturePosition.Companion.setOnceValue((marketPrice.subtract(entryPrice)).multiply(size).multiply(ssiBbuggu)
+                                                                                               .compareTo(BigDecimal.ZERO));
 
                 //Log.d("ABC", "liq : " + liqPNL.toPlainString() + ", liqMargin% : " + liqMaintenanceMarginPer.toPlainString() +
                 //        ", liqMargin : " + liqMaintenanceMargin.toPlainString() + ", roe : " + liqROE.toPlainString());
 //            -89.6399279855971194238847769553910820
                 instance.getInputDataList().get(i).setDanger(
-                        maintenanceMargin.divide(margin.add(pnl), MathContext.DECIMAL128).multiply(new BigDecimal(100)).setScale(2, RoundingMode.HALF_UP)
+                        maintenanceMargin.divide(margin.add(pnl), MathContext.DECIMAL128).multiply(new BigDecimal(100))
+                                         .setScale(2, RoundingMode.HALF_UP)
                 );
 
                 fin = true;
@@ -88,26 +95,53 @@ public class Cal {
                     Log.d("Cal_liqPNL", liqPNL.toPlainString());
 
 //                    Log.d("Cal", "(entryNominalValue + (entryNominalValue * liqROE)) / (buyingPrice - commission) + liqPNL < 0");
-//                    Log.d("Cal_cal", "(" + entryNominalValue.toPlainString() + "+(" + entryNominalValue.toPlainString() + "*" + liqROE.toPlainString() +
+//                    Log.d("Cal_cal", "(" + entryNominalValue.toPlainString() + "+(" + entryNominalValue.toPlainString() + "*" + liqROE
+//                    .toPlainString() +
 //                            "))/(" + buyingPrice.toPlainString() + "-" + commission.toPlainString() + ")+" + liqPNL.toPlainString());
-                    BigDecimal ak47 = maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128))));
+                    BigDecimal ak47 = maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE)
+                                                                                                           .divide(back,
+                                                                                                                   MathContext.DECIMAL128))));
                     BigDecimal m16 = buyingPrice.subtract(commission).add(liqPNL);
                     Log.d("Cal22222222222", ak47.toPlainString());
                     Log.d("Cal22222222222", m16.toPlainString());
 
-                    /*symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(BigDecimal.ONE) < 0*/
+                    /*symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide
+                    (buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(BigDecimal.ONE) < 0*/
                     // 유지마진_퍼센트(진입가 + (진입가 * roe / 100)) / (구매가 - 수수료 + pnl)
-                    Log.d("Cal씨이이이잇펄", "ak47: " + maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))) + " || " + buyingPrice.subtract(commission).add(liqPNL));
-                    while (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(BigDecimal.ONE) < 0) {
-                        //Log.d("Cal씨이이이잇펄", "ak47: " + maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))) + " || " + buyingPrice.subtract(commission).add(liqPNL));
-                        if(maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).compareTo(BigDecimal.ZERO) < 0) break;
-                        if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.009")) < 0) {
+                    Log.d("Cal씨이이이잇펄", "ak47: " + maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE)
+                                                                                                                       .divide(back,
+                                                                                                                               MathContext.DECIMAL128)))) + " || " + buyingPrice
+                            .subtract(commission).add(liqPNL));
+                    while (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE)
+                                                                                                .divide(back, MathContext.DECIMAL128))))
+                            .divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(BigDecimal.ONE) < 0) {
+                        //Log.d("Cal씨이이이잇펄", "ak47: " + maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply
+                        // (liqROE).divide(back, MathContext.DECIMAL128)))) + " || " + buyingPrice.subtract(commission).add(liqPNL));
+                        if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE)
+                                                                                                 .divide(back, MathContext.DECIMAL128)))).compareTo(BigDecimal.ZERO) < 0)
+                            break;
+                        if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE)
+                                                                                                 .divide(back, MathContext.DECIMAL128))))
+                                .divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128)
+                                .compareTo(new BigDecimal("0.009")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.01"));
-                        } else if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.09")) < 0) {
+                        } else if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE)
+                                                                                                        .divide(back,
+                                                                                                                MathContext.DECIMAL128))))
+                                .divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128)
+                                .compareTo(new BigDecimal("0.09")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.001"));
-                        } else if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.9")) < 0) {
+                        } else if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE)
+                                                                                                        .divide(back,
+                                                                                                                MathContext.DECIMAL128))))
+                                .divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128)
+                                .compareTo(new BigDecimal("0.9")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.0001"));
-                        } else if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.99")) < 0) {
+                        } else if (maintenanceMarginPer(symbol, (entryNominalValue.add(entryNominalValue.multiply(liqROE)
+                                                                                                        .divide(back,
+                                                                                                                MathContext.DECIMAL128))))
+                                .divide(buyingPrice.subtract(commission).add(liqPNL), MathContext.DECIMAL128)
+                                .compareTo(new BigDecimal("0.99")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.00001"));
                         } else {
                             liqROE = liqROE.add(new BigDecimal("-0.000001"));
@@ -119,16 +153,26 @@ public class Cal {
                     }
                 } else {
                     //유지마진/마진비율 == 1 이될때 끝난다 이성은씨 돌아오세요???
-                    //while ((liqMaintenanceMargin.subtract(liqMaintenanceMargin.multiply(liqROE).divide(back))).divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128).compareTo(BigDecimal.ONE) < 0) {
-                    while (maintenanceMarginPer(symbol, (entryNominalValue.subtract(entryNominalValue.multiply(liqROE).divide(back, MathContext.DECIMAL128)))).divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128).compareTo(BigDecimal.ONE) < 0) {
-                        BigDecimal ak47 = maintenanceMarginPer(symbol, (entryNominalValue.subtract(entryNominalValue.multiply(liqROE).divide(back))));
-                        if (ak47.divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.09")) < 0) {
+                    //while ((liqMaintenanceMargin.subtract(liqMaintenanceMargin.multiply(liqROE).divide(back))).divide(buyingPrice
+                    // .subtract(commission).subtract(liqPNL), MathContext.DECIMAL128).compareTo(BigDecimal.ONE) < 0) {
+                    while (maintenanceMarginPer(symbol, (entryNominalValue.subtract(entryNominalValue.multiply(liqROE)
+                                                                                                     .divide(back,
+                                                                                                             MathContext.DECIMAL128))))
+                            .divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128)
+                            .compareTo(BigDecimal.ONE) < 0) {
+                        BigDecimal ak47 = maintenanceMarginPer(symbol, (entryNominalValue.subtract(entryNominalValue.multiply(liqROE)
+                                                                                                                    .divide(back))));
+                        if (ak47.divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128)
+                                .compareTo(new BigDecimal("0.09")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.3"));
-                        } else if (ak47.divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.9")) < 0) {
+                        } else if (ak47.divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128)
+                                       .compareTo(new BigDecimal("0.9")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.03"));
-                        } else if (ak47.divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.99")) < 0) {
+                        } else if (ak47.divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128)
+                                       .compareTo(new BigDecimal("0.99")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.003"));
-                        } else if (ak47.divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128).compareTo(new BigDecimal("0.999")) < 0) {
+                        } else if (ak47.divide(buyingPrice.subtract(commission).subtract(liqPNL), MathContext.DECIMAL128)
+                                       .compareTo(new BigDecimal("0.999")) < 0) {
                             liqROE = liqROE.add(new BigDecimal("-0.0003"));
                         } else {
                             liqROE = liqROE.add(new BigDecimal("-0.00003"));
@@ -162,7 +206,8 @@ public class Cal {
             BigDecimal leverage = new BigDecimal(instance.getInputDataList().get(i).getLeverage());
             BigDecimal back = new BigDecimal("100");
             BigDecimal MarketPrice = getMarketPrice(symbol);
-            BigDecimal liqMaintenanceMarginPer = maintenanceMarginPer(symbol, EntryPrice.multiply(size).divide(leverage, MathContext.DECIMAL128));
+            BigDecimal liqMaintenanceMarginPer = maintenanceMarginPer(symbol, EntryPrice.multiply(size)
+                                                                                        .divide(leverage, MathContext.DECIMAL128));
             BigDecimal maintenanceMargin = maintenanceMarginPer(symbol, MarketPrice.multiply(size));
             BigDecimal margin = instance.getInputDataList().get(i).getMargin();
             BigDecimal pnl = instance.getInputDataList().get(i).getPnl();
@@ -170,11 +215,13 @@ public class Cal {
             LongShort longShort = instance.getInputDataList().get(i).getLongShort();
             BigDecimal ssiBbuggu = longShort == LongShort.Short ? new BigDecimal("-1") : BigDecimal.ONE;
             instance.getInputDataList().get(i).setDanger(
-                    maintenanceMargin.divide(margin.add(pnl), MathContext.DECIMAL128).multiply(new BigDecimal(100)).setScale(2, RoundingMode.HALF_UP)
+                    maintenanceMargin.divide(margin.add(pnl), MathContext.DECIMAL128).multiply(new BigDecimal(100))
+                                     .setScale(2, RoundingMode.HALF_UP)
             );
             instance.getInputDataList().get(i).setMaintenanceMargin(maintenanceMargin);
             instance.getInputDataList().get(i).setPnl((MarketPrice.subtract(EntryPrice)).multiply(size).multiply(ssiBbuggu));
-            instance.getInputDataList().get(i).setRoe((BigDecimal.ONE.subtract(EntryPrice.divide(MarketPrice, MathContext.DECIMAL128))).multiply(back.multiply(leverage)).multiply(ssiBbuggu));
+            instance.getInputDataList().get(i).setRoe((BigDecimal.ONE.subtract(EntryPrice.divide(MarketPrice, MathContext.DECIMAL128)))
+                    .multiply(back.multiply(leverage)).multiply(ssiBbuggu));
         }
 
 //        Log.d("Cal", FutureData.INSTANCE.getInputDataList().toString());
@@ -196,8 +243,830 @@ public class Cal {
         BigDecimal result = BigDecimal.ZERO;
         BigDecimal temp = nominalValue;
 
-        //Log.d("Cal_maint", symbol + "/" + nominalValue.toPlainString());
+        // 신규 버전 - 마진1
+        switch (symbol) {
+            case "TRXBUSD": case "NEARBUSD": case "DODOBUSD": case "WAVESBUSD": case "AVAXBUSD": case "GALBUSD": case "FTMBUSD":
+            case "GALABUSD": case "ANCBUSD": case "1000LUNCBUSD": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.025")));
+                break;
+            }
+            case "DOTBUSD": case "TLMBUSD": case "ICPBUSD": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.025")));
+                break;
+            }
+            case "APEBUSD": case "GMTBUSD": case "LUNA2BUSD": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.025")));
+                break;
+            }
+            case "SUSHIUSDT": case "BTSUSDT": case "ZRXUSDT": case "WAVESUSDT": case "DARUSDT": case "HNTUSDT": case "ALICEUSDT":
+            case "REEFUSDT": case "BATUSDT": case "STORJUSDT": case "SNXUSDT": case "IOTXUSDT": case "DASHUSDT": case "KAVAUSDT":
+            case "DGBUSDT": case "SKLUSDT": case "MTLUSDT": case "TOMOUSDT": case "KSMUSDT": case "FLOWUSDT": case "CHRUSDT":
+            case "GALUSDT": case "OGNUSDT": case "STMXUSDT": case "KNCUSDT": case "SRMUSDT": case "ATOMUSDT": case "ATAUSDT":
+            case "IOSTUSDT": case "HBARUSDT": case "GALAUSDT": case "GTCUSDT": case "ALGOUSDT": case "LRCUSDT": case "ARPAUSDT":
+            case "CELOUSDT": case "LINAUSDT": case "BANDUSDT": case "FTTUSDT": case "ONEUSDT": case "API3USDT": case "RAYUSDT":
+            case "CVCUSDT": case "HOTUSDT": case "QTUMUSDT": case "IOTAUSDT": case "LITUSDT": case "YFIUSDT": case "ALPHAUSDT":
+            case "WOOUSDT": case "SFPUSDT": case "RLCUSDT": case "1000XECUSDT": case "AUDIOUSDT": case "NEOUSDT": case "UNFIUSDT":
+            case "CTKUSDT": case "CELRUSDT": case "RENUSDT": case "JASMYUSDT": case "LPTUSDT": case "IMXUSDT": case "ONTUSDT":
+            case "VETUSDT": case "COTIUSDT": case "BAKEUSDT": case "GRTUSDT": case "MASKUSDT": case "BALUSDT": case "DENTUSDT":
+            case "C98USDT": case "ZENUSDT": case "ANTUSDT": case "AAVEUSDT": case "ROSEUSDT": case "MKRUSDT": case "PEOPLEUSDT":
+            case "UNIUSDT": case "RVNUSDT": case "NKNUSDT": case "KLAYUSDT": case "DEFIUSDT": case "COMPUSDT": case "OMGUSDT":
+            case "ICXUSDT": case "SXPUSDT": case "XEMUSDT": case "ZILUSDT": case "OCEANUSDT": case "DUSKUSDT": case "CTSIUSDT": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                if (temp.compareTo(new BigDecimal("5000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("4999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "ANKRUSDT": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                if (temp.compareTo(new BigDecimal("5000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("4999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.012")));
+                break;
+            }
+            case "RUNEUSDT": case "TRBUSDT": case "BLZUSDT": case "RSRUSDT": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                if (temp.compareTo(new BigDecimal("5000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("4999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "CHZUSDT": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                if (temp.compareTo(new BigDecimal("5000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("4999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.012")));
+                break;
+            }
+            case "OPUSDT": case "ENSUSDT": case "ARUSDT": case "BELUSDT": case "BTCDOMUSDT": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                if (temp.compareTo(new BigDecimal("5000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("4999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "BNBBUSD": case "SOLBUSD": case "XRPBUSD": case "FTTBUSD": case "ADABUSD": case "DOGEBUSD": {
+                if (temp.compareTo(new BigDecimal("5000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("4999999");
+                }
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.15")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("499999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("499999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("99999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.025")));
+                break;
+            }
+            case "1INCHUSDT": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                if (temp.compareTo(new BigDecimal("5000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("4999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.012")));
+                break;
+            }
+            case "FLMUSDT": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                if (temp.compareTo(new BigDecimal("5000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("4999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "EGLDUSDT": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("24999");
+                }
+                if (temp.compareTo(new BigDecimal("5000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("4999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "XTZUSDT": case "XMRUSDT": case "DOGEUSDT": case "XLMUSDT": case "SOLUSDT": case "AVAXUSDT": {
+                if (temp.compareTo(new BigDecimal("10000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("9999999");
+                }
+                if (temp.compareTo(new BigDecimal("5000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("4999999");
+                }
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("49999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "APEUSDT": case "MANAUSDT": case "ENJUSDT": case "ZECUSDT": case "CRVUSDT": case "SANDUSDT": case "NEARUSDT": {
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("499999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("499999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("150000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("149999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("149999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("49999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "BNXUSDT": {
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("499999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("499999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("150000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("149999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("149999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("49999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "GMTUSDT": case "1000SHIBUSDT": {
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("499999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("499999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("150000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("149999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("149999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("49999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "MATICUSDT": {
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("750000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("749999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("749999");
+                }
+                if (temp.compareTo(new BigDecimal("500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("499999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("499999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("150000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("149999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("149999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("49999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "FTMUSDT": case "DYDXUSDT": {
+                if (temp.compareTo(new BigDecimal("4000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("3999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("3999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("499999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("499999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("150000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("149999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("149999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("49999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "BTCUSDT_220930": case "ETHUSDT_220930": {
+                if (temp.compareTo(new BigDecimal("40000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("39999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("39999999");
+                }
+                if (temp.compareTo(new BigDecimal("20000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("19999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("19999999");
+                }
+                if (temp.compareTo(new BigDecimal("10000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999999"))).multiply(new BigDecimal("0.15")));
+                    temp = new BigDecimal("9999999");
+                }
+                if (temp.compareTo(new BigDecimal("4000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("3999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("3999999");
+                }
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("375000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("374999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("374999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.02")));
+                break;
+            }
+            case "FILUSDT": case "THETAUSDT": {
+                if (temp.compareTo(new BigDecimal("20000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("19999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("19999999");
+                }
+                if (temp.compareTo(new BigDecimal("10000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("9999999");
+                }
+                if (temp.compareTo(new BigDecimal("5000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999999"))).multiply(new BigDecimal("0.16649999999999998")));
+                    temp = new BigDecimal("4999999");
+                }
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.02")));
+                    temp = new BigDecimal("49999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "AXSUSDT": {
+                if (temp.compareTo(new BigDecimal("15000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("14999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("14999999");
+                }
+                if (temp.compareTo(new BigDecimal("10000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("9999999");
+                }
+                if (temp.compareTo(new BigDecimal("5000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999999"))).multiply(new BigDecimal("0.16649999999999998")));
+                    temp = new BigDecimal("4999999");
+                }
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.02")));
+                    temp = new BigDecimal("49999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.01")));
+                break;
+            }
+            case "BNBUSDT": case "ETCUSDT": case "LTCUSDT": case "XRPUSDT": case "ADAUSDT": case "LINKUSDT": case "EOSUSDT":
+            case "BCHUSDT": {
+                if (temp.compareTo(new BigDecimal("20000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("19999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("19999999");
+                }
+                if (temp.compareTo(new BigDecimal("10000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("9999999");
+                }
+                if (temp.compareTo(new BigDecimal("5000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999999"))).multiply(new BigDecimal("0.15")));
+                    temp = new BigDecimal("4999999");
+                }
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.02")));
+                    temp = new BigDecimal("49999");
+                }
+                if (temp.compareTo(new BigDecimal("10000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999"))).multiply(new BigDecimal("0.01")));
+                    temp = new BigDecimal("9999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.006500000000000001")));
+                break;
+            }
+            case "TRXUSDT": {
+                if (temp.compareTo(new BigDecimal("20000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("19999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("19999999");
+                }
+                if (temp.compareTo(new BigDecimal("10000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("9999999");
+                }
+                if (temp.compareTo(new BigDecimal("5000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999999"))).multiply(new BigDecimal("0.15")));
+                    temp = new BigDecimal("4999999");
+                }
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.02")));
+                    temp = new BigDecimal("49999");
+                }
+                if (temp.compareTo(new BigDecimal("10000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999"))).multiply(new BigDecimal("0.01")));
+                    temp = new BigDecimal("9999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.006500000000000001")));
+                break;
+            }
+            case "DOTUSDT": {
+                if (temp.compareTo(new BigDecimal("50000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("49999999");
+                }
+                if (temp.compareTo(new BigDecimal("10000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("9999999");
+                }
+                if (temp.compareTo(new BigDecimal("5000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("4999999"))).multiply(new BigDecimal("0.15")));
+                    temp = new BigDecimal("4999999");
+                }
+                if (temp.compareTo(new BigDecimal("2000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("1999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.02")));
+                    temp = new BigDecimal("49999");
+                }
+                if (temp.compareTo(new BigDecimal("10000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999"))).multiply(new BigDecimal("0.01")));
+                    temp = new BigDecimal("9999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.006500000000000001")));
+                break;
+            }
+            case "BTCBUSD": {
+                if (temp.compareTo(new BigDecimal("600000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("599999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("599999999");
+                }
+                if (temp.compareTo(new BigDecimal("400000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("399999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("399999999");
+                }
+                if (temp.compareTo(new BigDecimal("200000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("199999999"))).multiply(new BigDecimal("0.15")));
+                    temp = new BigDecimal("199999999");
+                }
+                if (temp.compareTo(new BigDecimal("100000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("99999999");
+                }
+                if (temp.compareTo(new BigDecimal("40000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("39999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("39999999");
+                }
+                if (temp.compareTo(new BigDecimal("7500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("7499999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("7499999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.01")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.005")));
+                    temp = new BigDecimal("49999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.004")));
+                break;
+            }
+            case "ETHUSDT": {
+                if (temp.compareTo(new BigDecimal("150000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("149999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("149999999");
+                }
+                if (temp.compareTo(new BigDecimal("40000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("39999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("39999999");
+                }
+                if (temp.compareTo(new BigDecimal("20000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("19999999"))).multiply(new BigDecimal("0.15")));
+                    temp = new BigDecimal("19999999");
+                }
+                if (temp.compareTo(new BigDecimal("10000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("9999999");
+                }
+                if (temp.compareTo(new BigDecimal("4000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("3999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("3999999");
+                }
+                if (temp.compareTo(new BigDecimal("1500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1499999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("1499999");
+                }
+                if (temp.compareTo(new BigDecimal("500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("499999"))).multiply(new BigDecimal("0.02")));
+                    temp = new BigDecimal("499999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.01")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("10000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999"))).multiply(new BigDecimal("0.006500000000000001")));
+                    temp = new BigDecimal("9999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.005")));
+                break;
+            }
+            case "ETHBUSD": {
+                if (temp.compareTo(new BigDecimal("150000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("149999999"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("149999999");
+                }
+                if (temp.compareTo(new BigDecimal("40000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("39999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("39999999");
+                }
+                if (temp.compareTo(new BigDecimal("20000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("19999999"))).multiply(new BigDecimal("0.15")));
+                    temp = new BigDecimal("19999999");
+                }
+                if (temp.compareTo(new BigDecimal("10000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("9999999");
+                }
+                if (temp.compareTo(new BigDecimal("4000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("3999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("3999999");
+                }
+                if (temp.compareTo(new BigDecimal("1500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("1499999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("1499999");
+                }
+                if (temp.compareTo(new BigDecimal("500000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("499999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("499999");
+                }
+                if (temp.compareTo(new BigDecimal("100000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999"))).multiply(new BigDecimal("0.01")));
+                    temp = new BigDecimal("99999");
+                }
+                if (temp.compareTo(new BigDecimal("25000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("24999"))).multiply(new BigDecimal("0.005")));
+                    temp = new BigDecimal("24999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.004")));
+                break;
+            }
+            case "BTCUSDT": {
+                if (temp.compareTo(new BigDecimal("300000000")) > 0) {
+                    result = result.add((temp.subtract(new BigDecimal("300000000"))).multiply(new BigDecimal("0.5")));
+                    temp = new BigDecimal("300000000");
+                }
+                if (temp.compareTo(new BigDecimal("200000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("199999999"))).multiply(new BigDecimal("0.25")));
+                    temp = new BigDecimal("199999999");
+                }
+                if (temp.compareTo(new BigDecimal("100000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("99999999"))).multiply(new BigDecimal("0.15")));
+                    temp = new BigDecimal("99999999");
+                }
+                if (temp.compareTo(new BigDecimal("50000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999999"))).multiply(new BigDecimal("0.125")));
+                    temp = new BigDecimal("49999999");
+                }
+                if (temp.compareTo(new BigDecimal("20000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("19999999"))).multiply(new BigDecimal("0.1")));
+                    temp = new BigDecimal("19999999");
+                }
+                if (temp.compareTo(new BigDecimal("10000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("9999999"))).multiply(new BigDecimal("0.05")));
+                    temp = new BigDecimal("9999999");
+                }
+                if (temp.compareTo(new BigDecimal("1000000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("999999"))).multiply(new BigDecimal("0.025")));
+                    temp = new BigDecimal("999999");
+                }
+                if (temp.compareTo(new BigDecimal("250000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("249999"))).multiply(new BigDecimal("0.01")));
+                    temp = new BigDecimal("249999");
+                }
+                if (temp.compareTo(new BigDecimal("50000")) >= 0) {
+                    result = result.add((temp.subtract(new BigDecimal("49999"))).multiply(new BigDecimal("0.005")));
+                    temp = new BigDecimal("49999");
+                }
+                result = result.add(temp.multiply(new BigDecimal("0.004")));
+                break;
+            }
+        }
 
+        //Log.d("Cal_maint", symbol + "/" + nominalValue.toPlainString());
+        // 기존 버전 - 마진1
         switch (symbol) {
             case "BTCUSDT": {//125배
                 if (temp.compareTo(new BigDecimal("300000000")) > 0) {
@@ -595,18 +1464,331 @@ public class Cal {
     }
 
     public static String maintenanceMarginPer2(String symbol, BigDecimal nominalValue) {
+        // 신규 버전 - 마진2
+        switch (symbol) {
+            case "TRXBUSD": case "NEARBUSD": case "DODOBUSD": case "WAVESBUSD": case "AVAXBUSD": case "GALBUSD": case "FTMBUSD":
+            case "GALABUSD": case "ANCBUSD": case "1000LUNCBUSD": {
+                if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "50.00";
+                break;
+            }
+            case "DOTBUSD": case "TLMBUSD": case "ICPBUSD": {
+                if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("30000000")) < 0) return "50.00";
+                break;
+            }
+            case "APEBUSD": case "GMTBUSD": case "LUNA2BUSD": {
+                if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("8000000")) < 0) return "50.00";
+                break;
+            }
+            case "SUSHIUSDT": case "BTSUSDT": case "ZRXUSDT": case "WAVESUSDT": case "DARUSDT": case "HNTUSDT": case "ALICEUSDT":
+            case "REEFUSDT": case "BATUSDT": case "STORJUSDT": case "SNXUSDT": case "IOTXUSDT": case "DASHUSDT": case "KAVAUSDT":
+            case "DGBUSDT": case "SKLUSDT": case "MTLUSDT": case "TOMOUSDT": case "KSMUSDT": case "FLOWUSDT": case "CHRUSDT":
+            case "GALUSDT": case "OGNUSDT": case "STMXUSDT": case "KNCUSDT": case "SRMUSDT": case "ATOMUSDT": case "ATAUSDT":
+            case "IOSTUSDT": case "HBARUSDT": case "GALAUSDT": case "GTCUSDT": case "ALGOUSDT": case "LRCUSDT": case "ARPAUSDT":
+            case "CELOUSDT": case "LINAUSDT": case "BANDUSDT": case "FTTUSDT": case "ONEUSDT": case "API3USDT": case "RAYUSDT":
+            case "CVCUSDT": case "HOTUSDT": case "QTUMUSDT": case "IOTAUSDT": case "LITUSDT": case "YFIUSDT": case "ALPHAUSDT":
+            case "WOOUSDT": case "SFPUSDT": case "RLCUSDT": case "1000XECUSDT": case "AUDIOUSDT": case "NEOUSDT": case "UNFIUSDT":
+            case "CTKUSDT": case "CELRUSDT": case "RENUSDT": case "JASMYUSDT": case "LPTUSDT": case "IMXUSDT": case "ONTUSDT":
+            case "VETUSDT": case "COTIUSDT": case "BAKEUSDT": case "GRTUSDT": case "MASKUSDT": case "BALUSDT": case "DENTUSDT":
+            case "C98USDT": case "ZENUSDT": case "ANTUSDT": case "AAVEUSDT": case "ROSEUSDT": case "MKRUSDT": case "PEOPLEUSDT":
+            case "UNIUSDT": case "RVNUSDT": case "NKNUSDT": case "KLAYUSDT": case "DEFIUSDT": case "COMPUSDT": case "OMGUSDT":
+            case "ICXUSDT": case "SXPUSDT": case "XEMUSDT": case "ZILUSDT": case "OCEANUSDT": case "DUSKUSDT": case "CTSIUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("5000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "50.00";
+                break;
+            }
+            case "ANKRUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("5000")) < 0) return "1.20";
+                else if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "50.00";
+                break;
+            }
+            case "RUNEUSDT": case "TRBUSDT": case "BLZUSDT": case "RSRUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("5000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("30000000")) < 0) return "50.00";
+                break;
+            }
+            case "CHZUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("5000")) < 0) return "1.20";
+                else if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("30000000")) < 0) return "50.00";
+                break;
+            }
+            case "OPUSDT": case "ENSUSDT": case "ARUSDT": case "BELUSDT": case "BTCDOMUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("5000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("8000000")) < 0) return "50.00";
+                break;
+            }
+            case "BNBBUSD": case "SOLBUSD": case "XRPBUSD": case "FTTBUSD": case "ADABUSD": case "DOGEBUSD": {
+                if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("500000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "15.00";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("8000000")) < 0) return "50.00";
+                break;
+            }
+            case "1INCHUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("5000")) < 0) return "1.20";
+                else if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "50.00";
+                break;
+            }
+            case "FLMUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("5000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "50.00";
+                break;
+            }
+            case "EGLDUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("5000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("50000000")) < 0) return "50.00";
+                break;
+            }
+            case "XTZUSDT": case "XMRUSDT": case "DOGEUSDT": case "XLMUSDT": case "SOLUSDT": case "AVAXUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) < 0) return "50.00";
+                break;
+            }
+            case "APEUSDT": case "MANAUSDT": case "ENJUSDT": case "ZECUSDT": case "CRVUSDT": case "SANDUSDT": case "NEARUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("150000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("500000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "50.00";
+                break;
+            }
+            case "BNXUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("150000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("500000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("8000000")) < 0) return "50.00";
+                break;
+            }
+            case "GMTUSDT": case "1000SHIBUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("150000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("500000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("30000000")) < 0) return "50.00";
+                break;
+            }
+            case "MATICUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("150000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("500000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("750000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("8000000")) < 0) return "50.00";
+                break;
+            }
+            case "FTMUSDT": case "DYDXUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("150000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("500000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("4000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("8000000")) < 0) return "50.00";
+                break;
+            }
+            case "BTCUSDT_220930": case "ETHUSDT_220930": {
+                if (nominalValue.compareTo(new BigDecimal("375000")) < 0) return "2.00";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("4000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) < 0) return "15.00";
+                else if (nominalValue.compareTo(new BigDecimal("40000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("400000000")) < 0) return "50.00";
+                break;
+            }
+            case "FILUSDT": case "THETAUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "2.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "16.65";
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("30000000")) < 0) return "50.00";
+                break;
+            }
+            case "AXSUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "2.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "16.65";
+                else if (nominalValue.compareTo(new BigDecimal("15000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) < 0) return "50.00";
+                break;
+            }
+            case "BNBUSDT": case "ETCUSDT": case "LTCUSDT": case "XRPUSDT": case "ADAUSDT": case "LINKUSDT": case "EOSUSDT":
+            case "BCHUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("10000")) < 0) return "0.65";
+                else if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "2.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "15.00";
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("50000000")) < 0) return "50.00";
+                break;
+            }
+            case "TRXUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("10000")) < 0) return "0.65";
+                else if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "2.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "15.00";
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("30000000")) < 0) return "50.00";
+                break;
+            }
+            case "DOTUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("10000")) < 0) return "0.65";
+                else if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "2.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("2000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "15.00";
+                else if (nominalValue.compareTo(new BigDecimal("50000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("100000000")) < 0) return "50.00";
+                break;
+            }
+            case "BTCBUSD": {
+                if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "0.40";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "0.50";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("7500000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("40000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("100000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("200000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("400000000")) < 0) return "15.00";
+                else if (nominalValue.compareTo(new BigDecimal("600000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("1000000000")) < 0) return "50.00";
+                break;
+            }
+            case "ETHUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("10000")) < 0) return "0.50";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "0.65";
+                else if (nominalValue.compareTo(new BigDecimal("500000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("1500000")) < 0) return "2.00";
+                else if (nominalValue.compareTo(new BigDecimal("4000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("40000000")) < 0) return "15.00";
+                else if (nominalValue.compareTo(new BigDecimal("150000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("500000000")) < 0) return "50.00";
+                break;
+            }
+            case "ETHBUSD": {
+                if (nominalValue.compareTo(new BigDecimal("25000")) < 0) return "0.40";
+                else if (nominalValue.compareTo(new BigDecimal("100000")) < 0) return "0.50";
+                else if (nominalValue.compareTo(new BigDecimal("500000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("1500000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("4000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("40000000")) < 0) return "15.00";
+                else if (nominalValue.compareTo(new BigDecimal("150000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("500000000")) < 0) return "50.00";
+                break;
+            }
+            case "BTCUSDT": {
+                if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "0.40";
+                else if (nominalValue.compareTo(new BigDecimal("250000")) < 0) return "0.50";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) < 0) return "1.00";
+                else if (nominalValue.compareTo(new BigDecimal("10000000")) < 0) return "2.50";
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) < 0) return "5.00";
+                else if (nominalValue.compareTo(new BigDecimal("50000000")) < 0) return "10.00";
+                else if (nominalValue.compareTo(new BigDecimal("100000000")) < 0) return "12.50";
+                else if (nominalValue.compareTo(new BigDecimal("200000000")) < 0) return "15.00";
+                else if (nominalValue.compareTo(new BigDecimal("300000000")) < 0) return "25.00";
+                else if (nominalValue.compareTo(new BigDecimal("300000000")) > 0) return "50.00";
+                break;
+            }
+        }
+
+        // 기존 버전 - 마진2
         switch (symbol) {
             case "BTCUSDT": {//125배
                 if (nominalValue.compareTo(new BigDecimal("50000")) < 0) return "0.4";
-                else if (nominalValue.compareTo(new BigDecimal("50000")) > 0 && nominalValue.compareTo(new BigDecimal("250000")) <= 0) return "0.5"; //0.005
-                else if (nominalValue.compareTo(new BigDecimal("250000")) > 0 && nominalValue.compareTo(new BigDecimal("1000000")) <= 0) return "1.0"; //0.01
-                else if (nominalValue.compareTo(new BigDecimal("1000000")) > 0 && nominalValue.compareTo(new BigDecimal("5000000")) <= 0) return "2.5"; //0.025
-                else if (nominalValue.compareTo(new BigDecimal("5000000")) > 0 && nominalValue.compareTo(new BigDecimal("20000000")) <= 0) return "5.0"; //0.05
-                else if (nominalValue.compareTo(new BigDecimal("20000000")) > 0 && nominalValue.compareTo(new BigDecimal("50000000")) <= 0) return "10.0"; //0.1
-                else if (nominalValue.compareTo(new BigDecimal("50000000")) > 0 && nominalValue.compareTo(new BigDecimal("100000000")) <= 0) return "12.5";
-                else if (nominalValue.compareTo(new BigDecimal("100000000")) > 0 && nominalValue.compareTo(new BigDecimal("200000000")) <= 0) return "15.0";
-                else if (nominalValue.compareTo(new BigDecimal("200000000")) > 0 && nominalValue.compareTo(new BigDecimal("300000000")) <= 0) return "25.0";
-                else if (nominalValue.compareTo(new BigDecimal("300000000")) > 0 && nominalValue.compareTo(new BigDecimal("500000000")) <= 0) return "50.0";
+                else if (nominalValue.compareTo(new BigDecimal("50000")) > 0 && nominalValue.compareTo(new BigDecimal("250000")) <= 0)
+                    return "0.5"; //0.005
+                else if (nominalValue.compareTo(new BigDecimal("250000")) > 0 && nominalValue.compareTo(new BigDecimal("1000000")) <= 0)
+                    return "1.0"; //0.01
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) > 0 && nominalValue.compareTo(new BigDecimal("5000000")) <= 0)
+                    return "2.5"; //0.025
+                else if (nominalValue.compareTo(new BigDecimal("5000000")) > 0 && nominalValue.compareTo(new BigDecimal("20000000")) <= 0)
+                    return "5.0"; //0.05
+                else if (nominalValue.compareTo(new BigDecimal("20000000")) > 0 && nominalValue.compareTo(new BigDecimal("50000000")) <= 0)
+                    return "10.0"; //0.1
+                else if (nominalValue.compareTo(new BigDecimal("50000000")) > 0 && nominalValue.compareTo(new BigDecimal("100000000")) <= 0)
+                    return "12.5";
+                else if (nominalValue.compareTo(new BigDecimal("100000000")) > 0 && nominalValue.compareTo(new BigDecimal("200000000")) <= 0)
+                    return "15.0";
+                else if (nominalValue.compareTo(new BigDecimal("200000000")) > 0 && nominalValue.compareTo(new BigDecimal("300000000")) <= 0)
+                    return "25.0";
+                else if (nominalValue.compareTo(new BigDecimal("300000000")) > 0 && nominalValue.compareTo(new BigDecimal("500000000")) <= 0)
+                    return "50.0";
                 break;
             }
             case "ETHUSDT": {//100배
@@ -766,7 +1948,8 @@ public class Cal {
                 else if (nominalValue.compareTo(new BigDecimal("500000")) <= 0) return "10.0";
                 else if (nominalValue.compareTo(new BigDecimal("750000")) <= 0) return "12.5";
                 else if (nominalValue.compareTo(new BigDecimal("1000000")) <= 0) return "25.0";
-                else if (nominalValue.compareTo(new BigDecimal("1000000")) > 0 && nominalValue.compareTo(new BigDecimal("30000000")) <= 0) return "50.0";
+                else if (nominalValue.compareTo(new BigDecimal("1000000")) > 0 && nominalValue.compareTo(new BigDecimal("30000000")) <= 0)
+                    return "50.0";
                 break;
             }
             case "NKNUSDT":

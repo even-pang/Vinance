@@ -73,8 +73,6 @@ class EntryActivity : AppCompatActivity() {
             FutureData.exchangeInfo = GlobalData.getClient(GlobalData.FAPI_URL).getExchangeInfo()
             val result: ExchangeInfoDTO = FutureData.exchangeInfo!!
 
-            Log.i("SPECIAL", result.toString())
-
             coinDataList = (listOf("선택하세요") + result.symbols.filter { (it.contractType == "PERPETUAL") and (it.quoteAsset == "USDT") }
                 .map { it.symbol }) as MutableList<String>
 

@@ -17,7 +17,7 @@
         <item name="android:textSize">@dimen/text_normal</item>
         <item name="android:windowBackground">@color/default_background</item>
 
-        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:navigationBarColor">#202630</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">false</item>
     </style>
 
@@ -32,6 +32,9 @@
         <item name="tabSelectedTextColor">@color/white</item>
         <item name="tabTextAppearance">@style/TabFont</item>
         <item name="tabMinWidth">0dp</item>
+        <item name="tabPaddingStart">10dp</item>
+        <item name="tabPaddingEnd">10dp</item>
+        <item name="android:paddingStart">3dp</item>
     </style>
 
     <style name="WalletTab" parent="Widget.MaterialComponents.TabLayout">
@@ -45,8 +48,14 @@
         <item name="tabSelectedTextColor">@color/white</item>
         <item name="tabTextAppearance">@style/TabFont</item>
         <item name="tabMinWidth">0dp</item>
-<!--        <item name="tabPaddingStart">0dp</item>-->
-<!--        <item name="tabPaddingEnd">0dp</item>-->
+        <!--        <item name="tabPaddingStart">0dp</item>-->
+        <!--        <item name="tabPaddingEnd">0dp</item>-->
+    </style>
+
+    <style name="FutureTabText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/plex_medium</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TabText" parent="TextAppearance.AppCompat">
@@ -132,14 +141,14 @@
     <style name="OrderLeftText">
         <item name="android:fontFamily">@font/plex_regular</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:paddingTop">1.3dp</item>
-        <item name="android:paddingBottom">1.3dp</item>
-        <item name="android:layout_marginTop">0.2dp</item>
-        <item name="android:layout_marginBottom">0.2dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:layout_marginTop">0.1dp</item>
+        <item name="android:layout_marginBottom">0.1dp</item>
     </style>
 
     <style name="OrderRightText">
-        <item name="android:fontFamily">@font/plex_medium</item>
+        <item name="android:fontFamily">@font/plex_regular</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#FFF</item>
     </style>

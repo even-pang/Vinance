@@ -1,6 +1,8 @@
 package com.project.vinance.view.fragment.future
 
+import android.content.Context
 import android.graphics.Color
+import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
 import android.util.Pair
@@ -8,12 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.minus
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +28,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.project.vinance.R
 import com.project.vinance.client.model.market.OrderBookEntry
 import com.project.vinance.databinding.FragmentFutureBinding
-import com.project.vinance.network.rest.vo.ExchangeInfoDTO
 import com.project.vinance.network.socket.SocketClient
 import com.project.vinance.view.FutureData
 import com.project.vinance.view.GlobalData
@@ -40,6 +43,7 @@ import java.math.MathContext
 import java.math.RoundingMode
 import java.util.*
 
+
 /**
  * Feature(선물) 영역을 표시하는 프래그먼트
  *
@@ -51,6 +55,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
         private const val COIN_TYPE: String = "COIN_TYPE"
         private const val COIN_UNIT: String = "COIN_TETHER"
 
+        public var bottomHeight = 50;
         /**
          * FeatureFragment 인스턴스를 생성함
          *
@@ -98,6 +103,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
             requireActivity().findViewById(R.id.future_chart_buy5),
             requireActivity().findViewById(R.id.future_chart_buy6),
             requireActivity().findViewById(R.id.future_chart_buy7),
+            requireActivity().findViewById(R.id.future_chart_buy8),
         )
     }
 
@@ -111,6 +117,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
             requireActivity().findViewById(R.id.future_chart_sell5),
             requireActivity().findViewById(R.id.future_chart_sell6),
             requireActivity().findViewById(R.id.future_chart_sell7),
+            requireActivity().findViewById(R.id.future_chart_sell8),
         )
     }
 
@@ -367,6 +374,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
                     Pair(binding.cardRight.futureBuy5Left, binding.cardRight.futureBuy5Right),
                     Pair(binding.cardRight.futureBuy6Left, binding.cardRight.futureBuy6Right),
                     Pair(binding.cardRight.futureBuy7Left, binding.cardRight.futureBuy7Right),
+                    Pair(binding.cardRight.futureBuy8Left, binding.cardRight.futureBuy8Right),
                 )
                 val bidsBackground = listOf(
                     binding.cardRight.futureChartBuy1,
@@ -376,6 +384,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
                     binding.cardRight.futureChartBuy5,
                     binding.cardRight.futureChartBuy6,
                     binding.cardRight.futureChartBuy7,
+                    binding.cardRight.futureChartBuy8,
                 )
 
                 val asks = listOf(
@@ -385,7 +394,8 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
                     Pair(binding.cardRight.futureSell4Left, binding.cardRight.futureSell4Right),
                     Pair(binding.cardRight.futureSell5Left, binding.cardRight.futureSell5Right),
                     Pair(binding.cardRight.futureSell6Left, binding.cardRight.futureSell6Right),
-                    Pair(binding.cardRight.futureSell7Left, binding.cardRight.futureSell7Right)
+                    Pair(binding.cardRight.futureSell7Left, binding.cardRight.futureSell7Right),
+                    Pair(binding.cardRight.futureSell8Left, binding.cardRight.futureSell8Right),
                 )
                 val asksBackground = listOf(
                     binding.cardRight.futureChartSell1,
@@ -395,6 +405,7 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
                     binding.cardRight.futureChartSell5,
                     binding.cardRight.futureChartSell6,
                     binding.cardRight.futureChartSell7,
+                    binding.cardRight.futureChartSell8,
                 )
 
                 val bidAndAskSum: MutableList<Pair<BigDecimal, BigDecimal>> = mutableListOf(Pair(BigDecimal.ZERO, BigDecimal.ZERO))
@@ -402,23 +413,26 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
 
                 // 가격, 금액 입력
 
-                val scale: Int
+                val priceQtyScale: Pair<Int, Int>
                 if (FutureData.exchangeInfo != null) {
                     val exchange = FutureData.exchangeInfo!!;
                     val find = exchange.symbols.find { it.symbol == global.showCoin.value!! + global.showTether.value!! }
-                    scale = if (find != null) {
-                        BigDecimal(find.filters[0].tickSize).stripTrailingZeros().toPlainString().split(".")[1].length
+                    priceQtyScale = if (find != null) {
+                        Pair(
+                            BigDecimal(find.filters[0].tickSize).stripTrailingZeros().toPlainString().split(".")[1].length,
+                            find.quantityPrecision
+                        )
                     } else {
-                        1;
+                        Pair(1, 1);
                     }
                 } else {
-                    scale = 1
+                    priceQtyScale = Pair(1, 1)
                 }
                 for (i in bids.indices) {
-                    val bidPrice = BigDecimal(it.first[i].first).setScale(scale, RoundingMode.HALF_UP).toPlainString()
-                    val bidQty = BigDecimal(it.first[i].second).setScale(scale, RoundingMode.HALF_UP).toPlainString()
-                    val askPrice = BigDecimal(it.second[i].first).setScale(scale, RoundingMode.HALF_UP).toPlainString()
-                    val askQty = BigDecimal(it.second[i].second).setScale(scale, RoundingMode.HALF_UP).toPlainString()
+                    val bidPrice = BigDecimal(it.first[i].first).setScale(priceQtyScale.first, RoundingMode.HALF_UP).toPlainString()
+                    val bidQty = BigDecimal(it.first[i].second).setScale(priceQtyScale.second, RoundingMode.HALF_UP).toPlainString()
+                    val askPrice = BigDecimal(it.second[i].first).setScale(priceQtyScale.first, RoundingMode.HALF_UP).toPlainString()
+                    val askQty = BigDecimal(it.second[i].second).setScale(priceQtyScale.second, RoundingMode.HALF_UP).toPlainString()
 
                     bids[i].first.text = bidPrice
                     bids[i].second.text = bidQty
@@ -464,10 +478,16 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
                 }
 //                binding.cardLeft.futureTypePrice.text = it.setScale(roundPrice, RoundingMode.HALF_UP).toPlainString()
 
-                if (decimal != BigDecimal.ZERO) Log.d(TAG, "initBinding: ${FutureData.futureBalance}, $decimal ${FutureData.scale}, $roundQuantity")
+                if (decimal != BigDecimal.ZERO) Log.d(
+                    TAG,
+                    "initBinding: ${FutureData.futureBalance}, $decimal ${FutureData.scale}, $roundQuantity"
+                )
                 // 최대비용 계산
                 if (decimal != BigDecimal.ZERO) binding.cardLeft.mainTypeMarketMaxValue.text =
-                    (FutureData.futureBalance.divide(decimal, MathContext.DECIMAL128) * FutureData.scale).setScale(roundQuantity, RoundingMode.HALF_UP).toPlainString()
+                    (FutureData.futureBalance.divide(decimal, MathContext.DECIMAL128) * FutureData.scale).setScale(
+                        roundQuantity,
+                        RoundingMode.HALF_UP
+                    ).toPlainString()
             }
         }
     }
@@ -537,8 +557,17 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         // 페이저 높이 맞춤
         innerPager.layoutParams = innerPager.layoutParams.apply {
-            height = scrollView.height - status.height - innerTab.height
+//            height = scrollView.height - status.height - innerTab.height
+//            height = getScreenSize().y - status.height - innerTab.height - bottomHeight
+            height = maxOf(getScreenSize().y - status.height - innerTab.height - bottomHeight, scrollView.height - status.height - innerTab.height)
         }
+    }
+
+    private fun getScreenSize(): Point {
+        val display = (requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        return size
     }
 
     /**
@@ -585,10 +614,17 @@ class FutureFragment : Fragment(), FocusListenable, ColorChangeListener, TextCha
      * 하단 뷰 페이저 어댑터 클래스
      */
     private class FutureViewAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-        private val fragment: List<Fragment> = listOf(
-            FutureOrdersFragment(),
-            FuturePositionFragment()
-        )
+        private val fragment: List<Fragment> = if (FutureData.inputDataList.isNotEmpty()) {
+            listOf(
+                FutureOrdersFragment(),
+                FuturePositionFragment()
+            )
+        } else {
+            listOf(
+                FutureOrdersFragment(),
+                FuturePositionEmptyFragment()
+            )
+        }
 
         override fun createFragment(position: Int): Fragment {
             return fragment[position]

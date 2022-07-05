@@ -3,6 +3,7 @@ package com.project.vinance.view
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -18,7 +19,10 @@ import com.project.vinance.view.fragment.wallet.WalletFragment
 import com.project.vinance.view.implementation.ColorChangeListener
 import com.project.vinance.view.implementation.FocusListenable
 import com.project.vinance.view.sub.NeedToChangeList
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.math.BigDecimal
@@ -31,8 +35,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding.mainBottomNavigation.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                binding.mainBottomNavigation.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                FutureFragment.bottomHeight = binding.mainBottomNavigation.height
+            }
+        })
 
+        setContentView(binding.root)
         init()
     }
 
@@ -65,7 +75,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun initBinding() {
         CoroutineScope(Dispatchers.Main).launch {
             val gson = GsonBuilder().setLenient().create()
-            val instance: Retrofit = Retrofit.Builder().baseUrl(BinanceRest.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build()
+            val instance: Retrofit =
+                Retrofit.Builder().baseUrl(BinanceRest.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build()
             val api = instance.create(BinanceRest::class.java)
 
             val depth = api.getDepth(GlobalData.showCoin.value + GlobalData.showTether.value)
@@ -96,6 +107,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }.getOrDefault(Pair(listOf(), listOf()))
             viewModel.bidsAndAsks.value = result
+
+            // 차트 표시
         }
     }
 
@@ -147,6 +160,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun changeFragment(show: Fragment, position: Int) {
         if (currentFragment?.first == show) return
 
+        if (position == 3) {
+            binding.mainChartArea.visibility = View.VISIBLE
+        } else {
+            binding.mainChartArea.visibility = View.GONE
+        }
+
         // 비활성 표시
         currentFragment?.let { currentFragment ->
             menus[currentFragment.second].setCompoundDrawablesWithIntrinsicBounds(0, menuDrawables.first[currentFragment.second], 0, 0)
@@ -173,7 +192,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         CoroutineScope(Dispatchers.Main).launch {
             val gson = GsonBuilder().setLenient().create()
-            val instance: Retrofit = Retrofit.Builder().baseUrl(BinanceRest.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build()
+            val instance: Retrofit =
+                Retrofit.Builder().baseUrl(BinanceRest.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build()
             val api = instance.create(BinanceRest::class.java)
 
             withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {

@@ -16,7 +16,6 @@
             android:id="@+id/_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
             android:fontFamily="@font/binance_plex_regular"
             android:text="@string/price"
             android:textColor="#808797"
@@ -25,6 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/_right_left_usdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binance_plex_regular"
                 android:text="("
+                android:layout_marginTop="-1dp"
                 android:textColor="#808797"
                 android:textSize="12sp" />
 
@@ -45,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binance_plex_regular"
                 android:text="USDT"
+                android:layout_marginTop="-1dp"
                 android:textColor="#808797"
                 android:textSize="12sp" />
 
@@ -53,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binance_plex_regular"
                 android:text=")"
+                android:layout_marginTop="-1dp"
                 android:textColor="#808797"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -80,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binance_plex_regular"
                 android:text="("
+                android:layout_marginTop="-1dp"
                 android:textColor="#808797"
                 android:textSize="12sp" />
 
@@ -89,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binance_plex_regular"
                 android:text="BTC"
+                android:layout_marginTop="-1dp"
                 android:textColor="#808797"
                 android:textSize="12sp" />
 
@@ -97,18 +102,68 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/binance_plex_regular"
                 android:text=")"
+                android:layout_marginTop="-1dp"
                 android:textColor="#808797"
                 android:textSize="12sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- 매도 : 판매 -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/_area_sell_8"
+        style="@style/OrderOffset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:baselineAligned="false"
+            android:gravity="end"
+            android:weightSum="1000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/future_chart_sell8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="800"
+                android:background="@color/sell_chart_color"
+                android:orientation="horizontal" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/future_sell8_left"
+            style="@style/OrderLeftText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="39983"
+            android:textColor="@color/sell_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/future_sell8_right"
+            style="@style/OrderRightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="0.289"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/_area_sell_7"
         style="@style/OrderOffset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackground">
 
         <LinearLayout
@@ -460,6 +515,7 @@
         android:layout_marginEnd="3dp"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/_area_sell_7" />
@@ -470,7 +526,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="3dp"
         android:fontFamily="@font/binance_plex_medium"
         android:gravity="top|center_horizontal"
         android:layout_marginEnd="3dp"
@@ -819,6 +875,56 @@
 
         <TextView
             android:id="@+id/future_buy7_right"
+            style="@style/OrderRightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="0.289"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/_area_buy_8"
+        style="@style/OrderOffset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintTop_toBottomOf="@id/_area_buy_6">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:baselineAligned="false"
+            android:gravity="end"
+            android:weightSum="1000"
+            app:layout_constraintBottom_toBottomOf="@id/_area_buy_8"
+            app:layout_constraintTop_toTopOf="@id/_area_buy_8">
+
+            <FrameLayout
+                android:id="@+id/future_chart_buy8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="900"
+                android:background="@color/buy_chart_color" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/future_buy8_left"
+            style="@style/OrderLeftText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="39983"
+            android:textColor="@color/buy_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/future_buy8_right"
             style="@style/OrderRightText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

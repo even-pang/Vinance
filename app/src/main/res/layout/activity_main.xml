@@ -24,40 +24,47 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#333c45" />
-
         <LinearLayout
+            android:id="@+id/main_chart_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/card_color"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/main_bottom_chart_text"
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333c45" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="BTCUSDT Perpetual Chart"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                />
+                android:background="@color/card_color"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:orientation="horizontal">
 
-            <androidx.legacy.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/main_bottom_chart_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="BTCUSDT Perpetual Chart"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    />
 
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_arrow_up"
-                android:contentDescription="arrow" />
+                <androidx.legacy.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_up"
+                    android:contentDescription="arrow" />
+            </LinearLayout>
         </LinearLayout>
 
         <View

@@ -24,7 +24,7 @@ object GlobalData : ViewModel() {
         return instance(baseUrl).create(BinanceRest::class.java)
     }
 
-    const val ORDER_LIST_SIZE = 7
+    const val ORDER_LIST_SIZE = 8
 
     // 호가 데이터
     val bidsAndAsks: MutableLiveData<Pair<List<Pair<String, String>>, List<Pair<String, String>>>> = MutableLiveData()

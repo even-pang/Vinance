@@ -195,3 +195,5 @@ lint/tmp/
 # Android Profiling
 *.hprof
 
+key.jks
+key.txt
